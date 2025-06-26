@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NF Song Ranking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+    body {
+  position: relative;
+  z-index: 0;
+  background: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('NF SONG RANKS WALLPAPER.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.75;
+  z-index: -1;
+  pointer-events: none;
+}
+      
+    h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 3em; /* Twice the default size (1.5em is default for h1) */
+  font-family: Candara, sans-serif;
+  color: black;
+  text-shadow:
+    -1px -1px 0 white,
+     1px -1px 0 white,
+    -1px  1px 0 white,
+     1px  1px 0 white;
+}
+    .section-header {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .toggle-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    button.toggle-btn {
+      padding: 10px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid #555;
+      background-color: #ccc;
+      border-radius: 5px;
+      user-select: none;
+    }
+    button.toggle-btn.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    button.toggle-btn:hover {
+      background-color: #bbb;
+    }
+    #container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+#songList {
+  width: 48%;
+  max-height: 800px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#rankedColumn {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  gap: 10px;
+}
+    .song-item {
+      background-color: #eee;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: grab;
+    }
+    #rankedList {
+      display: flex;
+      flex-direction: column;
+      width: 320px;
+      gap: 10px;
+    }
+    .rank-box {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border: 2px dashed #aaa;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+    }
+    .rank-number {
+      width: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: #555;
+    }
+    .rank-song {
+      flex: 1;
+      padding-left: 10px;
+    }
+    #dropdownContainer {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    #dropdownContainer label {
+      margin-top: 10px;
+    }
+    #dropdownContainer select {
+  width: 50%;
+  max-width: 400px;
+  padding: 8px;
+  margin: 0 auto;
+  display: block;
+}
+      select, option {
+  text-transform: none;
+  font-family: Candara, sans-serif;
+}
+    #submitSection {
+  margin-top: 10px;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+#submitBtn, #resetBtn {
+  height: 48px;
+  width: 50%;
+  font-size: 16px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#submitBtn {
+  background-color: royalblue;
+  color: white;
+}
+
+#resetBtn {
+  background-color: pink;
+  color: white;
+}
+
+#resetBtn {
+  background-color: pink;
+  color: white;
+}
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+    }
+    .modal-content button {
+      margin: 10px;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      #container {
+        flex-direction: column;
+        align-items: center;
+      }
+      #rankedList, #dropdownContainer, #songList {
+        max-width: 100%;
+        width: 100%;
+      }
+      .toggle-group {
+        flex-direction: column;
+      }
+    }
+      #rankedColumn {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  gap: 10px;
+}
+  </style>
+</head>
+<body>
+<h1>Rank Your Top 20 NF Songs</h1>
+
+<div class="section-header">Rank By</div>
+<div class="toggle-group" id="rankByToggles">
+  <button class="toggle-btn active" data-mode="drag">Drag-and-Drop</button>
+  <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
+  <button class="toggle-btn" data-mode="click">Click-to-Add</button>
+</div>
+
+<div class="section-header">Sort By</div>
+<div class="toggle-group" id="sortByToggles">
+  <button class="toggle-btn active" data-sort="release">Release Date</button>
+  <button class="toggle-btn" data-sort="alpha">Alphabetical</button>
+</div>
+
+<div id="container">
+  <div id="songList" class="column"></div>
+
+  <div id="rankedColumn">
+    <div id="rankedList"></div>
+    <div id="submitSection">
+      <button id="submitBtn">Submit Rankings</button>
+      <button id="resetBtn">Reset My Rankings</button>
+    </div>
+  </div>
+</div>
+
+<form id="dropdownContainer"></form>
+
+<div id="submitModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you would like to submit your rankings?</p>
+    <button onclick="confirmSubmit(true)">Yes, Submit</button>
+    <button onclick="confirmSubmit(false)">No, Go Back</button>
+  </div>
+</div>
+
+<div id="resetModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you would like to reset your rankings?</p>
+    <button onclick="confirmReset(true)">Yes, Reset</button>
+    <button onclick="confirmReset(false)">No, Go Back</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const songListMaster = [
+    "Intro", "Mansion", "All I Have", "Wait", "Wake Up", "Face It", "Motivated", "Notepad", "Turn The Music Up", "Paralyzed", "I'll Keep On",
+    "Intro 2", "Therapy Session", "I Just Wanna Know", "How Could You Leave Us", "Breathe", "Real", "Oh Lord", "I Can Feel It", "Got You On My Mind",
+    "Grindin'", "Wish You Wouldn't", "Statement", "All I Do", "Lost In The Moment", "Warm Up (Single)", "Intro III", "Outcast", "10 Feet Down",
+    "Green Lights", "Dreams", "Let You Down", "Destiny", "My Life", "You're Special", "If You Want Love", "Remember This", "Know", "Lie", "3 A.M.",
+    "One Hundred", "Outro", "No Name (Single)", "The Search", "Leave Me Alone", "Change", "My Stress", "Nate", "Time", "Returns", "When I Grow Up",
+    "Only", "Let Me Go", "Hate Myself", "I Miss The Days", "No Excuses", "Like This", "Options", "WHY", "Thinking", "Trauma", "Chasing (Single)",
+    "CLOUDS", "THAT'S A JOKE", "JUST LIKE YOU", "STORY", "PRIDEFUL", "LOST", "LAYERS", "DRIFTING", "TRUST", "PAID MY DUES", "HOPE", "MOTTO", "CAREFUL",
+    "MAMA", "HAPPY", "PANDEMONIUM", "SUFFICE", "GONE", "TURN MY BACK", "MISTAKE", "LET EM PRAY", "RUNNING"
+  ];
+
+  let rankedSongs = Array(20).fill(null);
+  let currentMode = 'drag';
+  let sortType = 'release';
+
+  function updateButtons(group, activeValue) {
+    document.querySelectorAll(`#${group} .toggle-btn`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
+    });
+  }
+
+  function renderSongList() {
+    const rankedSet = new Set(rankedSongs.filter(Boolean));
+    let songs = songListMaster.filter(song => !rankedSet.has(song));
+    if (sortType === 'alpha') songs.sort();
+
+    const songList = document.getElementById('songList');
+    songList.innerHTML = '';
+    songs.forEach(song => {
+      const div = document.createElement('div');
+      div.className = 'song-item';
+      div.textContent = song;
+
+      if (currentMode === 'drag') {
+  div.draggable = true;
+  div.style.cursor = 'grab';
+  div.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', song);
+  });
+} else if (currentMode === 'click') {
+  div.style.cursor = 'pointer';
+}
+
+      div.onclick = () => {
+        if (currentMode === 'click') {
+          const index = rankedSongs.indexOf(null);
+          if (index !== -1) rankedSongs[index] = song;
+          renderAll();
+        }
+      };
+      songList.appendChild(div);
+    });
+  }
+
+  function renderRankedList() {
+  const rankedList = document.getElementById('rankedList');
+  rankedList.innerHTML = '';
+  rankedSongs.forEach((song, i) => {
+    const box = document.createElement('div');
+    box.className = 'rank-box';
+    box.dataset.index = i;
+
+    if (song) {
+      box.draggable = true;
+      box.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', song);
+      });
+    }
+    box.ondragover = e => e.preventDefault();
+    box.ondrop = e => {
+      const draggedSong = e.dataTransfer.getData('text/plain');
+      const fromIndex = rankedSongs.indexOf(draggedSong);
+      const toIndex = i;
+
+      if (fromIndex === -1) {
+        if (rankedSongs[toIndex]) {
+          const existing = rankedSongs[toIndex];
+          rankedSongs[toIndex] = draggedSong;
+          const songListIndex = rankedSongs.indexOf(draggedSong);
+          if (songListIndex !== -1) rankedSongs[songListIndex] = existing;
+        } else {
+          rankedSongs[toIndex] = draggedSong;
+        }
+      } else {
+        if (fromIndex !== toIndex) {
+          const temp = rankedSongs[toIndex];
+          rankedSongs[toIndex] = draggedSong;
+          rankedSongs[fromIndex] = temp;
+        }
+      }
+
+      renderAll();
+    };
+
+    const num = document.createElement('div');
+    num.className = 'rank-number';
+    num.textContent = i + 1;
+
+    const content = document.createElement('div');
+content.className = 'rank-song';
+content.textContent = song || '';
+
+if (song) {
+  const removeBtn = document.createElement('span');
+  removeBtn.textContent = '×';
+  removeBtn.style.color = 'red';
+  removeBtn.style.cursor = 'pointer';
+  removeBtn.style.fontWeight = 'bold';
+  removeBtn.style.marginLeft = '10px';
+  removeBtn.onclick = () => {
+    rankedSongs[i] = null;
+    renderAll();
+  };
+  content.appendChild(removeBtn);
+}
+
+box.appendChild(num);
+box.appendChild(content);
+rankedList.appendChild(box);
+  });
+}
+
+  function renderDropdown() {
+    const container = document.getElementById('dropdownContainer');
+    container.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+      const label = document.createElement('label');
+      label.textContent = `#${i + 1}`;
+      const select = document.createElement('select');
+      const selected = rankedSongs[i];
+      const options = songListMaster.map(song => {
+        const used = rankedSongs.includes(song) && song !== selected;
+        return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
+      });
+      select.innerHTML = '<option value="">Select a song</option>' + options.join('');
+      select.onchange = e => {
+  const selectedValue = e.target.value;
+  const exactSong = songListMaster.find(song => song === selectedValue);
+  rankedSongs[i] = exactSong || null;
+  renderDropdown();
+  toggleSubmitReset();
+};
+      container.appendChild(label);
+      container.appendChild(select);
+    }
+    toggleSubmitReset();
+  }
+
+  function toggleSubmitReset() {
+  const ready = rankedSongs.every(Boolean);
+  document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
+
+  // Hide modals too if rankings aren't complete
+  if (!ready) {
+    document.getElementById('submitModal').style.display = 'none';
+    document.getElementById('resetModal').style.display = 'none';
+  }
+}
+
+  function renderAll() {
+    const isDropdown = currentMode === 'dropdown';
+    document.getElementById('dropdownContainer').style.display = isDropdown ? 'flex' : 'none';
+    document.getElementById('songList').style.display = isDropdown ? 'none' : 'block';
+    document.getElementById('rankedList').style.display = isDropdown ? 'none' : 'block';
+
+    renderSongList();
+    if (isDropdown) renderDropdown();
+    else renderRankedList();
+
+    toggleSubmitReset();
+  }
+
+  document.getElementById('rankByToggles').addEventListener('click', e => {
+    if (e.target.matches('button')) {
+      currentMode = e.target.dataset.mode;
+      updateButtons('rankByToggles', currentMode);
+      renderAll();
+    }
+  });
+
+  document.getElementById('sortByToggles').addEventListener('click', e => {
+    if (e.target.matches('button')) {
+      sortType = e.target.dataset.sort;
+      updateButtons('sortByToggles', sortType);
+      renderAll();
+    }
+  });
+
+  document.getElementById('submitBtn').onclick = () => {
+  if (rankedSongs.every(Boolean)) {
+    document.getElementById('submitModal').style.display = 'flex';
+  }
+};
+
+  document.getElementById('resetBtn').onclick = () => {
+  if (rankedSongs.every(Boolean)) {
+    document.getElementById('resetModal').style.display = 'flex';
+  }
+};
+
+  window.confirmSubmit = function(confirmed) {
+    document.getElementById('submitModal').style.display = 'none';
+    if (confirmed) alert(rankedSongs.map((s, i) => `${i + 1}. ${s}`).join('\\n'));
+  };
+
+  window.confirmReset = function(confirmed) {
+    document.getElementById('resetModal').style.display = 'none';
+    if (confirmed) {
+      rankedSongs = Array(20).fill(null);
+      renderAll();
+    }
+  };
+
+  updateButtons('rankByToggles', currentMode);
+  updateButtons('sortByToggles', sortType);
+  renderAll();
+});
+</script>
+</body>
+</html>
