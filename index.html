@@ -473,6 +473,7 @@ rankedList.appendChild(box);
   window.confirmSubmit = async function(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
+  console.log("Submitting...");
 
   // Your Supabase credentials — REPLACE with your anon key!
   const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
@@ -497,15 +498,18 @@ rankedList.appendChild(box);
   dataToInsert.ip_address = ip;
 
   // Insert into Supabase
-const { error } = await supabase.from('Submissions').insert([dataToInsert]);
-  if (error) {
-    alert('Error submitting rankings: ' + error.message);
-  } else {
-    alert('✅ Rankings submitted successfully!');
-    // Optionally reset the rankings after submit:
-    rankedSongs = Array(20).fill(null);
-    renderAll();
-  }
+const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // replace with your anon key
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
+if (error) {
+  alert('Error submitting rankings: ' + error.message);
+} else {
+  alert('✅ Rankings submitted successfully!');
+  // Optionally reset the rankings after submit:
+  rankedSongs = Array(20).fill(null);
+  renderAll();
 };
 
   window.confirmReset = function(confirmed) {
