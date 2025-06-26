@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <title>NF Song Ranking</title>
   <style>
     body {
@@ -255,8 +254,8 @@ body::before {
 <div id="submitModal" class="modal">
   <div class="modal-content">
     <p>Are you sure you would like to submit your rankings?</p>
-    <button type="button" onclick="confirmSubmit(true)">Yes, Submit</button>
-<button type="button" onclick="confirmSubmit(false)">No, Go Back</button>
+    <button onclick="confirmSubmit(true)">Yes, Submit</button>
+    <button onclick="confirmSubmit(false)">No, Go Back</button>
   </div>
 </div>
 
@@ -267,8 +266,11 @@ body::before {
     <button onclick="confirmReset(false)">No, Go Back</button>
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
+  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 document.addEventListener("DOMContentLoaded", function () {
   const songListMaster = [
     "Intro", "Mansion", "All I Have", "Wait", "Wake Up", "Face It", "Motivated", "Notepad", "Turn The Music Up", "Paralyzed", "I'll Keep On",
@@ -473,20 +475,14 @@ rankedList.appendChild(box);
   window.confirmSubmit = async function(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
-  console.log("Submitting...");
 
-  // Your Supabase credentials — REPLACE with your anon key!
-  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4';  // <-- Replace this
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-  // Prepare data object for Supabase insert
+  // Build the submission data
   const dataToInsert = {};
   rankedSongs.forEach((song, i) => {
     dataToInsert[`rank_${i + 1}`] = song;
   });
 
-  // Optional: get user IP (can skip if you want)
+  // Optional: capture user's IP address
   let ip = '';
   try {
     const res = await fetch('https://api64.ipify.org?format=json');
@@ -497,19 +493,16 @@ rankedList.appendChild(box);
   }
   dataToInsert.ip_address = ip;
 
-  // Insert into Supabase
-const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // replace with your anon key
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+  // Submit to Supabase
+  const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
 
-const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
-if (error) {
-  alert('Error submitting rankings: ' + error.message);
-} else {
-  alert('✅ Rankings submitted successfully!');
-  // Optionally reset the rankings after submit:
-  rankedSongs = Array(20).fill(null);
-  renderAll();
+  if (error) {
+    alert('Error submitting rankings: ' + error.message);
+  } else {
+    alert('✅ Rankings submitted successfully!');
+    rankedSongs = Array(20).fill(null);
+    renderAll();
+  }
 };
 
   window.confirmReset = function(confirmed) {
