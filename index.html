@@ -219,6 +219,35 @@ body::before {
   width: 320px;
   gap: 10px;
 }
+#rankedColumn {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    gap: 10px;
+  }
+
+  /* ADD THIS BELOW */
+  #globalRankingsTable tbody {
+    display: block;
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  #globalRankingsTable thead, 
+  #globalRankingsTable tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  @media (min-width: 601px) {
+  #resultsModal .modal-content {
+    margin: 40px auto 20px auto !important;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -266,12 +295,86 @@ body::before {
     <button onclick="confirmReset(false)">No, Go Back</button>
   </div>
 </div>
+<div id="resultsModal" class="modal">
+  <div class="modal-content" style="max-width: 600px; overflow-x: auto;">
+    <h3>🎧 My Rankings</h3>
+    <ol id="myRankingsList"></ol>
+
+    <h3>🌍 Global Rankings</h3>
+    <table id="globalRankingsTable" border="1" style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Song</th>
+          <th>Avg Rank</th>
+          <th># Times Ranked</th>
+          <th>Total Points</th>
+          <th>Composite Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button type="button" onclick="closeResults()">Close</button>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
   const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 document.addEventListener("DOMContentLoaded", function () {
+const PRIOR_COUNT = 10;  // Tunable: "fake votes" to smooth scores
+const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
+async function fetchGlobalRankings() {
+    // Fetch all submissions from Supabase
+    const { data, error } = await supabaseClient.from('Submissions').select();
+
+console.log('Supabase fetch error:', error);
+console.log('Supabase fetch data:', data);
+
+if (error) {
+  alert('Error fetching global rankings: ' + error.message);
+  return [];
+}
+
+    // Aggregate points and counts per song
+    // Points for rank i = 21 - i (rank 1 = 20 points, rank 20 = 1 point)
+    const songStats = {}; // { song: { totalPoints, timesRanked, totalRankSum } }
+
+    data.forEach(submission => {
+      for (let i = 1; i <= 20; i++) {
+        const song = submission[`rank_${i}`];
+        if (!song) continue;
+        if (!songStats[song]) {
+          songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+        }
+        songStats[song].totalPoints += 21 - i;
+        songStats[song].timesRanked++;
+        songStats[song].totalRankSum += i;
+      }
+    });
+
+    // Convert to array and calculate average rank
+    const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
+  const avgRank = stats.totalRankSum / stats.timesRanked;
+  const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
+const weightedScore = 21 - rawScore; // Higher is better
+
+  return {
+    song,
+    totalPoints: stats.totalPoints,
+    timesRanked: stats.timesRanked,
+    avgRank,
+    weightedScore
+  };
+});
+
+    // Sort by Bayesian weighted score ascending
+rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+
+    return rankingsArray;
+  }
   const songListMaster = [
     "Intro", "Mansion", "All I Have", "Wait", "Wake Up", "Face It", "Motivated", "Notepad", "Turn The Music Up", "Paralyzed", "I'll Keep On",
     "Intro 2", "Therapy Session", "I Just Wanna Know", "How Could You Leave Us", "Breathe", "Real", "Oh Lord", "I Can Feel It", "Got You On My Mind",
@@ -447,6 +550,104 @@ rankedList.appendChild(box);
   document.getElementById('rankByToggles').addEventListener('click', e => {
     if (e.target.matches('button')) {
       currentMode = e.target.dataset.mode;
+      // ===== Sortable columns for Global Rankings table =====
+
+let currentSortColumn = '';
+let currentSortAsc = true;
+let globalRankings = []; // Declare here to hold data globally
+
+// Override fetchGlobalRankings call to store data globally
+async function fetchGlobalRankings() {
+  const { data, error } = await supabaseClient.from('Submissions').select();
+
+  if (error) {
+    alert('Error fetching global rankings: ' + error.message);
+    return [];
+  }
+
+  // Aggregate points and counts per song
+  const songStats = {};
+
+  data.forEach(submission => {
+    for (let i = 1; i <= 20; i++) {
+      const song = submission[`rank_${i}`];
+      if (!song) continue;
+      if (!songStats[song]) {
+        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+      }
+      songStats[song].totalPoints += 21 - i;
+      songStats[song].timesRanked++;
+      songStats[song].totalRankSum += i;
+    }
+  });
+
+  const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
+    const avgRank = stats.totalRankSum / stats.timesRanked;
+    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
+    const weightedScore = 21 - rawScore;
+
+    return {
+      song,
+      totalPoints: stats.totalPoints,
+      timesRanked: stats.timesRanked,
+      avgRank,
+      weightedScore
+    };
+  });
+
+  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+
+  globalRankings = rankingsArray; // Save globally
+
+  return rankingsArray;
+}
+
+// Add event listeners to the table headers for sorting
+document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
+  th.style.cursor = "pointer";
+  th.addEventListener("click", () => {
+    const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
+    const key = keyMap[i];
+    if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
+    else {
+      currentSortColumn = key;
+      currentSortAsc = true;
+    }
+
+    if (!globalRankings.length) return; // If no data yet, do nothing
+
+    const sorted = [...globalRankings].sort((a, b) => {
+      if (key === "song") {
+        return currentSortAsc
+          ? a.song.localeCompare(b.song)
+          : b.song.localeCompare(a.song);
+      } else if (key === "rank") {
+        // rank is just the index +1 in the original sorted array
+        return currentSortAsc ? 1 : -1; // Do nothing really
+      } else {
+        return currentSortAsc
+          ? a[key] - b[key]
+          : b[key] - a[key];
+      }
+    });
+
+    const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
+    tbody.innerHTML = '';
+    sorted.forEach((entry, index) => {
+  const row = document.createElement("tr");
+  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${entry.song}</td>
+    <td>${entry.avgRank.toFixed(2)}</td>
+    <td>${entry.timesRanked}</td>
+    <td>${entry.totalPoints}</td>
+    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+  `;
+  tbody.appendChild(row);
+});
+  });
+});
       updateButtons('rankByToggles', currentMode);
       renderAll();
     }
@@ -476,13 +677,13 @@ rankedList.appendChild(box);
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
 
-  // Build the submission data
+  // Build submission data
   const dataToInsert = {};
   rankedSongs.forEach((song, i) => {
     dataToInsert[`rank_${i + 1}`] = song;
   });
 
-  // Optional: capture user's IP address
+  // Optional: Get user IP
   let ip = '';
   try {
     const res = await fetch('https://api64.ipify.org?format=json');
@@ -497,12 +698,47 @@ rankedList.appendChild(box);
   const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
 
   if (error) {
-    alert('Error submitting rankings: ' + error.message);
-  } else {
-    alert('✅ Rankings submitted successfully!');
-    rankedSongs = Array(20).fill(null);
-    renderAll();
+    alert('Submission error: ' + error.message);
+    return;
   }
+
+  // Show My Rankings
+  const myList = document.getElementById('myRankingsList');
+  myList.innerHTML = '';
+  rankedSongs.forEach(song => {
+    const li = document.createElement('li');
+    li.textContent = song;
+    myList.appendChild(li);
+  });
+
+  // Get and show global rankings
+  const rankings = await fetchGlobalRankings();
+  const tbody = document.querySelector('#globalRankingsTable tbody');
+  tbody.innerHTML = '';
+
+  rankings.forEach((entry, index) => {
+  const row = document.createElement('tr');
+  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${entry.song}</td>
+    <td>${entry.avgRank.toFixed(2)}</td>
+    <td>${entry.timesRanked}</td>
+    <td>${entry.totalPoints}</td>
+    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+  `;
+  tbody.appendChild(row);
+});
+
+  // Show results modal
+  document.getElementById('resultsModal').style.display = 'flex';
+
+  // Reset rankings
+  rankedSongs = Array(20).fill(null);
+  renderAll();
+};
+window.closeResults = function () {
+  document.getElementById('resultsModal').style.display = 'none';
 };
 
   window.confirmReset = function(confirmed) {
@@ -517,6 +753,35 @@ rankedList.appendChild(box);
   updateButtons('sortByToggles', sortType);
   renderAll();
 });
+function showCalculation(song, avgRank, timesRanked) {
+  const PRIOR_COUNT = 10;
+  const PRIOR_AVG = 10.5;
+
+  const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (timesRanked * avgRank)) / (PRIOR_COUNT + timesRanked);
+  const weightedScore = 21 - rawScore;
+
+  const details = `
+    Song: <strong>${song}</strong><br><br>
+    Formula: <br>
+    ((${PRIOR_COUNT} × ${PRIOR_AVG}) + (${timesRanked} × ${avgRank.toFixed(2)})) ÷ (${PRIOR_COUNT} + ${timesRanked})<br><br>
+    Raw Score: <strong>${rawScore.toFixed(4)}</strong><br>
+    Weighted Score = 21 - Raw Score = <strong>${weightedScore.toFixed(2)}</strong>
+  `;
+
+  document.getElementById('calcDetails').innerHTML = details;
+  document.getElementById('calcModal').style.display = 'flex';
+}
+
+function closeCalcModal() {
+  document.getElementById('calcModal').style.display = 'none';
+}
 </script>
+<div id="calcModal" class="modal">
+  <div class="modal-content">
+    <h3>Composite Score Calculation</h3>
+    <p id="calcDetails"></p>
+    <button onclick="closeCalcModal()">Close</button>
+  </div>
+</div>
 </body>
 </html>
