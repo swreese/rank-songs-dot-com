@@ -1,26 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Spotify Callback</title>
+  <meta charset="UTF-8" />
+  <title>Spotify Auth Callback</title>
 </head>
 <body>
+  <h1>Authorizing Spotify...</h1>
   <script>
-    // Parse the access token from the URL hash
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const accessToken = params.get('access_token');
-    const expiresIn = params.get('expires_in');
+    const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4';
+    const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
 
-    if (accessToken && expiresIn) {
-      // Store token and expiry in localStorage
-      localStorage.setItem('spotify_access_token', accessToken);
-      localStorage.setItem('spotify_token_expiry', Date.now() + parseInt(expiresIn) * 1000);
+    async function getTokens(code, codeVerifier) {
+      const body = new URLSearchParams({
+        client_id: CLIENT_ID,
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: REDIRECT_URI,
+        code_verifier: codeVerifier,
+      });
 
-      // Redirect back to your main app (index.html)
-      window.location.href = 'https://swreese.github.io/nf-ranks-api/';
-    } else {
-      document.body.innerHTML = '<p>Error: No access token found. Please try again.</p>';
+      const response = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+
+      return response.json();
     }
+
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      if (!code) {
+        alert('Authorization code not found.');
+        window.location.href = './'; // Redirect back to main app
+        return;
+      }
+
+      const codeVerifier = localStorage.getItem('spotify_code_verifier');
+      if (!codeVerifier) {
+        alert('Code verifier missing.');
+        window.location.href = './'; // Redirect back to main app
+        return;
+      }
+
+      try {
+        const tokens = await getTokens(code, codeVerifier);
+        if (tokens.error) {
+          alert('Token error: ' + tokens.error_description);
+          window.location.href = './';
+          return;
+        }
+        // Save tokens in localStorage for use in your app
+        localStorage.setItem('spotify_access_token', tokens.access_token);
+        localStorage.setItem('spotify_refresh_token', tokens.refresh_token);
+        localStorage.setItem('spotify_token_expiry', Date.now() + tokens.expires_in * 1000);
+
+        // Clear the verifier since it's no longer needed
+        localStorage.removeItem('spotify_code_verifier');
+
+        // Redirect back to main app
+        window.location.href = 'https://swreese.github.io/nf-ranks-api/';
+      } catch (err) {
+        alert('Failed to get tokens: ' + err.message);
+        window.location.href = './';
+      }
+    })();
   </script>
 </body>
 </html>
