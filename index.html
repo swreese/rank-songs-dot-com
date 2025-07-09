@@ -299,7 +299,7 @@ body::before {
   <div class="modal-content" style="max-width: 600px; overflow-x: auto;">
     <h3>🎧 My Rankings</h3>
     <ol id="myRankingsList"></ol>
-
+<button id="createSpotifyPlaylistBtn" style="margin-top: 15px;">Create Spotify Playlist</button>
     <h3>🌍 Global Rankings</h3>
     <table id="globalRankingsTable" border="1" style="width: 100%; border-collapse: collapse;">
       <thead>
@@ -775,6 +775,142 @@ function showCalculation(song, avgRank, timesRanked) {
 function closeCalcModal() {
   document.getElementById('calcModal').style.display = 'none';
 }
+// Step 2: Spotify Playlist Creation Handler
+async function createSpotifyPlaylist(songs) {
+  // TODO: Implement Spotify auth & API calls here
+  // For now, just alert the song list to confirm connection
+  alert('Creating Spotify playlist with songs:\n' + songs.join('\n'));
+}
+// --- Spotify OAuth & Playlist creation code ---
+
+const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4'; // Replace with your Spotify app client ID
+const REDIRECT_URI = 'https://github.com/swreese/nf-ranks-api/spotifycallback.html'; // Replace with your deployed redirect URI
+
+// Scopes needed for creating playlist and adding tracks
+const SCOPES = 'playlist-modify-private playlist-modify-public';
+
+// Get token from localStorage or null
+function getAccessToken() {
+  const token = localStorage.getItem('spotify_access_token');
+  const expiry = localStorage.getItem('spotify_token_expiry');
+  if (!token || !expiry) return null;
+  if (Date.now() > parseInt(expiry)) {
+    // Token expired
+    localStorage.removeItem('spotify_access_token');
+    localStorage.removeItem('spotify_token_expiry');
+    return null;
+  }
+  return token;
+}
+
+// Redirect user to Spotify login for authorization
+function redirectToSpotifyAuth() {
+  const authEndpoint = 'https://accounts.spotify.com/authorize';
+  const params = new URLSearchParams({
+    client_id: CLIENT_ID,
+    response_type: 'token',
+    redirect_uri: REDIRECT_URI,
+    scope: SCOPES,
+    show_dialog: 'true',
+  });
+  window.location = `${authEndpoint}?${params.toString()}`;
+}
+
+// Fetch current user's Spotify ID
+async function getSpotifyUserId(token) {
+  const res = await fetch('https://api.spotify.com/v1/me', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to get user profile');
+  const data = await res.json();
+  return data.id;
+}
+
+// Create a new playlist with given name
+async function createSpotifyPlaylist(token, userId, playlistName) {
+  const res = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    method: 'POST',
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: playlistName,
+      description: 'Top 20 NF songs ranked by me!',
+      public: false,
+    }),
+  });
+  if (!res.ok) throw new Error('Failed to create playlist');
+  return res.json();
+}
+
+// Search Spotify for a track by song name (simplified, just using song title)
+async function searchSpotifyTrack(token, songName) {
+  const params = new URLSearchParams({
+    q: songName,
+    type: 'track',
+    limit: '1',
+  });
+  const res = await fetch(`https://api.spotify.com/v1/search?${params.toString()}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to search track');
+  const data = await res.json();
+  return data.tracks.items[0] || null;
+}
+
+// Add tracks to playlist by track URIs
+async function addTracksToPlaylist(token, playlistId, trackUris) {
+  const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+    method: 'POST',
+    headers: { 
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uris: trackUris }),
+  });
+  if (!res.ok) throw new Error('Failed to add tracks to playlist');
+  return res.json();
+}
+
+// Main function to handle playlist creation flow
+async function createSpotifyPlaylistFromRankings() {
+  let token = getAccessToken();
+  if (!token) {
+    redirectToSpotifyAuth();
+    return;
+  }
+
+  try {
+    const userId = await getSpotifyUserId(token);
+    const playlistName = 'My Top 20 NF Songs';
+
+    // Create playlist
+    const playlist = await createSpotifyPlaylist(token, userId, playlistName);
+
+    // Search and collect URIs for ranked songs
+    const trackUris = [];
+    for (const song of rankedSongs) {
+      if (!song) continue; // Skip null spots if any
+      const track = await searchSpotifyTrack(token, song);
+      if (track) trackUris.push(track.uri);
+      // Optional: else console.warn(`Song not found on Spotify: ${song}`);
+    }
+
+    // Add all tracks at once (max 100 per request)
+    if (trackUris.length > 0) {
+      await addTracksToPlaylist(token, playlist.id, trackUris);
+      alert(`Playlist "${playlistName}" created successfully on your Spotify!`);
+    } else {
+      alert('No matching songs found on Spotify.');
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+}
+
+// Connect the button to this function
+document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
