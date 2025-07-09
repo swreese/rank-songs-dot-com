@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Callback</title>
+</head>
+<body>
+  <h2>Processing Spotify Login...</h2>
+
+  <script>
+    // Function to extract access token from URL fragment
+    function getAccessTokenFromUrl() {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      return params.get('access_token');
+    }
+
+    const token = getAccessTokenFromUrl();
+
+    if (token) {
+      // Store token in localStorage (or sessionStorage)
+      localStorage.setItem('spotifyAccessToken', token);
+
+      // Redirect to main app
+      window.location.href = '/nf-ranks/index.html'; // Adjust path if needed
+    } else {
+      document.body.innerHTML = "<p>Error: Access token not found in URL.</p>";
+    }
+  </script>
+  <script>
+  // Parse access token from URL hash fragment
+  function getTokenFromUrl() {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    return {
+      access_token: params.get('access_token'),
+      expires_in: params.get('expires_in')
+    };
+  }
+
+  const tokenData = getTokenFromUrl();
+  if (tokenData.access_token) {
+    // Save token and expiration timestamp in localStorage
+    localStorage.setItem('spotify_access_token', tokenData.access_token);
+    const expiryTime = Date.now() + parseInt(tokenData.expires_in) * 1000;
+    localStorage.setItem('spotify_token_expiry', expiryTime.toString());
+
+    // Redirect back to main page after successful login
+    window.location.href = '/'; // Change '/' if your index.html is in a different path
+  } else {
+    document.body.innerHTML = '<p>Error: No access token found in URL. Please try logging in again.</p>';
+  }
+</script>
+</body>
+</html>
