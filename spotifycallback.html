@@ -1,59 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Spotify Auth Callback</title>
-</head>
-<body>
-  <h2>Connecting to Spotify...</h2>
-  <script>
-    const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4';
-    const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
+<script>
+(async () => {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const storedVerifier = localStorage.getItem('spotify_code_verifier');
 
-    async function exchangeCodeForToken(code, verifier) {
-      const body = new URLSearchParams({
-        client_id: CLIENT_ID,
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: REDIRECT_URI,
-        code_verifier: verifier
-      });
+  if (!code || !storedVerifier) {
+    document.body.textContent = 'Missing code or verifier. Try logging in again.';
+    return;
+  }
 
-      const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body
-      });
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: REDIRECT_URI,
+      code_verifier: storedVerifier,
+    })
+  });
 
-      const data = await response.json();
-
-      if (data.access_token) {
-        const expiresIn = data.expires_in * 1000;
-        const expiryTime = Date.now() + expiresIn;
-
-        localStorage.setItem('spotify_access_token', data.access_token);
-        localStorage.setItem('spotify_token_expiry', expiryTime);
-
-        // Redirect back to your app
-        window.location.href = 'https://swreese.github.io/nf-ranks-api/';
-      } else {
-        document.body.innerHTML = '<p>Failed to get token.</p><pre>' + JSON.stringify(data, null, 2) + '</pre>';
-      }
-    }
-
-    async function handleCallback() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get('code');
-      const storedVerifier = localStorage.getItem('spotify_code_verifier');
-
-      if (code && storedVerifier) {
-        await exchangeCodeForToken(code, storedVerifier);
-      } else {
-        document.body.innerHTML = '<p>Missing code or verifier</p>';
-      }
-    }
-
-    handleCallback();
-  </script>
-</body>
-</html>
+  const data = await response.json();
+  if (data.access_token) {
+    localStorage.setItem('spotify_access_token', data.access_token);
+    localStorage.setItem('spotify_token_expiry', Date.now() + data.expires_in * 1000);
+    window.location.href = '/index.html'; // Adjust if needed
+  } else {
+    document.body.textContent = 'Token request failed: ' + JSON.stringify(data);
+  }
+})();
+</script>
