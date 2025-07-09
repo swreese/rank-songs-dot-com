@@ -775,12 +775,6 @@ function showCalculation(song, avgRank, timesRanked) {
 function closeCalcModal() {
   document.getElementById('calcModal').style.display = 'none';
 }
-// Step 2: Spotify Playlist Creation Handler
-async function createSpotifyPlaylist(songs) {
-  // TODO: Implement Spotify auth & API calls here
-  // For now, just alert the song list to confirm connection
-  alert('Creating Spotify playlist with songs:\n' + songs.join('\n'));
-}
 // --- Spotify OAuth & Playlist creation code ---
 
 const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4'; // Replace with your Spotify app client ID
