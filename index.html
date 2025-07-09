@@ -910,58 +910,7 @@ async function createSpotifyPlaylistFromRankings() {
 }
 
 // Connect the button to this function
-<script>
-// Your Spotify app info
-const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4';
-const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
-const SCOPES = 'playlist-modify-private playlist-modify-public';
-
-// Helper: generate random string (code verifier)
-function generateRandomString(length) {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
-  for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-}
-
-// Helper: base64-url-encode
-function base64UrlEncode(str) {
-  return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-// Helper: generate code challenge from verifier
-async function generateCodeChallenge(verifier) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(verifier);
-  const digest = await crypto.subtle.digest('SHA-256', data);
-  return base64UrlEncode(digest);
-}
-
-// When user clicks "Create Spotify Playlist" button
-async function startSpotifyAuth() {
-  const codeVerifier = generateRandomString(128);
-  const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-  localStorage.setItem('spotify_code_verifier', codeVerifier);
-
-  const authUrl = new URL('https://accounts.spotify.com/authorize');
-  authUrl.searchParams.set('client_id', CLIENT_ID);
-  authUrl.searchParams.set('response_type', 'code');
-  authUrl.searchParams.set('redirect_uri', REDIRECT_URI);
-  authUrl.searchParams.set('scope', SCOPES);
-  authUrl.searchParams.set('code_challenge_method', 'S256');
-  authUrl.searchParams.set('code_challenge', codeChallenge);
-
-  window.location.href = authUrl.toString();
-}
-
-// Hook your existing playlist button
-document.getElementById('createSpotifyPlaylistBtn').onclick = () => {
-  startSpotifyAuth();
-}; 
+document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
