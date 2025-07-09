@@ -833,8 +833,8 @@ async function redirectToSpotifyAuth() {
     show_dialog: 'true',
   });
 
-  window.location = `${authEndpoint}?${params.toString()}`;
-}
+localStorage.setItem('spotify_redirected', 'true');
+window.location.href = `${authEndpoint}?${params.toString()}`;}
 
 // Get token from localStorage or null
 function getAccessToken() {
@@ -936,7 +936,7 @@ async function createSpotifyPlaylistFromRankings() {
     // Add all tracks at once (max 100 per request)
     if (trackUris.length > 0) {
       await addTracksToPlaylist(token, playlist.id, trackUris);
-      alert(`Playlist "${playlistName}" created successfully on your Spotify!`);
+      window.location.href = playlist.external_urls.spotify.replace("https://open.spotify.com/", "spotify:");
     } else {
       alert('No matching songs found on Spotify.');
     }
@@ -947,6 +947,11 @@ async function createSpotifyPlaylistFromRankings() {
 
 // Connect the button to this function
 document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
+// Check if we just came back from Spotify login
+if (localStorage.getItem('spotify_redirected') === 'true') {
+  localStorage.removeItem('spotify_redirected');
+  createSpotifyPlaylistFromRankings();
+}  
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
