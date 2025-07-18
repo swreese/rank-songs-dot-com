@@ -775,12 +775,6 @@ function showCalculation(song, avgRank, timesRanked) {
 function closeCalcModal() {
   document.getElementById('calcModal').style.display = 'none';
 }
-// Step 2: Spotify Playlist Creation Handler
-async function createSpotifyPlaylist(songs) {
-  // TODO: Implement Spotify auth & API calls here
-  // For now, just alert the song list to confirm connection
-  alert('Creating Spotify playlist with songs:\n' + songs.join('\n'));
-}
 // --- Spotify OAuth & Playlist creation code ---
 
 const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4'; // Replace with your Spotify app client ID
@@ -788,6 +782,53 @@ const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.htm
 
 // Scopes needed for creating playlist and adding tracks
 const SCOPES = 'playlist-modify-private playlist-modify-public';
+// Generate a random string for code_verifier
+function generateCodeVerifier(length = 128) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Convert buffer to base64 URL-safe string
+function base64urlencode(buffer) {
+  return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
+
+// Generate code_challenge from verifier
+async function generateCodeChallenge(codeVerifier) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(codeVerifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return base64urlencode(digest);
+}
+
+// New: redirect using PKCE
+async function redirectToSpotifyAuth() {
+  const codeVerifier = generateCodeVerifier();
+  const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+  // Save code verifier for later token exchange
+  localStorage.setItem('spotify_code_verifier', codeVerifier);
+
+  const authEndpoint = 'https://accounts.spotify.com/authorize';
+  const params = new URLSearchParams({
+    client_id: CLIENT_ID,
+    response_type: 'code',
+    redirect_uri: REDIRECT_URI,
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
+    scope: SCOPES,
+    show_dialog: 'true',
+  });
+
+localStorage.setItem('spotify_redirected', 'true');
+window.location.href = `${authEndpoint}?${params.toString()}`;}
 
 // Get token from localStorage or null
 function getAccessToken() {
@@ -803,18 +844,7 @@ function getAccessToken() {
   return token;
 }
 
-// Redirect user to Spotify login for authorization
-function redirectToSpotifyAuth() {
-  const authEndpoint = 'https://accounts.spotify.com/authorize';
-  const params = new URLSearchParams({
-    client_id: CLIENT_ID,
-    response_type: 'code',
-    redirect_uri: REDIRECT_URI,
-    scope: SCOPES,
-    show_dialog: 'true',
-  });
-  window.location = `${authEndpoint}?${params.toString()}`;
-}
+
 
 // Fetch current user's Spotify ID
 async function getSpotifyUserId(token) {
@@ -900,7 +930,7 @@ async function createSpotifyPlaylistFromRankings() {
     // Add all tracks at once (max 100 per request)
     if (trackUris.length > 0) {
       await addTracksToPlaylist(token, playlist.id, trackUris);
-      alert(`Playlist "${playlistName}" created successfully on your Spotify!`);
+      window.location.href = playlist.external_urls.spotify.replace("https://open.spotify.com/", "spotify:");
     } else {
       alert('No matching songs found on Spotify.');
     }
@@ -911,6 +941,7 @@ async function createSpotifyPlaylistFromRankings() {
 
 // Connect the button to this function
 document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
+
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
