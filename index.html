@@ -941,11 +941,7 @@ async function createSpotifyPlaylistFromRankings() {
 
 // Connect the button to this function
 document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
-// Check if we just came back from Spotify login
-if (localStorage.getItem('spotify_redirected') === 'true') {
-  localStorage.removeItem('spotify_redirected');
-  createSpotifyPlaylistFromRankings();
-}  
+
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
