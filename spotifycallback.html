@@ -1,127 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Spotify Callback</title>
-</head>
-<body>
-  <h2>Connecting to Spotify and creating your playlist...</h2>
+<script>
+const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4'; // Your Spotify app client ID
+const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html'; // Redirect URI
+const SCOPES = 'playlist-modify-private playlist-modify-public';
 
-  <script>
-    const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4'; // Your Spotify app Client ID
-    const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
-    const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+// Generate PKCE helper functions
+function generateCodeVerifier(length = 128) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
 
-    async function getToken(code, codeVerifier) {
-      const body = new URLSearchParams({
-        client_id: CLIENT_ID,
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: REDIRECT_URI,
-        code_verifier: codeVerifier,
-      });
+function base64urlencode(buffer) {
+  return btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
 
-      const response = await fetch(TOKEN_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body
-      });
+async function generateCodeChallenge(codeVerifier) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(codeVerifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return base64urlencode(digest);
+}
 
-      if (!response.ok) {
-        throw new Error('Failed to exchange code for token');
-      }
+// Trigger Spotify auth ONLY when user clicks button
+async function redirectToSpotifyAuth() {
+  const codeVerifier = generateCodeVerifier();
+  const codeChallenge = await generateCodeChallenge(codeVerifier);
+  localStorage.setItem('spotify_code_verifier', codeVerifier);
 
-      const data = await response.json();
-      return {
-        access_token: data.access_token,
-        expires_in: data.expires_in,
-      };
+  const params = new URLSearchParams({
+    client_id: CLIENT_ID,
+    response_type: 'code',
+    redirect_uri: REDIRECT_URI,
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
+    scope: SCOPES,
+  });
+
+  window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
+}
+
+// Retrieve access token if available
+function getAccessToken() {
+  const token = localStorage.getItem('spotify_access_token');
+  const expiry = localStorage.getItem('spotify_token_expiry');
+  if (!token || !expiry || Date.now() > parseInt(expiry)) {
+    return null;
+  }
+  return token;
+}
+
+// Playlist functions
+async function getSpotifyUserId(token) {
+  const res = await fetch('https://api.spotify.com/v1/me', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to get user profile');
+  const data = await res.json();
+  return data.id;
+}
+
+async function createSpotifyPlaylist(token, userId, playlistName) {
+  const res = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: playlistName,
+      description: 'Top 20 NF songs ranked by me!',
+      public: false
+    }),
+  });
+  if (!res.ok) throw new Error('Failed to create playlist');
+  return res.json();
+}
+
+async function searchSpotifyTrack(token, songName) {
+  const params = new URLSearchParams({ q: songName, type: 'track', limit: '1' });
+  const res = await fetch(`https://api.spotify.com/v1/search?${params.toString()}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Failed to search track');
+  const data = await res.json();
+  return data.tracks.items[0] || null;
+}
+
+async function addTracksToPlaylist(token, playlistId, trackUris) {
+  const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ uris: trackUris })
+  });
+  if (!res.ok) throw new Error('Failed to add tracks');
+}
+
+// Main: Create playlist after returning from Spotify
+async function createSpotifyPlaylistFromRankings() {
+  const token = getAccessToken();
+  if (!token) {
+    redirectToSpotifyAuth();
+    return;
+  }
+
+  try {
+    const userId = await getSpotifyUserId(token);
+    const playlist = await createSpotifyPlaylist(token, userId, 'My Top 20 NF Songs');
+
+    const trackUris = [];
+    for (const song of rankedSongs) {
+      if (!song) continue;
+      const track = await searchSpotifyTrack(token, song);
+      if (track) trackUris.push(track.uri);
     }
 
-    async function createPlaylistFlow() {
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get('code');
-      const codeVerifier = localStorage.getItem('spotify_code_verifier');
-      const rankedSongs = JSON.parse(localStorage.getItem('rankedSongs') || '[]');
-
-      if (!code || !codeVerifier || rankedSongs.length === 0) {
-        alert('Missing Spotify login info or rankings.');
-        window.location.href = '/nf-ranks-api/'; // go back home
-        return;
-      }
-
-      try {
-        const { access_token, expires_in } = await getToken(code, codeVerifier);
-        localStorage.setItem('spotify_access_token', access_token);
-        localStorage.setItem('spotify_token_expiry', Date.now() + expires_in * 1000);
-
-        // Fetch user ID
-        const userRes = await fetch('https://api.spotify.com/v1/me', {
-          headers: { Authorization: `Bearer ${access_token}` }
-        });
-
-        if (!userRes.ok) throw new Error('Failed to get user profile');
-        const userData = await userRes.json();
-        const userId = userData.id;
-
-        // Create playlist
-        const playlistRes = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: 'My Top 20 NF Songs',
-            description: 'Ranked by me using NF Song Ranks!',
-            public: false
-          })
-        });
-
-        if (!playlistRes.ok) throw new Error('Failed to create playlist');
-        const playlistData = await playlistRes.json();
-
-        // Search each track and collect URIs
-        const trackUris = [];
-        for (const song of rankedSongs) {
-          if (!song) continue;
-          const q = encodeURIComponent(song + ' NF');
-          const searchRes = await fetch(`https://api.spotify.com/v1/search?q=${q}&type=track&limit=1`, {
-            headers: { Authorization: `Bearer ${access_token}` }
-          });
-
-          const result = await searchRes.json();
-          if (result.tracks && result.tracks.items.length > 0) {
-            trackUris.push(result.tracks.items[0].uri);
-          }
-        }
-
-        // Add tracks to playlist
-        if (trackUris.length > 0) {
-          await fetch(`https://api.spotify.com/v1/playlists/${playlistData.id}/tracks`, {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ uris: trackUris })
-          });
-
-          // Redirect to Spotify playlist
-          window.location.href = playlistData.external_urls.spotify;
-        } else {
-          alert('No songs found on Spotify. Playlist was created but is empty.');
-          window.location.href = playlistData.external_urls.spotify;
-        }
-
-      } catch (err) {
-        console.error(err);
-        alert('There was an error connecting to Spotify.');
-        window.location.href = '/nf-ranks-api/';
-      }
+    if (trackUris.length) {
+      await addTracksToPlaylist(token, playlist.id, trackUris);
+      window.location.href = playlist.external_urls.spotify.replace('https://open.spotify.com/', 'spotify:');
+    } else {
+      alert('No songs found on Spotify.');
     }
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
 
-    createPlaylistFlow();
-  </script>
-</body>
-</html>
+// Button click event
+document.getElementById('createSpotifyPlaylistBtn').addEventListener('click', createSpotifyPlaylistFromRankings);
+
+// Auto-trigger if redirected from callback
+if (new URLSearchParams(window.location.search).has('spotify')) {
+  createSpotifyPlaylistFromRankings();
+}
+</script>
