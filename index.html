@@ -733,9 +733,8 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
   // Show results modal
   document.getElementById('resultsModal').style.display = 'flex';
 
-  // Reset rankings
-  rankedSongs = Array(20).fill(null);
-  renderAll();
+ // Save ranked songs to localStorage
+localStorage.setItem('rankedSongs', JSON.stringify(rankedSongs));
 };
 window.closeResults = function () {
   document.getElementById('resultsModal').style.display = 'none';
@@ -782,6 +781,7 @@ const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.htm
 
 // Scopes needed for creating playlist and adding tracks
 const SCOPES = 'playlist-modify-private playlist-modify-public';
+
 // Generate a random string for code_verifier
 function generateCodeVerifier(length = 128) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
@@ -808,12 +808,10 @@ async function generateCodeChallenge(codeVerifier) {
   return base64urlencode(digest);
 }
 
-// New: redirect using PKCE
+// Redirect user to Spotify login
 async function redirectToSpotifyAuth() {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-  console.log('Saving code verifier:', codeVerifier);  // <-- Add this line
 
   // Save code verifier for later token exchange
   localStorage.setItem('spotify_code_verifier', codeVerifier);
@@ -847,8 +845,6 @@ function getAccessToken() {
   return token;
 }
 
-
-
 // Fetch current user's Spotify ID
 async function getSpotifyUserId(token) {
   const res = await fetch('https://api.spotify.com/v1/me', {
@@ -863,7 +859,7 @@ async function getSpotifyUserId(token) {
 async function createSpotifyPlaylist(token, userId, playlistName) {
   const res = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
     method: 'POST',
-    headers: { 
+    headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
@@ -877,7 +873,7 @@ async function createSpotifyPlaylist(token, userId, playlistName) {
   return res.json();
 }
 
-// Search Spotify for a track by song name (simplified, just using song title)
+// Search Spotify for a track by song name
 async function searchSpotifyTrack(token, songName) {
   const params = new URLSearchParams({
     q: songName,
@@ -896,7 +892,7 @@ async function searchSpotifyTrack(token, songName) {
 async function addTracksToPlaylist(token, playlistId, trackUris) {
   const res = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
     method: 'POST',
-    headers: { 
+    headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
@@ -914,6 +910,13 @@ async function createSpotifyPlaylistFromRankings() {
     return;
   }
 
+  // Retrieve rankedSongs from localStorage
+  const storedSongs = JSON.parse(localStorage.getItem('rankedSongs') || '[]');
+  if (storedSongs.length === 0) {
+    alert('No ranked songs found. Please rank your songs and submit first.');
+    return;
+  }
+
   try {
     const userId = await getSpotifyUserId(token);
     const playlistName = 'My Top 20 NF Songs';
@@ -923,14 +926,11 @@ async function createSpotifyPlaylistFromRankings() {
 
     // Search and collect URIs for ranked songs
     const trackUris = [];
-    for (const song of rankedSongs) {
-      if (!song) continue; // Skip null spots if any
+    for (const song of storedSongs) {
       const track = await searchSpotifyTrack(token, song);
       if (track) trackUris.push(track.uri);
-      // Optional: else console.warn(`Song not found on Spotify: ${song}`);
     }
 
-    // Add all tracks at once (max 100 per request)
     if (trackUris.length > 0) {
       await addTracksToPlaylist(token, playlist.id, trackUris);
       window.location.href = playlist.external_urls.spotify.replace("https://open.spotify.com/", "spotify:");
@@ -942,14 +942,13 @@ async function createSpotifyPlaylistFromRankings() {
   }
 }
 
-// Connect the button to this function AFTER DOMContentLoaded event to ensure the button exists
+// Attach button click handler after DOM load
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('createSpotifyPlaylistBtn');
   if (btn) {
     btn.onclick = createSpotifyPlaylistFromRankings;
   }
 });
-
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
