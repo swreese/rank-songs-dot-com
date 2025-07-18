@@ -46,6 +46,7 @@
         return;
       }
       const codeVerifier = localStorage.getItem('spotify_code_verifier');
+console.log('Retrieved code verifier in callback:', codeVerifier);
       if (!codeVerifier) {
         alert('No code verifier found in localStorage');
         window.close();
