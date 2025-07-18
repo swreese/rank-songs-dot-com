@@ -565,38 +565,12 @@ rankedList.appendChild(box);
   }
 
   document.getElementById('rankByToggles').addEventListener('click', e => {
-    if (e.target.matches('button')) {
-      currentMode = e.target.dataset.mode;
-      // ===== Sortable columns for Global Rankings table =====
-
-let currentSortColumn = '';
-let currentSortAsc = true;
-let globalRankings = []; // Declare here to hold data globally
-
-// Override fetchGlobalRankings call to store data globally
-async function fetchGlobalRankings() {
-  const { data, error } = await supabaseClient.from('Submissions').select();
-
-  if (error) {
-    alert('Error fetching global rankings: ' + error.message);
-    return [];
+  if (e.target.matches('button')) {
+    currentMode = e.target.dataset.mode;
+    updateButtons('rankByToggles', currentMode);
+    renderAll();
   }
-
-  // Aggregate points and counts per song
-  const songStats = {};
-
-  data.forEach(submission => {
-    for (let i = 1; i <= 20; i++) {
-      const song = submission[`rank_${i}`];
-      if (!song) continue;
-      if (!songStats[song]) {
-        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-      }
-      songStats[song].totalPoints += 21 - i;
-      songStats[song].timesRanked++;
-      songStats[song].totalRankSum += i;
-    }
-  });
+});
 
   const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
     const avgRank = stats.totalRankSum / stats.timesRanked;
