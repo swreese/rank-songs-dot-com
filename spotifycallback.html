@@ -1,84 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>Spotify Callback</title>
 </head>
 <body>
-  <h2>Processing Spotify login...</h2>
-  <script>
-    async function getAccessToken() {
-      // Get the query parameters from URL
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get('code');
-      const error = params.get('error');
+<script>
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
 
-      if (error) {
-        alert('Spotify auth error: ' + error);
-        return;
-      }
+  if (error) {
+    document.body.innerHTML = `<p>Error: ${error}</p>`;
+    return;
+  }
 
-      if (!code) {
-        alert('No code found in URL');
-        return;
-      }
+  if (!code) {
+    document.body.innerHTML = '<p>No code returned from Spotify.</p>';
+    return;
+  }
 
-      // Get the saved code verifier from localStorage
-      const codeVerifier = localStorage.getItem('spotify_code_verifier');
-      console.log('Retrieved code verifier:', codeVerifier);
+  const codeVerifier = localStorage.getItem('spotify_code_verifier');
+  if (!codeVerifier) {
+    document.body.innerHTML = '<p>Error: No code verifier found. Cannot exchange token.</p>';
+    return;
+  }
 
-      if (!codeVerifier) {
-        alert('Code verifier not found in localStorage.');
-        return;
-      }
-
-      // Your Spotify app credentials - must match those in your index.html
-      const clientId = '4074591da485478f9e5154af0e4d81f4'; 
-      const redirectUri = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
-
-      // Prepare POST body for token request
-      const body = new URLSearchParams({
-        client_id: clientId,
+  try {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: '4074591da485478f9e5154af0e4d81f4',
         grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: redirectUri,
-        code_verifier: codeVerifier,
-      });
+        code,
+        redirect_uri: 'https://swreese.github.io/nf-ranks-api/spotifycallback.html',
+        code_verifier: codeVerifier
+      })
+    });
 
-      try {
-        const response = await fetch('https://accounts.spotify.com/api/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: body.toString(),
-        });
+    const data = await res.json();
 
-        if (!response.ok) {
-          const errData = await response.json();
-          alert('Failed to get access token: ' + JSON.stringify(errData));
-          return;
-        }
+    if (data.access_token) {
+      // Save token and expiry
+      localStorage.setItem('spotify_access_token', data.access_token);
+      localStorage.setItem('spotify_token_expiry', Date.now() + data.expires_in * 1000);
 
-        const data = await response.json();
-        console.log('Token response:', data);
-
-        // Save the access token and expiry in localStorage
-        localStorage.setItem('spotify_access_token', data.access_token);
-        localStorage.setItem('spotify_token_expiry', (Date.now() + data.expires_in * 1000).toString());
-
-        // Clear code verifier, no longer needed
-        localStorage.removeItem('spotify_code_verifier');
-
-        // Redirect back to your main app page
-        window.location.href = 'https://swreese.github.io/nf-ranks-api/';
-
-      } catch (err) {
-        alert('Error during token request: ' + err.message);
-      }
+      // Redirect back to main page
+      window.location.href = 'https://swreese.github.io/nf-ranks-api/';
+    } else {
+      document.body.innerHTML = `<p>Failed to get access token: ${JSON.stringify(data)}</p>`;
     }
-
-    getAccessToken();
-  </script>
+  } catch (err) {
+    document.body.innerHTML = `<p>Request failed: ${err.message}</p>`;
+  }
+})();
+</script>
 </body>
 </html>
