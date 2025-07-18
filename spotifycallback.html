@@ -1,60 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Spotify Callback</title>
+  <meta charset="UTF-8" />
+  <title>Processing Spotify Login...</title>
 </head>
 <body>
-<script>
-(async function() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  const error = params.get('error');
+  <p>Processing Spotify Login...</p>
+  <script>
+    const CLIENT_ID = '4074591da485478f9e5154af0e4d81f4';
+    const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
+    const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 
-  if (error) {
-    document.body.innerHTML = `<p>Error: ${error}</p>`;
-    return;
-  }
+    async function exchangeCodeForToken() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
 
-  if (!code) {
-    document.body.innerHTML = '<p>No code returned from Spotify.</p>';
-    return;
-  }
+      if (!code) {
+        document.body.innerHTML = '<p>Error: No code found in URL.</p>';
+        return;
+      }
 
-  const codeVerifier = localStorage.getItem('spotify_code_verifier');
-  if (!codeVerifier) {
-    document.body.innerHTML = '<p>Error: No code verifier found. Cannot exchange token.</p>';
-    return;
-  }
+      // Retrieve code_verifier from localStorage (or sessionStorage if you switched)
+      const codeVerifier = localStorage.getItem('spotify_code_verifier');
+      if (!codeVerifier) {
+        document.body.innerHTML = '<p>Error: Missing code verifier. Please try again.</p>';
+        return;
+      }
 
-  try {
-    const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: '4074591da485478f9e5154af0e4d81f4',
+      const body = new URLSearchParams({
+        client_id: CLIENT_ID,
         grant_type: 'authorization_code',
-        code,
-        redirect_uri: 'https://swreese.github.io/nf-ranks-api/spotifycallback.html',
-        code_verifier: codeVerifier
-      })
-    });
+        code: code,
+        redirect_uri: REDIRECT_URI,
+        code_verifier: codeVerifier,
+      });
 
-    const data = await res.json();
+      try {
+        const response = await fetch(TOKEN_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+        });
 
-    if (data.access_token) {
-      // Save token and expiry
-      localStorage.setItem('spotify_access_token', data.access_token);
-      localStorage.setItem('spotify_token_expiry', Date.now() + data.expires_in * 1000);
+        const data = await response.json();
+        if (data.error) {
+          document.body.innerHTML = `<p>Token exchange error: ${data.error_description}</p>`;
+          console.error('Token exchange failed:', data);
+          return;
+        }
 
-      // Redirect back to main page
-      window.location.href = 'https://swreese.github.io/nf-ranks-api/';
-    } else {
-      document.body.innerHTML = `<p>Failed to get access token: ${JSON.stringify(data)}</p>`;
+        // Save token and expiry
+        const expiresAt = Date.now() + data.expires_in * 1000;
+        localStorage.setItem('spotify_access_token', data.access_token);
+        localStorage.setItem('spotify_token_expiry', expiresAt);
+
+        // Clean up old verifier
+        localStorage.removeItem('spotify_code_verifier');
+
+        // Redirect back to main page
+        window.location.href = 'https://swreese.github.io/nf-ranks-api/';
+      } catch (err) {
+        document.body.innerHTML = `<p>Unexpected error: ${err.message}</p>`;
+        console.error(err);
+      }
     }
-  } catch (err) {
-    document.body.innerHTML = `<p>Request failed: ${err.message}</p>`;
-  }
-})();
-</script>
+
+    exchangeCodeForToken();
+  </script>
 </body>
 </html>
