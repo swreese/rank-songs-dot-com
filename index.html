@@ -320,40 +320,57 @@ body::before {
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
-  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-document.addEventListener("DOMContentLoaded", function () {
-const PRIOR_COUNT = 10;  // Tunable: "fake votes" to smooth scores
-const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
-async function fetchGlobalRankings() {
-    // Fetch all submissions from Supabase
-    const { data, error } = await supabaseClient.from('Submissions').select();
+  const CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
+const REDIRECT_URI = 'https://swreese.github.io/nf-ranks-api/spotifycallback.html';
+const SCOPES = 'playlist-modify-private playlist-modify-public';
+const SUBMISSION_COOLDOWN_DAYS = 90;
 
-console.log('Supabase fetch error:', error);
-console.log('Supabase fetch data:', data);
+let userIp = '';
+let previousSubmission = null;
 
-if (error) {
-  alert('Error fetching global rankings: ' + error.message);
-  return [];
+async function getUserIP() {
+  try {
+    const res = await fetch('https://api64.ipify.org?format=json');
+    const json = await res.json();
+    return json.ip;
+  } catch {
+    return '';
+  }
 }
 
-    // Aggregate points and counts per song
-    // Points for rank i = 21 - i (rank 1 = 20 points, rank 20 = 1 point)
-    const songStats = {}; // { song: { totalPoints, timesRanked, totalRankSum } }
+function daysBetween(date1, date2) {
+  return Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+}
 
-    data.forEach(submission => {
+async function loadPreviousSubmission(ip) {
+  const { data, error } = await supabaseClient.from('Submissions')
+    .select('*')
+    .eq('ip_address', ip)
+    .order('created_at', { ascending: false })
+    .limit(1);
+  if (error) return null;
+  return data && data.length ? data[0] : null;
+}
+document.addEventListener("DOMContentLoaded", async () => {
+  userIp = await getUserIP();
+  previousSubmission = await loadPreviousSubmission(userIp);
+
+  if (previousSubmission) {
+    const last = new Date(previousSubmission.created_at);
+    const diff = daysBetween(last, new Date());
+    if (diff < SUBMISSION_COOLDOWN_DAYS) {
+      rankedSongs = [];
       for (let i = 1; i <= 20; i++) {
-        const song = submission[`rank_${i}`];
-        if (!song) continue;
-        if (!songStats[song]) {
-          songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-        }
-        songStats[song].totalPoints += 21 - i;
-        songStats[song].timesRanked++;
-        songStats[song].totalRankSum += i;
+        rankedSongs.push(previousSubmission[`rank_${i}`] || null);
       }
-    });
+      showResultsModal(rankedSongs);
+    }
+  }
+
+  updateButtons('rankByToggles', currentMode);
+  updateButtons('sortByToggles', sortType);
+  renderAll();
+});
 
     // Convert to array and calculate average rank
     const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
@@ -673,81 +690,30 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
   }
 };
 
-  window.confirmSubmit = async function(confirmed) {
+  window.confirmSubmit = async function confirmSubmit(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
 
-  // Build submission data
-  const dataToInsert = {};
-  rankedSongs.forEach((song, i) => {
-    dataToInsert[`rank_${i + 1}`] = song;
-  });
-
-  // Optional: Get user IP
-  let ip = '';
-  try {
-    const res = await fetch('https://api64.ipify.org?format=json');
-    const json = await res.json();
-    ip = json.ip;
-  } catch (e) {
-    console.warn('Could not get IP address');
-  }
-  dataToInsert.ip_address = ip;
-
-  // Submit to Supabase
-  const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
-
-  if (error) {
-    alert('Submission error: ' + error.message);
-    return;
-  }
-
-  // Show My Rankings
-  const myList = document.getElementById('myRankingsList');
-  myList.innerHTML = '';
-  rankedSongs.forEach(song => {
-    const li = document.createElement('li');
-    li.textContent = song;
-    myList.appendChild(li);
-  });
-
-  // Get and show global rankings
-  const rankings = await fetchGlobalRankings();
-  const tbody = document.querySelector('#globalRankingsTable tbody');
-  tbody.innerHTML = '';
-
-  rankings.forEach((entry, index) => {
-  const row = document.createElement('tr');
-  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${entry.song}</td>
-    <td>${entry.avgRank.toFixed(2)}</td>
-    <td>${entry.timesRanked}</td>
-    <td>${entry.totalPoints}</td>
-    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-  `;
-  tbody.appendChild(row);
-});
-
-  // Show results modal
-  document.getElementById('resultsModal').style.display = 'flex';
-
-  // Reset rankings
-  rankedSongs = Array(20).fill(null);
-  renderAll();
-};
-window.closeResults = function () {
-  document.getElementById('resultsModal').style.display = 'none';
-};
-
-  window.confirmReset = function(confirmed) {
-    document.getElementById('resetModal').style.display = 'none';
-    if (confirmed) {
-      rankedSongs = Array(20).fill(null);
-      renderAll();
+  const now = new Date();
+  if (previousSubmission) {
+    const last = new Date(previousSubmission.created_at);
+    const diff = daysBetween(last, now);
+    if (diff < SUBMISSION_COOLDOWN_DAYS) {
+      alert(`You can only submit once every ${SUBMISSION_COOLDOWN_DAYS} days. Last submission was ${diff} days ago.`);
+      return;
     }
-  };
+  }
+
+  const dataToInsert = {};
+  rankedSongs.forEach((song, i) => { dataToInsert[`rank_${i+1}`] = song; });
+  dataToInsert.ip_address = userIp;
+
+  const { error } = await supabaseClient.from('Submissions').insert([dataToInsert]);
+  if (error) { alert('Submission error: ' + error.message); return; }
+
+  previousSubmission = { ...dataToInsert, created_at: now.toISOString() };
+  showResultsModal(rankedSongs);
+}
 
   updateButtons('rankByToggles', currentMode);
   updateButtons('sortByToggles', sortType);
@@ -910,6 +876,34 @@ document.getElementById('createSpotifyPlaylistBtn').addEventListener('click', cr
 if (new URLSearchParams(window.location.search).has('spotify')) {
   createSpotifyPlaylistFromRankings();
 }
+function showResultsModal(mySongs) {
+  const myList = document.getElementById('myRankingsList');
+  myList.innerHTML = '';
+  mySongs.forEach(song => {
+    const li = document.createElement('li');
+    li.textContent = song;
+    myList.appendChild(li);
+  });
+
+  fetchGlobalRankings().then(rankings => {
+    const tbody = document.querySelector('#globalRankingsTable tbody');
+    tbody.innerHTML = '';
+    rankings.forEach((entry, index) => {
+      const row = document.createElement('tr');
+      const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${entry.song}</td>
+        <td>${entry.avgRank.toFixed(2)}</td>
+        <td>${entry.timesRanked}</td>
+        <td>${entry.totalPoints}</td>
+        <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+      `;
+      tbody.appendChild(row);
+    });
+    document.getElementById('resultsModal').style.display = 'flex';
+  });
+}  
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
