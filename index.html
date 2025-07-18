@@ -813,6 +813,8 @@ async function redirectToSpotifyAuth() {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier);
 
+  console.log('Saving code verifier:', codeVerifier);  // <-- Add this line
+
   // Save code verifier for later token exchange
   localStorage.setItem('spotify_code_verifier', codeVerifier);
 
@@ -827,8 +829,9 @@ async function redirectToSpotifyAuth() {
     show_dialog: 'true',
   });
 
-localStorage.setItem('spotify_redirected', 'true');
-window.location.href = `${authEndpoint}?${params.toString()}`;}
+  localStorage.setItem('spotify_redirected', 'true');
+  window.location.href = `${authEndpoint}?${params.toString()}`;
+}
 
 // Get token from localStorage or null
 function getAccessToken() {
@@ -939,8 +942,13 @@ async function createSpotifyPlaylistFromRankings() {
   }
 }
 
-// Connect the button to this function
-document.getElementById('createSpotifyPlaylistBtn').onclick = createSpotifyPlaylistFromRankings;
+// Connect the button to this function AFTER DOMContentLoaded event to ensure the button exists
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('createSpotifyPlaylistBtn');
+  if (btn) {
+    btn.onclick = createSpotifyPlaylistFromRankings;
+  }
+});
 
 </script>
 <div id="calcModal" class="modal">
