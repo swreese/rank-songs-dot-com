@@ -733,8 +733,9 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
   // Show results modal
   document.getElementById('resultsModal').style.display = 'flex';
 
- // Save ranked songs to localStorage
-localStorage.setItem('rankedSongs', JSON.stringify(rankedSongs));
+  // Reset rankings
+  rankedSongs = Array(20).fill(null);
+  renderAll();
 };
 window.closeResults = function () {
   document.getElementById('resultsModal').style.display = 'none';
@@ -949,6 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.onclick = createSpotifyPlaylistFromRankings;
   }
 });
+
 </script>
 <div id="calcModal" class="modal">
   <div class="modal-content">
