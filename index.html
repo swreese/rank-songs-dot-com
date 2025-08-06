@@ -12,13 +12,12 @@
   font-family: 'Candara', sans-serif;
   color: #333;
 }
-
-    header {
-      text-align: center;
-      padding: 60px 20px 30px;
-      background-color: #f5f5f5;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+header {
+  text-align: center;
+  padding: 60px 20px 30px;
+  background-color: transparent;   /* let your page background show */
+  box-shadow: none;                /* optional: removes header shadow */
+}
 
     h1 {
       font-size: 48px;
@@ -151,7 +150,9 @@
 
     </div>
   </header>
-
+<!-- Force scroll space so background image can be seen -->
+<div style="height: 100vh;"></div>
+  
   <script>
     function toggleDropdown(btn) {
       const dropdown = btn.nextElementSibling;
