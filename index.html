@@ -6,11 +6,11 @@
   <title>RankSongs.Com</title>
   <style>
     body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #ffffff, #f0f4ff);
-  color: #333;
-}
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #ffffff, #f0f4ff);
+      color: #333;
+    }
 
     header {
       text-align: center;
@@ -34,7 +34,11 @@
       margin-top: 30px;
     }
 
-    .artist-btn {
+    /* button */
+    .artist-button {
+      position: relative;
+    }
+    .artist-button > button {
       padding: 12px 20px;
       background-color: #0077cc;
       color: white;
@@ -43,11 +47,32 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      text-decoration: none;
+    }
+    .artist-button > button:hover {
+      background-color: #005fa3;
     }
 
-    .artist-btn:hover {
-      background-color: #005fa3;
+    /* dropdown */
+    .artist-dropdown {
+      display: none;
+      position: absolute;
+      top: 115%;
+      left: 0;
+      min-width: 200px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 10;
+    }
+    .artist-dropdown a {
+      display: block;
+      padding: 12px 16px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #333;
+    }
+    .artist-dropdown a:hover {
+      background: #f4f4f4;
     }
   </style>
 </head>
@@ -56,13 +81,92 @@
   <header>
     <h1>RankSongs.Com</h1>
     <div class="artist-nav">
-      <a href="nf_ranks.html" class="artist-btn">NF</a>
-      <a href="liv_ranks.html" class="artist-btn">Livingston</a>
-      <a href="kb_ranks.html" class="artist-btn">KB</a>
-      <a href="cp_ranks.html" class="artist-btn">Connor Price</a>
-      <a href="#" class="artist-btn">Artist 5</a>
+
+      <!-- NF -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">NF</button>
+        <div class="artist-dropdown">
+          <a href="nf_ranks.html">Rank NF</a>
+<a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank">Wikipedia</a>
+
+<!-- Universal link: opens Spotify app *if installed*, otherwise web page -->
+<a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank">Spotify</a>
+
+<!-- Universal link for Apple Music -->
+<a href="https://music.apple.com/us/artist/nf/898094630" target="_blank">Apple Music</a>
+
+<!-- Universal link for Amazon Music -->
+<a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank">Amazon Music</a>
+        </div>
+      </div>
+
+      <!-- Livingston -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Livingston</button>
+        <div class="artist-dropdown">
+          <a href="liv_ranks.html">Rank Livingston</a>
+<a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank">Wikipedia</a>
+<a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank">Spotify</a>
+<a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank">Apple Music</a>
+<a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank">Amazon Music</a>
+        </div>
+      </div>
+
+      <!-- KB -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">KB</button>
+        <div class="artist-dropdown">
+          <a href="kb_ranks.html">Rank KB</a>
+<a href="https://en.wikipedia.org/wiki/Kb_(rapper)" target="_blank">Wikipedia</a>
+<a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank">Spotify</a>
+<a href="https://music.apple.com/us/artist/kb/74520603" target="_blank">Apple Music</a>
+<a href="https://www.amazon.com/music/player/artists/B000QKHD7C/kb" target="_blank">Amazon Music</a>
+        </div>
+      </div>
+
+      <!-- Connor Price -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Connor Price</button>
+        <div class="artist-dropdown">
+          <a href="cp_ranks.html">Rank Connor Price</a>
+<a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank">Wikipedia</a>
+<a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank">Spotify</a>
+<a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank">Apple Music</a>
+<a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank">Amazon Music</a>
+        </div>
+      </div>
+
+      <!-- Jack Johnson -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Jack Johnson</button>
+        <div class="artist-dropdown">
+          <a href="jj_ranks.html">Rank Jack Johnson</a>
+<a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank">Wikipedia</a>
+<a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank">Spotify</a>
+<a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank">Apple Music</a>
+<a href="https://music.amazon.com/en-ar/artists/B08FRLCGV7/jack-johnson" target="_blank">Amazon Music</a>
+        </div>
+      </div>
+
     </div>
   </header>
 
+  <script>
+    function toggleDropdown(btn) {
+      const dropdown = btn.nextElementSibling;
+      const isVisible = dropdown.style.display === 'block';
+      // Close any other open dropdowns
+      document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      // Toggle this one
+      dropdown.style.display = isVisible ? 'none' : 'block';
+    }
+
+    // Close dropdowns if click elsewhere on page
+    document.addEventListener('click', function(e) {
+      if (!e.target.matches('.artist-button > button')) {
+        document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      }
+    });
+  </script>
 </body>
 </html>
