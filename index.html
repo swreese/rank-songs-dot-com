@@ -2,36 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RankSongs.Com</title>
   <style>
     body {
-      min-height: 200vh; /* makes page twice the screen height to allow scrolling */
+      min-height: 200vh; /* allow scrolling */
       margin: 0;
-      background: url('home_background.jpg') top center / cover no-repeat;
+      background: url('home_background.jpg') top center / contain no-repeat;
       font-family: 'Candara', sans-serif;
       color: #333;
+      background-color: black; /* fallback color to fill empty space from contain */
     }
     header {
       text-align: center;
       padding: 60px 20px 30px;
-      background-color: transparent;   /* let page background show through */
-      box-shadow: none;                /* removes header shadow */
+      background-color: transparent;
+      box-shadow: none;
     }
-
     h1 {
       font-size: 48px;
       font-weight: 700;
       margin-bottom: 10px;
       color: #ffffff;
-      -webkit-text-stroke: 1px black;  /* crisp outline for Safari/Chrome */
+      -webkit-text-stroke: 1px black;  /* outline for better visibility */
       text-shadow:
         -1px -1px 0 #000,
          1px -1px 0 #000,
         -1px  1px 0 #000,
-         1px  1px 0 #000;              /* fallback text shadow outline */
+         1px  1px 0 #000;
     }
-
     .artist-nav {
       display: flex;
       justify-content: center;
@@ -39,8 +38,6 @@
       gap: 15px;
       margin-top: 30px;
     }
-
-    /* button */
     .artist-button {
       position: relative;
     }
@@ -57,8 +54,6 @@
     .artist-button > button:hover {
       background-color: #005fa3;
     }
-
-    /* dropdown */
     .artist-dropdown {
       display: none;
       position: absolute;
@@ -87,7 +82,6 @@
   <header>
     <h1>RankSongs.Com</h1>
     <div class="artist-nav">
-
       <!-- NF -->
       <div class="artist-button">
         <button onclick="toggleDropdown(this)">NF</button>
@@ -99,7 +93,6 @@
           <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank">Amazon Music</a>
         </div>
       </div>
-
       <!-- Livingston -->
       <div class="artist-button">
         <button onclick="toggleDropdown(this)">Livingston</button>
@@ -111,7 +104,6 @@
           <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank">Amazon Music</a>
         </div>
       </div>
-
       <!-- KB -->
       <div class="artist-button">
         <button onclick="toggleDropdown(this)">KB</button>
@@ -123,7 +115,6 @@
           <a href="https://www.amazon.com/music/player/artists/B000QKHD7C/kb" target="_blank">Amazon Music</a>
         </div>
       </div>
-
       <!-- Connor Price -->
       <div class="artist-button">
         <button onclick="toggleDropdown(this)">Connor Price</button>
@@ -135,7 +126,6 @@
           <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank">Amazon Music</a>
         </div>
       </div>
-
       <!-- Jack Johnson -->
       <div class="artist-button">
         <button onclick="toggleDropdown(this)">Jack Johnson</button>
@@ -147,24 +137,19 @@
           <a href="https://music.amazon.com/en-ar/artists/B08FRLCGV7/jack-johnson" target="_blank">Amazon Music</a>
         </div>
       </div>
-
     </div>
   </header>
 
-  <!-- Force scroll space so background image can be seen -->
+  <!-- Extra space so you can scroll and see background -->
   <div style="height: 100vh;"></div>
 
   <script>
     function toggleDropdown(btn) {
       const dropdown = btn.nextElementSibling;
       const isVisible = dropdown.style.display === 'block';
-      // Close any other open dropdowns
       document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
-      // Toggle this one
       dropdown.style.display = isVisible ? 'none' : 'block';
     }
-
-    // Close dropdowns if click elsewhere on page
     document.addEventListener('click', function(e) {
       if (!e.target.matches('.artist-button > button')) {
         document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
