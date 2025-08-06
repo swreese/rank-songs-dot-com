@@ -830,6 +830,15 @@ function closeCalcModal() {
     <button onclick="closeCalcModal()">Close</button>
   </div>
 </div>
+// Prevent SafariMobile from triggering a 'click' / "search" after dropping
+document.querySelectorAll('.song-item, .rank-box').forEach(el => {
+  el.addEventListener('touchend', function(e) {
+    if (e.cancelable) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, { passive: false });
+});  
 <script>
   // Prevent long-press from showing context menu (which triggers search)
   document.addEventListener('contextmenu', function(e) {
