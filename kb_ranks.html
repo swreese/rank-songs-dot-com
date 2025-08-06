@@ -4,6 +4,33 @@
   <meta charset="UTF-8" />
   <title>KB Rankings</title>
   <style>
+    .back-home-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-size: 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.back-home-btn:hover {
+  background-color: #005fa3;
+}
+
+.back-home-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: white;
+}
     .hero-heading {
   font-size: 3rem;
   font-weight: 900;
@@ -259,8 +286,14 @@ button.toggle-btn.active {
 </head>
 <body>
 <h1 class="hero-heading">🔥 Rank Your Top 20 KB Songs</h1>
-
-<div class="section-header">Rank By</div>
+<a href="index.html" class="back-home-btn" aria-label="Back to Home">
+  <!-- Left arrow SVG -->
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  Back to Home
+</a>
+<div class="section-header">Rank With</div>
 <div class="toggle-group" id="rankByToggles">
   <button class="toggle-btn" data-mode="click">Click-to-Add</button>
   <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
