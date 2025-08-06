@@ -368,14 +368,19 @@ button.toggle-btn.active {
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 document.addEventListener("DOMContentLoaded", function () {
-const PRIOR_COUNT = 10;  // Tunable: "fake votes" to smooth scores
-const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
-async function fetchGlobalRankings() {
+  currentMode = 'click';                    // force click-to-add as default
+  updateButtons('rankByToggles', currentMode);
+  renderAll();
+
+  const PRIOR_COUNT = 10;  // Tunable: "fake votes" to smooth scores
+  const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
+
+  async function fetchGlobalRankings() {
     // Fetch all submissions from Supabase
     const { data, error } = await supabaseClient.from('nf_submissions').select();
 
-console.log('Supabase fetch error:', error);
-console.log('Supabase fetch data:', data);
+    console.log('Supabase fetch error:', error);
+    console.log('Supabase fetch data:', data);
 
 if (error) {
   alert('Error fetching global rankings: ' + error.message);
@@ -832,16 +837,18 @@ function closeCalcModal() {
 </div>
 
 <script>
-// Prevent Safari Mobile from triggering a 'click' or web search after dropping a song
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.song-item, .rank-box').forEach(el => {
-    el.addEventListener('touchend', function(e) {
-      if (e.cancelable) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      }
-    }, { passive: false });
-  });
+// Fix: cancel Safari mobile "long tap = open new tab" after drag-drop
+document.addEventListener('touchend', function(e){
+  if(e.cancelable){
+    e.preventDefault();
+  }
+}, {passive:false});
+
+// Make sure Click-to-Add is the default mode on load
+document.addEventListener('DOMContentLoaded', function(){
+  currentMode = 'click';
+  updateButtons('rankByToggles', currentMode);
+  renderAll();
 });
 </script>
 </body>
