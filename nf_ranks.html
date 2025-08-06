@@ -4,18 +4,10 @@
   <meta charset="UTF-8" />
   <title>NF Song Ranking</title>
   <style>
-  /* Prevent text selection / long-press search while dragging */
-.song-item,
-.rank-box,
-.rank-song,
-.rank-number,
-.song-item *,
-.rank-box * {
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  user-select: none;
+ /* Prevent mobile from doing long-press “Look up/Search” */
+.rank-box, .song-item {
   -webkit-touch-callout: none;
-}  
+}
       .back-home-btn {
   position: fixed;
   top: 20px;
