@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <title>KB Rankings</title> Song Ranking</title>
   <style>
+    .song-item, .rank-box {
+  -webkit-touch-callout: none;  /* iOS */
+  -webkit-user-select: none;
+  user-select: none;
+}
     .hero-heading {
   font-size: 3rem;
   font-weight: 900;
@@ -788,5 +793,16 @@ function closeCalcModal() {
     <button onclick="closeCalcModal()">Close</button>
   </div>
 </div>
+  <script>
+// Disable long-press (Google search / copy popup) on song items for touch screens
+document.addEventListener('DOMContentLoaded', () => {
+  const disableLongPress = (e) => e.preventDefault();
+
+  document.querySelectorAll('.song-item, .rank-box').forEach(el => {
+    el.addEventListener('contextmenu', disableLongPress);  // Android Chrome
+    el.addEventListener('touchstart', disableLongPress);   // iOS Safari
+  });
+});
+</script>
 </body>
 </html>
