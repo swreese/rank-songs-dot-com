@@ -4,6 +4,18 @@
   <meta charset="UTF-8" />
   <title>NF Song Ranking</title>
   <style>
+  /* Prevent text selection / long-press search while dragging */
+.song-item,
+.rank-box,
+.rank-song,
+.rank-number,
+.song-item *,
+.rank-box * {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}  
       .back-home-btn {
   position: fixed;
   top: 20px;
@@ -826,5 +838,11 @@ function closeCalcModal() {
     <button onclick="closeCalcModal()">Close</button>
   </div>
 </div>
+<script>
+  // Prevent long-press from showing context menu (which triggers search)
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
 </body>
 </html>
