@@ -108,13 +108,6 @@ button.toggle-btn.active {
       border-radius: 4px;
       cursor: grab;
     }
-    /* Prevents long-press selecting/searching on mobile */
-.song-item, .rank-box {
-  -webkit-touch-callout: none;  
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
-}
     #rankedList {
       display: flex;
       flex-direction: column;
@@ -795,17 +788,5 @@ function closeCalcModal() {
     <button onclick="closeCalcModal()">Close</button>
   </div>
 </div>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const disableLongPress = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  document.querySelectorAll('.song-item, .rank-box').forEach(el => {
-    el.addEventListener('contextmenu', disableLongPress, { passive: false });
-    el.addEventListener('touchstart', disableLongPress, { passive: false });
-  });
-});
-</script>
 </body>
 </html>
