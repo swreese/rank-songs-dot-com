@@ -500,30 +500,48 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
 }
 
   function renderDropdown() {
-    const container = document.getElementById('dropdownContainer');
-    container.innerHTML = '';
-    for (let i = 0; i < 20; i++) {
-      const label = document.createElement('label');
-      label.textContent = `#${i + 1}`;
-      const select = document.createElement('select');
-      const selected = rankedSongs[i];
-      const options = songListMaster.map(song => {
-        const used = rankedSongs.includes(song) && song !== selected;
-        return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
-      });
-      select.innerHTML = '<option value="">Select a song</option>' + options.join('');
-      select.onchange = e => {
-  const selectedValue = e.target.value;
-  const exactSong = songListMaster.find(song => song === selectedValue);
-  rankedSongs[i] = exactSong || null;
-  renderDropdown();
-  toggleSubmitReset();
-};
-      container.appendChild(label);
-      container.appendChild(select);
-    }
-    toggleSubmitReset();
+  const container = document.getElementById('dropdownContainer');
+  container.innerHTML = '';
+
+  // Prepare songs to display, excluding already selected ones except current
+  const rankedSet = new Set(rankedSongs.filter(Boolean));
+  
+  let songs = songListMaster.slice();
+
+  if (sortType === 'alpha') {
+    songs.sort();
   }
+
+  for (let i = 0; i < 20; i++) {
+    const label = document.createElement('label');
+    label.textContent = `#${i + 1}`;
+
+    const select = document.createElement('select');
+
+    const selected = rankedSongs[i];
+
+    // Create options with sorting applied, and disable options already selected except current
+    const options = songs.map(song => {
+      const used = rankedSet.has(song) && song !== selected;
+      return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
+    });
+
+    select.innerHTML = '<option value="">Select a song</option>' + options.join('');
+
+    select.onchange = e => {
+      const selectedValue = e.target.value;
+      const exactSong = songListMaster.find(song => song === selectedValue);
+      rankedSongs[i] = exactSong || null;
+      renderDropdown();
+      toggleSubmitReset();
+    };
+
+    container.appendChild(label);
+    container.appendChild(select);
+  }
+
+  toggleSubmitReset();
+}
 
   function toggleSubmitReset() {
   const ready = rankedSongs.every(Boolean);
