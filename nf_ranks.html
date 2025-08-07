@@ -436,30 +436,32 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
   }
 
   function renderSongList() {
-    const rankedSet = new Set(rankedSongs.filter(Boolean));
-    let songs = songListMaster.filter(song => !rankedSet.has(song));
-    if (sortType === 'alpha') songs.sort();
+  const rankedSet = new Set(rankedSongs.filter(Boolean));
+  let songs = songListMaster.filter(song => !rankedSet.has(song));
+  if (sortType === 'alpha') songs.sort();
 
-    const songList = document.getElementById('songList');
-    songList.innerHTML = '';
-    songs.forEach(song => {
-      const div = document.createElement('div');
-      div.className = 'song-item';
-      div.textContent = song;
-      
-  div.style.cursor = 'pointer';
-}
+  const songList = document.getElementById('songList');
+  songList.innerHTML = '';
 
-      div.onclick = () => {
-        if (currentMode === 'click') {
-          const index = rankedSongs.indexOf(null);
-          if (index !== -1) rankedSongs[index] = song;
+  songs.forEach(song => {
+    const div = document.createElement('div');
+    div.className = 'song-item';
+    div.textContent = song;
+    div.style.cursor = 'pointer';
+
+    div.onclick = () => {
+      if (currentMode === 'click') {
+        const index = rankedSongs.indexOf(null);
+        if (index !== -1) {
+          rankedSongs[index] = song;
           renderAll();
         }
-      };
-      songList.appendChild(div);
-    });
-  }
+      }
+    };
+
+    songList.appendChild(div);
+  });
+}
 
   function renderRankedList() {
   const rankedList = document.getElementById('rankedList');
