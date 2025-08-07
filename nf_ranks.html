@@ -60,7 +60,7 @@ body {
   background-color: #ffffff;
   color: #111827;
 }
-      
+
     h1 {
   text-align: center;
   margin-bottom: 10px;
@@ -297,7 +297,7 @@ button.toggle-btn.active {
 <div class="toggle-group" id="rankByToggles">
   <button class="toggle-btn active" data-mode="click">Click-to-Add</button>
   <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
-  
+
 </div>
 
 <div class="section-header">Sort By</div>
@@ -538,7 +538,7 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
 
   // Prepare songs to display, excluding already selected ones except current
   const rankedSet = new Set(rankedSongs.filter(Boolean));
-  
+
   let songs = songListMaster.slice();
 
   if (sortType === 'alpha') {
@@ -725,6 +725,8 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
     document.getElementById('resetModal').style.display = 'flex';
   }
 };
+
+  window.confirmSubmit = async function(confirmed) {
 window.confirmSubmit = async function(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
@@ -762,7 +764,7 @@ window.confirmSubmit = async function(confirmed) {
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
       if (lastDate > cutoff) {
-        document.getElementById('limitModal').style.display = 'flex';
+        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
         return;
       }
     }
@@ -774,6 +776,7 @@ window.confirmSubmit = async function(confirmed) {
     dataToInsert[`rank_${i + 1}`] = song;
   });
 
+  // Optional: Get user IP
   // IP for this submission
   let ip = '';
   try {
@@ -806,7 +809,20 @@ window.confirmSubmit = async function(confirmed) {
   const rankings = await fetchGlobalRankings();
   const tbody = document.querySelector('#globalRankingsTable tbody');
   tbody.innerHTML = '';
+
   rankings.forEach((entry, index) => {
+  const row = document.createElement('tr');
+  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${entry.song}</td>
+    <td>${entry.avgRank.toFixed(2)}</td>
+    <td>${entry.timesRanked}</td>
+    <td>${entry.totalPoints}</td>
+    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+  `;
+  tbody.appendChild(row);
+});
     const row = document.createElement('tr');
     const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     row.innerHTML = `
@@ -872,15 +888,6 @@ function closeCalcModal() {
     <p id="calcDetails"></p>
     <button onclick="closeCalcModal()">Close</button>
   </div>
-<div id="limitModal" class="modal">
-  <div class="modal-content">
-    <p>You may only submit once every 90 days. Please try again later.</p>
-    <p><a href="#" id="viewPrevLink">Click here to view your last submitted rankings</a></p>
-    <button onclick="document.getElementById('limitModal').style.display='none'">
-      Close
-    </button>
-  </div>
-</div>
 </div>
 </body>
 </html>
