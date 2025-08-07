@@ -762,7 +762,7 @@ window.confirmSubmit = async function(confirmed) {
       const cutoff = new Date();
       cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
       if (lastDate > cutoff) {
-        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
+        document.getElementById('limitModal').style.display = 'flex';
         return;
       }
     }
@@ -872,6 +872,15 @@ function closeCalcModal() {
     <p id="calcDetails"></p>
     <button onclick="closeCalcModal()">Close</button>
   </div>
+<div id="limitModal" class="modal">
+  <div class="modal-content">
+    <p>You may only submit once every 90 days. Please try again later.</p>
+    <p><a href="#" id="viewPrevLink">Click here to view your last submitted rankings</a></p>
+    <button onclick="document.getElementById('limitModal').style.display='none'">
+      Close
+    </button>
+  </div>
+</div>
 </div>
 </body>
 </html>
