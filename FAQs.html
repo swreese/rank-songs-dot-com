@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>RankSongs.com FAQ</title>
+  <style>
+    body {
+      font-family: Candara, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 36px;
+    }
+    .subtitle {
+      font-size: 26px;
+      margin-top: -10px;
+      font-weight: bold;
+    }
+    .question {
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .answer {
+      margin: 0 auto 20px;
+      width: 90%;
+      font-size: 18px;
+    }
+    .divider {
+      font-weight: bold;
+      border-top: 2px solid #000;
+      width: 80%;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <div class="title">RankSongs.com</div>
+    <div class="subtitle">FAQ's</div>
+  </div>
+
+  <div class="question">#1 Who created this site and why were these artists chosen?</div>
+  <div class="answer">
+    My name is Steven. I grew up listening to Hip Hop, Country Music, and lots in between. In 2001, a friend
+    visited me in college and brought me a Jack Johnson burned CD. I was immediately hooked on his music. The
+    next summer, I saw him in concert for the first time in Norfolk, VA. At the time, he only had two albums and
+    about 2,000 fans in the audience. Since then, I've enjoyed his concerts with 20-30,000 fans in attendance and watched
+    his exponential growth. In 2007, I stopped listening to mainstream Hip Hop. No hate. The message was just not for me any more. 
+    The rest of the artists that appear on this site are artists that my family and I enjoy, and each has a generally wholesome
+    message. I would love to see each of these artists grow with the success of Jack Johnson. I hope to give fans of these artists
+    a chance to celebrate their favorite songs.
+  </div>
+  <div class="divider"></div>
+
+  <div class="question">#2 How come I can only rank my Top 20?</div>
+  <div class="answer">
+    <p>We think that 20 is the perfect number. Maybe we are wrong, but we are sticking with it!</p>
+    <p>Our theory: A Top 10 is not enough for artists that have large or niche followings. A Top 25 is very cliche,
+      but in our opinion, is venturing into "How could I possibly rank this many songs?". A Top 20 feels juuuuuust right!</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="question">#3 Will other artists be added? Can I recommend an artist?</div>
+  <div class="answer">
+   We are open to other artists. For a bit, these will be the five featured artists. If you have other suggestions for 
+   artists that might fit the criteria from FAQ #1, please send an email to steven@ranksongs.com.
+  </div>
+  <div class="divider"></div>
+
+  <div class="question">#4 How are the Global Rankings for each artist calculated?</div>
+  <div class="answer">
+    <p>To avoid songs with very few votes jumping unrealistically high (or low), we use a Bayesian weighted average, 
+    which blends each song's actual data with a neutral “prior” to stabilize the rankings.</p>
+    
+    <p>Songs ranked 1 receive 20 "points", and songs ranked 20 receive 1 "point". In order for the highest ranked songs to have the highest
+    score, we use this formula:</p>
+
+    <p>Composite Score = 21 - Raw Score</p>
+    
+    <p>What's Raw Score, you ask?</p>
+    
+    <p>Raw Score = ((PRIOR_COUNT x PRIOR_AVG) + (timesRanked x avgRank)) ÷ (PRIOR_COUNT + timesRanked)</p>
+    <p> This method rewards songs that are (1) Highly Ranked and (2) Frequently Ranked</p>
+    <p> Even under this method, a new song has the chance to move up the rankings as it is ranked, but it
+      won't quickly jump songs that have a volume of high and frequent rankings.</p>
+  </div>
+  <div class="divider"></div>
+
+  <div class="question">#5 How often can I vote?</div>
+  <div class="answer">
+    In order to keep the integrity of the rankings, and not require username and login, we ask that users 
+    only submit rankings every 90 days. We've set some parameters for this, but ask that fans join us in our efforts by
+    not circumventing the structure we hope to cultivate.
+  </div>
+  <div class="divider"></div>
+
+  <div class="question">#6 Any suggestions on how to create my rankings?</div>
+  <div class="answer">
+    Your ranking is your own, based on your own criteria. A good approach is to click every song that you know is definitely in your top 15.
+    To round out your list, think about songs that have an impact on you or were old favorites you might not play as often. If you aren't sure 
+    about a song, consider whether you listen to it a lot. Get your 20 in place and then move up and down (using arrows) based on your criteria.
+    Some criteria to consider: popularity and streams, replay value, significance to you when you first heard, classics, etc. Good luck!
+  </div>
+
+</body>
+</html>
