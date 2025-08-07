@@ -466,6 +466,7 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
   function renderRankedList() {
   const rankedList = document.getElementById('rankedList');
   rankedList.innerHTML = '';
+
   rankedSongs.forEach((song, i) => {
     const box = document.createElement('div');
     box.className = 'rank-box';
@@ -479,22 +480,54 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
     content.className = 'rank-song';
     content.textContent = song || '';
 
+    box.appendChild(num);
+    box.appendChild(content);
+
+    // If slot has a song, add up/down/remove controls
     if (song) {
+      const controls = document.createElement('div');
+      controls.style.display = 'flex';
+      controls.style.marginLeft = 'auto';
+      controls.style.gap = '14px';
+
+      const upBtn = document.createElement('span');
+      upBtn.innerHTML = '▲';
+      upBtn.style.cursor = 'pointer';
+      upBtn.onclick = () => {
+        if (i > 0) {
+          [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]];
+          renderAll();
+        }
+      };
+
+      const downBtn = document.createElement('span');
+      downBtn.innerHTML = '▼';
+      downBtn.style.cursor = 'pointer';
+      downBtn.onclick = () => {
+        if (i < rankedSongs.length - 1) {
+          [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]];
+          renderAll();
+        }
+      };
+
       const removeBtn = document.createElement('span');
       removeBtn.textContent = '×';
       removeBtn.style.color = 'red';
       removeBtn.style.cursor = 'pointer';
       removeBtn.style.fontWeight = 'bold';
-      removeBtn.style.marginLeft = '10px';
+      removeBtn.style.fontSize = '18px';
       removeBtn.onclick = () => {
         rankedSongs[i] = null;
         renderAll();
       };
-      content.appendChild(removeBtn);
+
+      controls.appendChild(upBtn);
+      controls.appendChild(downBtn);
+      controls.appendChild(removeBtn);
+
+      box.appendChild(controls);
     }
 
-    box.appendChild(num);
-    box.appendChild(content);
     rankedList.appendChild(box);
   });
 }
