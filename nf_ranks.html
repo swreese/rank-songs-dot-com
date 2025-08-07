@@ -470,34 +470,32 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
     const box = document.createElement('div');
     box.className = 'rank-box';
     box.dataset.index = i;
-      renderAll();
-    };
 
     const num = document.createElement('div');
     num.className = 'rank-number';
     num.textContent = i + 1;
 
     const content = document.createElement('div');
-content.className = 'rank-song';
-content.textContent = song || '';
+    content.className = 'rank-song';
+    content.textContent = song || '';
 
-if (song) {
-  const removeBtn = document.createElement('span');
-  removeBtn.textContent = '×';
-  removeBtn.style.color = 'red';
-  removeBtn.style.cursor = 'pointer';
-  removeBtn.style.fontWeight = 'bold';
-  removeBtn.style.marginLeft = '10px';
-  removeBtn.onclick = () => {
-    rankedSongs[i] = null;
-    renderAll();
-  };
-  content.appendChild(removeBtn);
-}
+    if (song) {
+      const removeBtn = document.createElement('span');
+      removeBtn.textContent = '×';
+      removeBtn.style.color = 'red';
+      removeBtn.style.cursor = 'pointer';
+      removeBtn.style.fontWeight = 'bold';
+      removeBtn.style.marginLeft = '10px';
+      removeBtn.onclick = () => {
+        rankedSongs[i] = null;
+        renderAll();
+      };
+      content.appendChild(removeBtn);
+    }
 
-box.appendChild(num);
-box.appendChild(content);
-rankedList.appendChild(box);
+    box.appendChild(num);
+    box.appendChild(content);
+    rankedList.appendChild(box);
   });
 }
 
