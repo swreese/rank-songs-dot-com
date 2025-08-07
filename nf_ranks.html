@@ -725,10 +725,48 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
     document.getElementById('resetModal').style.display = 'flex';
   }
 };
-
-  window.confirmSubmit = async function(confirmed) {
+window.confirmSubmit = async function(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
+
+  // ---- USER COOLDOWN SETTINGS ----
+  const ENFORCE_LIMIT = true;          // Change to false to turn OFF the 90-day limit
+  const LIMIT_DAYS = 90;
+
+  if (ENFORCE_LIMIT) {
+    // Check the last submission for this IP
+    let ip = '';
+    try {
+      const res = await fetch('https://api64.ipify.org?format=json');
+      const json = await res.json();
+      ip = json.ip;
+    } catch (e) {
+      console.warn('Could not get IP address');
+    }
+
+    const { data: recent, error: fetchError } = await supabaseClient
+      .from('nf_submissions')
+      .select('submitted_at')
+      .eq('ip_address', ip)
+      .order('submitted_at', { ascending: false })
+      .limit(1);
+
+    if (fetchError) {
+      console.error(fetchError);
+      alert('Error checking submission limit. Please try again.');
+      return;
+    }
+
+    if (recent && recent.length > 0) {
+      const lastDate = new Date(recent[0].submitted_at);
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
+      if (lastDate > cutoff) {
+        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
+        return;
+      }
+    }
+  }
 
   // Build submission data
   const dataToInsert = {};
@@ -736,7 +774,7 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
     dataToInsert[`rank_${i + 1}`] = song;
   });
 
-  // Optional: Get user IP
+  // IP for this submission
   let ip = '';
   try {
     const res = await fetch('https://api64.ipify.org?format=json');
@@ -768,20 +806,19 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
   const rankings = await fetchGlobalRankings();
   const tbody = document.querySelector('#globalRankingsTable tbody');
   tbody.innerHTML = '';
-
   rankings.forEach((entry, index) => {
-  const row = document.createElement('tr');
-  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${entry.song}</td>
-    <td>${entry.avgRank.toFixed(2)}</td>
-    <td>${entry.timesRanked}</td>
-    <td>${entry.totalPoints}</td>
-    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-  `;
-  tbody.appendChild(row);
-});
+    const row = document.createElement('tr');
+    const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${entry.song}</td>
+      <td>${entry.avgRank.toFixed(2)}</td>
+      <td>${entry.timesRanked}</td>
+      <td>${entry.totalPoints}</td>
+      <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+    `;
+    tbody.appendChild(row);
+  });
 
   // Show results modal
   document.getElementById('resultsModal').style.display = 'flex';
