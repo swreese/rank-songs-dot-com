@@ -730,7 +730,7 @@ window.confirmSubmit = async function(confirmed) {
   if (!confirmed) return;
 
   // ---- USER COOLDOWN SETTINGS ----
-  const ENFORCE_LIMIT = true;          // Change to false to turn OFF the 90-day limit
+  const ENFORCE_LIMIT = false;          // Change to false to turn OFF the 90-day limit
   const LIMIT_DAYS = 90;
 
   if (ENFORCE_LIMIT) {
