@@ -2,233 +2,299 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RankSongs | Rank Your Top 20 Songs (NF, KB, Connor Price, Livingston, Jack Johnson)</title>
+
+  <!-- Google Tag Manager (GTM) – loads GA4 and other pixels via container -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NGW77446');
+  </script>
+  <!-- End GTM -->
+
+  <!-- Mobile + basic SEO -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RankSongs.Com</title>
+  <meta name="description" content="Build your Top 20 for NF, KB, Connor Price, Livingston, and Jack Johnson. Submit your list and see global leaderboards update in real time." />
+  <link rel="canonical" href="https://ranksongs.com/" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RankSongs | Rank Your Top 20 Songs" />
+  <meta property="og:description" content="Pick your Top 20 songs, submit, and compare with fans worldwide—live leaderboards for NF, KB, Connor Price, Livingston, and Jack Johnson." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ranksongs.com/" />
+  <meta property="og:image" content="https://ranksongs.com/home_background.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RankSongs | Rank Your Top 20 Songs" />
+  <meta name="twitter:description" content="Build your Top 20, submit, and see global leaderboards in real time." />
+  <meta name="twitter:image" content="https://ranksongs.com/home_background.jpg" />
+
+  <!-- Google AdSense (Auto ads) – live publisher ID -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177244564929875" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD: WebSite + Organization + SiteNavigationElement -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ranksongs.com/#website",
+        "url": "https://ranksongs.com/",
+        "name": "RankSongs",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://ranksongs.com/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://ranksongs.com/#org",
+        "name": "RankSongs",
+        "url": "https://ranksongs.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://ranksongs.com/home_background.jpg"
+        }
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": "https://ranksongs.com/#nav",
+        "name": "Primary navigation",
+        "url": "https://ranksongs.com/",
+        "hasPart": [
+          { "@type": "WebPage", "name": "NF Songs Ranked", "url": "https://ranksongs.com/nf_ranks.html" },
+          { "@type": "WebPage", "name": "KB Songs Ranked", "url": "https://ranksongs.com/kb_ranks.html" },
+          { "@type": "WebPage", "name": "Connor Price Songs Ranked", "url": "https://ranksongs.com/cp_ranks.html" },
+          { "@type": "WebPage", "name": "Livingston Songs Ranked", "url": "https://ranksongs.com/liv_ranks.html" },
+          { "@type": "WebPage", "name": "Jack Johnson Songs Ranked", "url": "https://ranksongs.com/jj_ranks.html" },
+          { "@type": "WebPage", "name": "FAQs", "url": "https://ranksongs.com/FAQs.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
+    :root {
+      --ink:#ffffff; --inkShadow:#000000; --btn:#0077cc; --btnHover:#005fa3;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100%;
+      background-color: #000; /* fallback */
+    }
     body {
-      min-height: 200vh; /* makes page twice the screen height to allow scrolling */
-      min-height: 200vh; /* allow scrolling */
-      margin: 0;
-      background: url('home_background.jpg') top center / cover no-repeat;
-      background: url('home_background.jpg') top center / contain no-repeat;
-      font-family: 'Candara', sans-serif;
-      color: #333;
-      background-color: black; /* fallback color to fill empty space from contain */
+      font-family: 'Candara', Arial, sans-serif;
+      color: var(--ink);
+      background: url('home_background.jpg') center center / cover no-repeat fixed #000;
     }
     header {
       text-align: center;
-      padding: 60px 20px 30px;
-      background-color: transparent;   /* let page background show through */
-      box-shadow: none;                /* removes header shadow */
-      background-color: transparent;
-      box-shadow: none;
+      padding: 64px 20px 28px;
     }
-
     h1 {
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #ffffff;
-  -webkit-text-stroke: 1px black;  /* crisp outline for Safari/Chrome */
-  text-shadow:
-    -1px -1px 0 #000,
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-@media (max-width: 375px) {
-  h1 {
-    font-size: 2rem;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      color: var(--ink);
+      -webkit-text-stroke: 1px var(--inkShadow);
+      text-shadow:
+        -1px -1px 0 var(--inkShadow),
+         1px -1px 0 var(--inkShadow),
+        -1px  1px 0 var(--inkShadow),
+         1px  1px 0 var(--inkShadow);
+      letter-spacing: .5px;
+    }
+    .tagline {
+      margin: 6px auto 16px;
+      max-width: 900px;
+      line-height: 1.5;
+      font-weight: 600;
+      -webkit-text-stroke: .5px var(--inkShadow);
+      text-shadow:
+        -1px -1px 0 var(--inkShadow),
+         1px -1px 0 var(--inkShadow),
+        -1px  1px 0 var(--inkShadow),
+         1px  1px 0 var(--inkShadow);
+    }
     .artist-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 30px;
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 16px; margin-top: 28px;
     }
-
-    /* button */
-    .artist-button {
-      position: relative;
-    }
+    .artist-button { position: relative; }
     .artist-button > button {
       padding: 12px 20px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      background-color: var(--btn);
+      color: #fff; border: none; border-radius: 25px;
+      font-size: 16px; cursor: pointer;
+      transition: background-color .3s ease, transform .15s ease;
     }
-    .artist-button > button:hover {
-      background-color: #005fa3;
-    }
+    .artist-button > button:hover { background-color: var(--btnHover); transform: translateY(-1px); }
+    .artist-button > button:focus { outline: 2px solid #fff; outline-offset: 2px; }
 
-    /* dropdown */
     .artist-dropdown {
       display: none;
-      position: absolute;
-      top: 115%;
-      left: 0;
-      min-width: 200px;
-      background: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      border-radius: 8px;
-      z-index: 10;
+      position: absolute; top: 115%; left: 0;
+      min-width: 220px;
+      background: #fff; color: #111827;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      border-radius: 10px; z-index: 10;
+      padding: 6px 0;
     }
     .artist-dropdown a {
-      display: block;
-      padding: 12px 16px;
-      font-size: 14px;
-      text-decoration: none;
-      color: #333;
+      display: block; padding: 10px 14px; font-size: 14px;
+      text-decoration: none; color: #111827;
     }
-    .artist-dropdown a:hover {
-      background: #f4f4f4;
+    .artist-dropdown a:hover { background: #f4f4f4; }
+
+    .footer-links {
+      position: fixed; left: 0; bottom: 0; width: 100%;
+      text-align: center; padding: 10px 0;
+      font-weight: 700; font-size: 20px;
+      -webkit-text-stroke: 1px var(--inkShadow);
+      text-shadow:
+        -1px -1px 0 var(--inkShadow),
+         1px -1px 0 var(--inkShadow),
+        -1px  1px 0 var(--inkShadow),
+         1px  1px 0 var(--inkShadow);
     }
+    .footer-links a { color: #fff; text-decoration: none; margin: 0 10px; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    /* Optional spacer so users can scroll the hero image a bit */
+    .scroll-spacer { height: 100vh; }
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGW77446" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End GTM (noscript) -->
 
   <header>
-    <h1>RankSongs.Com</h1>
-    <div class="artist-nav">
+    <h1>RankSongs</h1>
+    <p class="tagline">Rank your Top 20 songs for your favorite artists. Submit your list and see the global leaderboard update in real time.</p>
 
+    <nav class="artist-nav" aria-label="Artists">
       <!-- NF -->
       <div class="artist-button">
-        <button onclick="toggleDropdown(this)">NF</button>
-        <div class="artist-dropdown">
-          <a href="nf_ranks.html">Rank NF</a>
-          <a href="https://www.nfrealmusic.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/nf/898094630" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank">Amazon Music</a>
+        <button aria-haspopup="true" aria-expanded="false" aria-controls="dd-nf" onclick="toggleDropdown(this)">NF</button>
+        <div id="dd-nf" class="artist-dropdown" role="menu" aria-label="NF links">
+          <a href="nf_ranks.html" role="menuitem">Rank NF</a>
+          <a href="https://www.nfrealmusic.com" target="_blank" rel="noopener" role="menuitem">Site</a>
+          <a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank" rel="noopener" role="menuitem">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank" rel="noopener" role="menuitem">Spotify</a>
+          <a href="https://music.apple.com/us/artist/nf/898094630" target="_blank" rel="noopener" role="menuitem">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank" rel="noopener" role="menuitem">Amazon Music</a>
         </div>
       </div>
 
       <!-- Livingston -->
       <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Livingston</button>
-        <div class="artist-dropdown">
-          <a href="liv_ranks.html">Rank Livingston</a>
-          <a href="https://www.livingstonofficial.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank">Amazon Music</a>
+        <button aria-haspopup="true" aria-expanded="false" aria-controls="dd-liv" onclick="toggleDropdown(this)">Livingston</button>
+        <div id="dd-liv" class="artist-dropdown" role="menu" aria-label="Livingston links">
+          <a href="liv_ranks.html" role="menuitem">Rank Livingston</a>
+          <a href="https://www.livingstonofficial.com" target="_blank" rel="noopener" role="menuitem">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank" rel="noopener" role="menuitem">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank" rel="noopener" role="menuitem">Spotify</a>
+          <a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank" rel="noopener" role="menuitem">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank" rel="noopener" role="menuitem">Amazon Music</a>
         </div>
       </div>
 
       <!-- KB -->
       <div class="artist-button">
-        <button onclick="toggleDropdown(this)">KB</button>
-        <div class="artist-dropdown">
-          <a href="kb_ranks.html">Rank KB</a>
-          <a href="https://whoiskb.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/KB_(rapper)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/kb/74520603" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B000QKHD7C/kb" target="_blank">Amazon Music</a>
+        <button aria-haspopup="true" aria-expanded="false" aria-controls="dd-kb" onclick="toggleDropdown(this)">KB</button>
+        <div id="dd-kb" class="artist-dropdown" role="menu" aria-label="KB links">
+          <a href="kb_ranks.html" role="menuitem">Rank KB</a>
+          <a href="https://whoiskb.com" target="_blank" rel="noopener" role="menuitem">Site</a>
+          <a href="https://en.wikipedia.org/wiki/KB_(rapper)" target="_blank" rel="noopener" role="menuitem">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank" rel="noopener" role="menuitem">Spotify</a>
+          <a href="https://music.apple.com/us/artist/kb/74520603" target="_blank" rel="noopener" role="menuitem">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B000QKHD7C/kb" target="_blank" rel="noopener" role="menuitem">Amazon Music</a>
         </div>
       </div>
 
       <!-- Connor Price -->
       <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Connor Price</button>
-        <div class="artist-dropdown">
-          <a href="cp_ranks.html">Rank Connor Price</a> 
-          <a href="https://connorprice.shop" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank">Amazon Music</a>
+        <button aria-haspopup="true" aria-expanded="false" aria-controls="dd-cp" onclick="toggleDropdown(this)">Connor Price</button>
+        <div id="dd-cp" class="artist-dropdown" role="menu" aria-label="Connor Price links">
+          <a href="cp_ranks.html" role="menuitem">Rank Connor Price</a>
+          <a href="https://connorprice.shop" target="_blank" rel="noopener" role="menuitem">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank" rel="noopener" role="menuitem">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank" rel="noopener" role="menuitem">Spotify</a>
+          <a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank" rel="noopener" role="menuitem">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank" rel="noopener" role="menuitem">Amazon Music</a>
         </div>
       </div>
 
       <!-- Jack Johnson -->
       <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Jack Johnson</button>
-        <div class="artist-dropdown">
-          <a href="jj_ranks.html">Rank Jack Johnson</a> 
-          <a href="https://jackjohnsonmusic.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/en-ar/artists/B000QJPQU4/jack-johnson" target="_blank">Amazon Music</a>
+        <button aria-haspopup="true" aria-expanded="false" aria-controls="dd-jj" onclick="toggleDropdown(this)">Jack Johnson</button>
+        <div id="dd-jj" class="artist-dropdown" role="menu" aria-label="Jack Johnson links">
+          <a href="jj_ranks.html" role="menuitem">Rank Jack Johnson</a>
+          <a href="https://jackjohnsonmusic.com" target="_blank" rel="noopener" role="menuitem">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank" rel="noopener" role="menuitem">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank" rel="noopener" role="menuitem">Spotify</a>
+          <a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank" rel="noopener" role="menuitem">Apple Music</a>
+          <a href="https://music.amazon.com/en-ar/artists/B000QJPQU4/jack-johnson" target="_blank" rel="noopener" role="menuitem">Amazon Music</a>
         </div>
       </div>
-
-    </div>
+    </nav>
   </header>
 
-  <!-- Force scroll space so background image can be seen -->
-  <!-- Extra space so you can scroll and see background -->
-  <div style="height: 100vh;"></div>
+  <!-- Optional manual AdSense unit — uncomment after you have a valid data-ad-slot
+  <ins class="adsbygoogle"
+       style="display:block; min-height: 280px;"
+       data-ad-client="ca-pub-2177244564929875"
+       data-ad-slot="REPLACE_WITH_YOUR_SLOT_ID"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  -->
+
+  <!-- Spacer to allow a bit of scrolling for the hero background -->
+  <div class="scroll-spacer" aria-hidden="true"></div>
+
+  <div class="footer-links">
+    <a href="FAQs.html">FAQs</a>
+  </div>
 
   <script>
     function toggleDropdown(btn) {
-      const dropdown = btn.nextElementSibling;
-      const isVisible = dropdown.style.display === 'block';
-      // Close any other open dropdowns
-      document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      const dd = btn.nextElementSibling;
+      const openNow = dd.style.display === 'block';
+
+      // Close all first
+      document.querySelectorAll('.artist-dropdown').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.artist-button > button').forEach(b => b.setAttribute('aria-expanded','false'));
+
       // Toggle this one
-      dropdown.style.display = isVisible ? 'none' : 'block';
+      dd.style.display = openNow ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', String(!openNow));
+
+      // Push nav click to dataLayer (for GTM → GA4)
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'nav_click', label: btn.textContent.trim() });
+      }
     }
 
-    // Close dropdowns if click elsewhere on page
+    // Close dropdowns when clicking elsewhere or pressing Escape
     document.addEventListener('click', function(e) {
-      if (!e.target.matches('.artist-button > button')) {
-        document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      if (!e.target.closest('.artist-button')) {
+        document.querySelectorAll('.artist-dropdown').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.artist-button > button').forEach(b => b.setAttribute('aria-expanded','false'));
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.artist-dropdown').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.artist-button > button').forEach(b => b.setAttribute('aria-expanded','false'));
       }
     });
   </script>
-<style>
-  #fixedFaqLink {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
-    text-align: center;
-    padding: 10px 0;
-    font-family: 'Candara', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: white;
-    -webkit-text-stroke: 1px black;
-    text-shadow:
-      -1px -1px 0 #000,
-       1px -1px 0 #000,
-      -1px  1px 0 #000,
-       1px  1px 0 #000;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
-  #fixedFaqLink a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  #fixedFaqLink a:hover {
-    text-decoration: underline;
-  }
-</style>
-
-<div id="fixedFaqLink">
-  <a href="FAQs.html">FAQs</a>
-</div>  
 </body>
 </html>
