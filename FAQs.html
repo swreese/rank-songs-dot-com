@@ -2,112 +2,230 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>RankSongs.com FAQ</title>
+  <title>RankSongs FAQs | How It Works, Rules & Scoring</title>
+
+  <!-- Google Tag Manager (GTM) – loads GA4 and other pixels via container -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NGW77446');
+  </script>
+  <!-- End GTM -->
+
+  <!-- Mobile + basic SEO -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Answers to common questions about RankSongs: who we are, how Top 20 rankings work, how the global leaderboard is calculated, voting limits, and tips for building your list." />
+  <link rel="canonical" href="https://ranksongs.com/FAQs.html" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RankSongs FAQs | How It Works, Rules & Scoring" />
+  <meta property="og:description" content="Everything you need to know about ranking songs on RankSongs, including the scoring formula and voting rules." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ranksongs.com/FAQs.html" />
+  <meta property="og:image" content="https://ranksongs.com/home_background.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RankSongs FAQs | How It Works, Rules & Scoring" />
+  <meta name="twitter:description" content="Everything you need to know about ranking songs on RankSongs, including the scoring formula and voting rules." />
+  <meta name="twitter:image" content="https://ranksongs.com/home_background.jpg" />
+
+  <!-- Google AdSense (Auto ads) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2177244564929875" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD: FAQPage + BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": "https://ranksongs.com/FAQs.html#faq",
+        "url": "https://ranksongs.com/FAQs.html",
+        "name": "RankSongs FAQs",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Who created this site and why were these artists chosen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RankSongs was created by Steven, a long-time fan of Jack Johnson and positive, family-friendly music across genres. The first artists reflect music he and his family enjoy—talented performers with generally clean messages that fans of all ages can listen to."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can I only rank a Top 20?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Twenty hits the sweet spot. Top 10 feels too short for artists with deep catalogs; Top 25 can be overwhelming. A Top 20 list is challenging but doable—and easier to compare across fans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will other artists be added? Can I recommend one?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, more artists may be added. For now we’re focused on the featured five. Suggest an artist by emailing info.ranksongs@gmail.com with a short note on why they fit the site."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are Global Rankings calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We use a Bayesian weighted average to keep results stable as new votes arrive. Each submission gives 20 points to rank #1 down to 1 point for rank #20. We compute a Raw Score = ((PRIOR_COUNT × PRIOR_AVG) + (timesRanked × avgRank)) ÷ (PRIOR_COUNT + timesRanked), then set Composite Score = 21 − Raw Score so higher is better. This rewards songs that are both highly ranked and frequently ranked."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How often can I vote?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Please submit rankings no more than once every 90 days. This keeps the leaderboard fair without requiring logins."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Any tips for building my list?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Start by adding the songs you know belong in your Top 15. Fill the remaining spots with favorites that mean something to you. Then reorder with the up/down controls. Consider replay value, personal impact, classics, and popularity—and have fun!"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ranksongs.com/FAQs.html#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ranksongs.com/index.html" },
+          { "@type": "ListItem", "position": 2, "name": "FAQs", "item": "https://ranksongs.com/FAQs.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
+    :root {
+      --ink:#111827; --muted:#6b7280; --accent:#6c63ff; --bg:#ffffff; --card:#f9fafb; --border:#e5e7eb;
+    }
+    html,body { background: var(--bg); color: var(--ink); }
     body {
-      font-family: Candara, sans-serif;
-      max-width: 800px;
-      margin: 50px auto;
-      text-align: center;
-      line-height: 1.5;
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 16px;
+      line-height: 1.6;
     }
-    .title {
-      font-weight: bold;
-      font-size: 36px;
+    .hero {
+      text-align: center; margin: 12px auto 20px;
     }
-    .subtitle {
-      font-size: 26px;
-      margin-top: -10px;
-      font-weight: bold;
+    .hero h1 {
+      font-size: 2.25rem; margin: 0 0 4px 0; font-weight: 900;
+      letter-spacing: .4px;
+      background: linear-gradient(90deg, #111827, #4f46e5, #ec4899);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .question {
-      font-weight: bold;
-      margin-top: 40px;
-      margin-bottom: 10px;
-      font-size: 20px;
+    .sub { color: var(--muted); margin: 0 auto 12px; }
+    .back-home-btn {
+      position: fixed; top: 16px; right: 16px; z-index: 1000;
+      background-color: #0077cc; color: #fff; padding: 10px 16px;
+      border-radius: 9999px; font-size: 14px; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-    .answer {
-      margin: 0 auto 20px;
-      width: 90%;
-      font-size: 18px;
+    .back-home-btn:hover { background-color: #005fa3; }
+    details {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px; margin: 12px 0;
     }
-    .divider {
-      font-weight: bold;
-      border-top: 2px solid #000;
-      width: 80%;
-      margin: 30px auto;
+    summary {
+      cursor: pointer; font-weight: 700; outline: none;
     }
+    .answer { margin-top: 8px; }
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGW77446" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End GTM (noscript) -->
 
-  <div>
-    <div class="title">RankSongs.com</div>
-    <div class="subtitle">FAQ's</div>
-  </div>
+  <a href="index.html" class="back-home-btn" aria-label="Back to Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="16" height="16">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Home
+  </a>
 
-  <div class="question">#1 Who created this site and why were these artists chosen?</div>
-  <div class="answer">
-    My name is Steven. I grew up listening to Hip Hop, Country Music, and lots in between. In 2001, a friend
-    visited me in college and brought me a Jack Johnson burned CD. I was immediately hooked on his music. The
-    next summer, I saw him in concert for the first time in Norfolk, VA. At the time, he only had two albums and
-    about 2,000 fans in the audience. Since then, I've enjoyed his concerts with 20-30,000 fans in attendance and watched
-    his exponential growth. In 2007, I stopped listening to mainstream Hip Hop. No hate. The message was just not for me any more. 
-    The rest of the artists that appear on this site are very talented artists that my family and I enjoy, and each has a generally wholesome
-    and clean message that can be listened to by families. I would love to see each of these artists grow with the success of Jack Johnson. I hope to give fans of these artists
-    a chance to celebrate their favorite songs.
-  </div>
-  <div class="divider"></div>
+  <header class="hero">
+    <h1>RankSongs FAQs</h1>
+    <p class="sub">How the site works, how we score, and tips for building your Top 20.</p>
+  </header>
 
-  <div class="question">#2 How come I can only rank my Top 20?</div>
-  <div class="answer">
-    <p>We think that 20 is the perfect number. Maybe we are wrong, but we are sticking with it!</p>
-    <p>Our theory: A Top 10 is not enough for artists that have large or niche following. A Top 25 is very cliche,
-      but in our opinion, is venturing into "How could I possibly rank this many songs?". A Top 20 feels juuuuuust right!</p>
-  </div>
-  <div class="divider"></div>
+  <!-- FAQ list -->
+  <details open>
+    <summary>#1 Who created this site and why these artists?</summary>
+    <div class="answer">
+      RankSongs was created by Steven, a long-time fan of Jack Johnson and positive, family-friendly music across genres.
+      The first artists reflect music he and his family enjoy—talented performers with generally clean messages that fans of all ages can listen to.
+    </div>
+  </details>
 
-  <div class="question">#3 Will other artists be added? Can I recommend an artist?</div>
-  <div class="answer">
-   We are open to other artists. For a bit, these will be the five featured artists. If you have other suggestions for 
-   artists that might fit the criteria from FAQ #1, please send an email to info.ranksongs@gmail.com.
-  </div>
-  <div class="divider"></div>
+  <details>
+    <summary>#2 Why can I only rank a Top 20?</summary>
+    <div class="answer">
+      Twenty hits the sweet spot. Top 10 is often too short; Top 25 can be overwhelming.
+      A Top 20 list is challenging but doable—and easier to compare across fans.
+    </div>
+  </details>
 
-  <div class="question">#4 How are the Global Rankings for each artist calculated?</div>
-  <div class="answer">
-    <p>To avoid songs with very few votes jumping unrealistically high (or low), we use a Bayesian weighted average, 
-    which blends each song's actual data with a neutral “prior” to stabilize the rankings.</p>
-    
-    <p>Songs ranked 1 receive 20 "points", and songs ranked 20 receive 1 "point". In order for the highest ranked songs to have the highest
-    score, we use this formula:</p>
+  <details>
+    <summary>#3 Will other artists be added? Can I recommend one?</summary>
+    <div class="answer">
+      We may add more artists over time. For now we’re focused on the featured five.
+      Suggest an artist by emailing <a href="mailto:info.ranksongs@gmail.com">info.ranksongs@gmail.com</a>.
+    </div>
+  </details>
 
-    <p>Composite Score = 21 - Raw Score</p>
-    
-    <p>What's Raw Score, you ask?</p>
-    
-    <p>Raw Score = ((PRIOR_COUNT x PRIOR_AVG) + (timesRanked x avgRank)) ÷ (PRIOR_COUNT + timesRanked)</p>
-    <p> This method rewards songs that are (1) Highly Ranked and (2) Frequently Ranked</p>
-    <p> Even under this method, a new song has the chance to move up the rankings as it is ranked, but it
-      won't quickly jump songs that have a volume of high and frequent rankings.</p>
-  </div>
-  <div class="divider"></div>
+  <details>
+    <summary>#4 How are the Global Rankings calculated?</summary>
+    <div class="answer">
+      To keep results stable, we use a Bayesian weighted average.
+      Each ranking gives 20 points to #1 down to 1 point for #20.<br><br>
+      <strong>Raw Score</strong> = ((PRIOR_COUNT × PRIOR_AVG) + (timesRanked × avgRank)) ÷ (PRIOR_COUNT + timesRanked)<br>
+      <strong>Composite Score</strong> = 21 − Raw Score (higher is better).<br><br>
+      This rewards songs that are both highly ranked and frequently ranked, while still letting new songs climb as votes come in.
+    </div>
+  </details>
 
-  <div class="question">#5 How often can I vote?</div>
-  <div class="answer">
-    In order to keep the integrity of the rankings, and not require username and login, we ask that users 
-    only submit rankings every 90 days. We've set some parameters for this, but ask that fans join us in our efforts by
-    not circumventing the intended structure.
-  </div>
-  <div class="divider"></div>
+  <details>
+    <summary>#5 How often can I vote?</summary>
+    <div class="answer">
+      Please submit rankings no more than once every 90 days. This keeps the leaderboard fair without requiring logins.
+    </div>
+  </details>
 
-  <div class="question">#6 Any suggestions on how to create my rankings?</div>
-  <div class="answer">
-    Your ranking is your own, based on your own criteria. A good approach is to click every song that you know is definitely in your top 15.
-    To round out your list, think about songs that have an impact on you or were old favorites you might not play as often. If you aren't sure 
-    about a song, consider whether you listen to it a lot. Maybe it should be removed. Get your 20 in place and then move songs up and down (using arrows) 
-    based on your criteria. Some criteria to consider: popularity and streams, replay value, significance to you when you first heard, classics, etc. Good luck!
-  </div>
+  <details>
+    <summary>#6 Any tips for building my list?</summary>
+    <div class="answer">
+      Start with the songs you know belong in your Top 15. Fill the rest with favorites that matter to you.
+      Then nudge tracks up or down using the arrows. Consider replay value, personal impact, classics, and popularity—have fun!
+    </div>
+  </details>
 
+  <script>
+    // Optional analytics: send a dataLayer event when a question is opened
+    document.querySelectorAll('details').forEach(function(d){
+      d.addEventListener('toggle', function(){
+        if (d.open && window.dataLayer) {
+          const q = (d.querySelector('summary')?.innerText || '').trim();
+          window.dataLayer.push({ event: 'faq_open', question: q });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
