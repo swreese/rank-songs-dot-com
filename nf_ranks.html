@@ -2,7 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NF Song Ranking</title>
+  <title>🔥 NF Songs Ranked | Fan Top 20 Leaderboard (Updated)</title>
+
+  <!-- Mobile + basic SEO -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Rank NF’s songs and see how your list compares with fans worldwide. Submit your Top 20 and explore the global leaderboard in real time." />
+  <link rel="canonical" href="https://ranksongs.com/nf_ranks.html" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph (Facebook/LinkedIn) -->
+  <meta property="og:title" content="🔥 NF Songs Ranked | Fan Top 20 Leaderboard (Updated)" />
+  <meta property="og:description" content="Rank NF’s songs and see how your list compares with fans worldwide. Submit your Top 20 and explore the global leaderboard in real time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ranksongs.com/nf_ranks.html" />
+  <meta property="og:image" content="https://ranksongs.com/NF%20SONG%20RANKS%20WALLPAPER.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="🔥 NF Songs Ranked | Fan Top 20 Leaderboard (Updated)" />
+  <meta name="twitter:description" content="Rank NF’s songs and see how your list compares with fans worldwide. Submit your Top 20 and explore the global leaderboard in real time." />
+  <meta name="twitter:image" content="https://ranksongs.com/NF%20SONG%20RANKS%20WALLPAPER.jpg" />
+
+  <!-- JSON-LD schema (starter ItemList + MusicGroup) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "NF Songs Ranked",
+    "description": "Fan-powered ranking of NF’s top songs. Submit your Top 20 and compare with global rankings.",
+    "itemListOrder": "Descending",
+    "numberOfItems": 20,
+    "about": { "@type": "MusicGroup", "name": "NF" }
+  }
+  </script>
+
   <style>
       .back-home-btn {
   position: fixed;
@@ -293,6 +326,20 @@ button.toggle-btn.active {
   </svg>
   Back to Home
 </a>
+
+<!-- Intro block (added) -->
+<section style="max-width: 900px; margin: 0 auto 20px auto; padding: 0 10px; text-align: center;">
+  <h2 style="margin: 10px 0 8px 0;">Rank NF’s Best Songs</h2>
+  <p style="margin: 0 auto 10px auto; line-height: 1.5;">
+    NF is known for raw lyrics and powerful storytelling across albums like <em>The Search</em> and <em>Hope</em>.
+    Pick your personal Top 20 NF songs and see how your list stacks up against the global fan rankings in real time.
+  </p>
+  <p style="margin: 0 auto 10px auto;">
+    Explore more: <a href="kb_ranks.html">KB</a> · <a href="cp_ranks.html">Connor Price</a> · <a href="liv_ranks.html">Livingston</a> ·
+    <a href="jj_ranks.html">Jack Johnson</a> · <a href="FAQs.html">FAQs</a>
+  </p>
+</section>
+
 <div class="section-header">Rank With</div>
 <div class="toggle-group" id="rankByToggles">
   <button class="toggle-btn active" data-mode="click">Click-to-Add</button>
@@ -603,104 +650,6 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
   document.getElementById('rankByToggles').addEventListener('click', e => {
     if (e.target.matches('button')) {
       currentMode = e.target.dataset.mode;
-      // ===== Sortable columns for Global Rankings table =====
-
-let currentSortColumn = '';
-let currentSortAsc = true;
-let globalRankings = []; // Declare here to hold data globally
-
-// Override fetchGlobalRankings call to store data globally
-async function fetchGlobalRankings() {
-  const { data, error } = await supabaseClient.from('nf_submissions').select();
-
-  if (error) {
-    alert('Error fetching global rankings: ' + error.message);
-    return [];
-  }
-
-  // Aggregate points and counts per song
-  const songStats = {};
-
-  data.forEach(submission => {
-    for (let i = 1; i <= 20; i++) {
-      const song = submission[`rank_${i}`];
-      if (!song) continue;
-      if (!songStats[song]) {
-        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-      }
-      songStats[song].totalPoints += 21 - i;
-      songStats[song].timesRanked++;
-      songStats[song].totalRankSum += i;
-    }
-  });
-
-  const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
-    const avgRank = stats.totalRankSum / stats.timesRanked;
-    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
-    const weightedScore = 21 - rawScore;
-
-    return {
-      song,
-      totalPoints: stats.totalPoints,
-      timesRanked: stats.timesRanked,
-      avgRank,
-      weightedScore
-    };
-  });
-
-  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
-
-  globalRankings = rankingsArray; // Save globally
-
-  return rankingsArray;
-}
-
-// Add event listeners to the table headers for sorting
-document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
-  th.style.cursor = "pointer";
-  th.addEventListener("click", () => {
-    const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
-    const key = keyMap[i];
-    if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
-    else {
-      currentSortColumn = key;
-      currentSortAsc = true;
-    }
-
-    if (!globalRankings.length) return; // If no data yet, do nothing
-
-    const sorted = [...globalRankings].sort((a, b) => {
-      if (key === "song") {
-        return currentSortAsc
-          ? a.song.localeCompare(b.song)
-          : b.song.localeCompare(a.song);
-      } else if (key === "rank") {
-        // rank is just the index +1 in the original sorted array
-        return currentSortAsc ? 1 : -1; // Do nothing really
-      } else {
-        return currentSortAsc
-          ? a[key] - b[key]
-          : b[key] - a[key];
-      }
-    });
-
-    const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
-    tbody.innerHTML = '';
-    sorted.forEach((entry, index) => {
-  const row = document.createElement("tr");
-  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${entry.song}</td>
-    <td>${entry.avgRank.toFixed(2)}</td>
-    <td>${entry.timesRanked}</td>
-    <td>${entry.totalPoints}</td>
-    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-  `;
-  tbody.appendChild(row);
-});
-  });
-});
       updateButtons('rankByToggles', currentMode);
       renderAll();
     }
@@ -725,12 +674,13 @@ document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
     document.getElementById('resetModal').style.display = 'flex';
   }
 };
+
 window.confirmSubmit = async function(confirmed) {
   document.getElementById('submitModal').style.display = 'none';
   if (!confirmed) return;
 
   // ---- USER COOLDOWN SETTINGS ----
-  const ENFORCE_LIMIT = false;          // Change to false to turn OFF the 90-day limit
+  const ENFORCE_LIMIT = false;          // Change to true to turn ON the 90-day limit
   const LIMIT_DAYS = 90;
 
   if (ENFORCE_LIMIT) {
