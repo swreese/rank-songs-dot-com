@@ -8,13 +8,12 @@
   <style>
     body {
       min-height: 200vh; /* makes page twice the screen height to allow scrolling */
-      min-height: 200vh; /* allow scrolling */
       margin: 0;
-      background: url('home_background.jpg') top center / cover no-repeat;
-      background: url('home_background.jpg') top center / contain no-repeat;
+      background: url('Home_Background.jpg') top center / cover no-repeat;
+      background-size: 100% auto; /* fit horizontally, scale height proportionally */
       font-family: 'Candara', sans-serif;
       color: #333;
-      background-color: black; /* fallback color to fill empty space from contain */
+      background-color: black; /* fallback color to fill empty space */
     }
     header {
       text-align: center;
