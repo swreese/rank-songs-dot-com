@@ -2,978 +2,294 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Connor Price Rankings</title> Song Ranking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RankSongs.com</title>
   <style>
-      .back-home-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #0077cc;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 25px;
-  font-size: 16px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
-  z-index: 1000;
-}
-.back-home-btn:hover {
-  background-color: #005fa3;
-}
-
-.back-home-btn svg {
-  width: 16px;
-  height: 16px;
-  fill: white;
-}
-    .hero-heading {
-  font-size: 3rem;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #111827, #4f46e5, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1.2px;
-}
-
     body {
-      font-family: Arial, sans-serif;
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 10px;
+      min-height: 200vh; /* makes page twice the screen height to allow scrolling */
+      min-height: 200vh; /* allow scrolling */
+      margin: 0;
+      background: url('home_background.jpg') top center / cover no-repeat;
+      background: url('home_background.jpg') top center / contain no-repeat;
+      font-family: 'Candara', sans-serif;
+      color: #333;
+      background-color: black; /* fallback color to fill empty space from contain */
     }
-    body {
-  position: relative;
-  z-index: 0;
-  background: none;
-}
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
+      background-color: transparent;   /* let page background show through */
+      box-shadow: none;                /* removes header shadow */
+      background-color: transparent;
+      box-shadow: none;
+    }
 
-body {
-  background-color: #ffffff;
-  color: #111827;
-}
-      
     h1 {
-  text-align: center;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 900;
   margin-bottom: 10px;
-  font-size: 3em; /* Twice the default size (1.5em is default for h1) */
-  font-family: Candara, sans-serif;
-  color: black;
+  letter-spacing: 2.5px;
+  background: linear-gradient(90deg, #ff0080, #7928ca, #2af598, #fad961, #ff0080);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
   text-shadow:
-    -1px -1px 0 white,
-     1px -1px 0 white,
-    -1px  1px 0 white,
-     1px  1px 0 white;
+    0 2px 12px rgba(0,0,0,0.25),
+    0 1px 0 #fff,
+    0 0px 20px #fad961;
+  animation: gradientMove 4s ease-in-out infinite;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
-    .section-header {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 375px) {
+  h1 {
+    font-size: 2rem;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+    /* Glassmorphism card for header - less opaque */
+  .glass-card {
+    margin: 0 auto;
+    margin-top: 40px;
+    max-width: 600px;
+    padding: 24px 22px 20px 22px;
+    background: rgba(255,255,255,0.06); /* less opaque glass effect */
+    border-radius: 32px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1.5px solid rgba(255,255,255,0.18); /* slightly lighter border */
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .glass-card h1 {
+    margin-bottom: 18px;
+  }
+  .tagline {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.18), 0 1px 0 #7928ca;
+    letter-spacing: 1.2px;
+    margin-bottom: 0;
+    animation: fadeInTagline 1.2s ease;
+  }
+  @media (max-width: 700px) {
+    .glass-card {
+      max-width: 95vw;
+      padding: 18px 7px 13px 7px;
     }
-    .toggle-group {
+    .tagline {
+      font-size: 1rem;
+    }
+  }
+  @keyframes fadeInTagline {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+    .artist-nav {
       display: flex;
-      gap: 10px;
+      justify-content: center;
       flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 10px;
+      gap: 15px;
+      margin-top: 30px;
     }
-    button.toggle-btn {
-  padding: 12px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 9999px;
-  border: none;
-  background: #3a3a5c;
-  color: #fff;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
 
-button.toggle-btn:hover {
-  background: #505080;
-  transform: scale(1.05);
-}
+    /* button */
+    .artist-button {
+      position: relative;
+    }
+    .artist-button > button {
+      padding: 12px 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .artist-button > button:hover {
+      background-color: #005fa3;
+    }
 
-button.toggle-btn.active {
-  background: #6c63ff;
-}
-    #container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-#songList {
-  width: 48%;
-  max-height: 800px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-#rankedColumn {
-  display: flex;
-  flex-direction: column;
-  width: 48%;
-  gap: 10px;
-}
-    .song-item {
-      background-color: #eee;
-      padding: 8px;
-      border-radius: 4px;
-      cursor: grab;
-    }
-    #rankedList {
-      display: flex;
-      flex-direction: column;
-      width: 320px;
-      gap: 10px;
-    }
-    .rank-box {
-      display: flex;
-      align-items: center;
-      padding: 8px;
-      border: 2px dashed #aaa;
-      border-radius: 6px;
-      background-color: #f9f9f9;
-    }
-    .rank-number {
-      width: 30px;
-      text-align: center;
-      font-weight: bold;
-      color: #555;
-    }
-    .rank-song {
-      flex: 1;
-      padding-left: 10px;
-    }
-    #dropdownContainer {
+    /* dropdown */
+    .artist-dropdown {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
+      position: absolute;
+      top: 115%;
+      left: 0;
+      min-width: 200px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      z-index: 10;
     }
-    #dropdownContainer label {
-      margin-top: 10px;
-    }
-    #dropdownContainer select {
-  width: 50%;
-  max-width: 400px;
-  padding: 8px;
-  margin: 0 auto;
-  display: block;
-}
-      select, option {
-  text-transform: none;
-  font-family: Candara, sans-serif;
-}
-    #submitSection {
-  margin-top: 10px;
-  display: none;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
-}
-
-#submitBtn, #resetBtn {
-  height: 48px;
-  width: 50%;
-  font-size: 16px;
-  border: none;
-  border-radius: 24px;
-  cursor: pointer;
-  user-select: none;
-}
-
-#submitBtn {
-  background-color: royalblue;
-  color: white;
-}
-
-#resetBtn {
-  background-color: pink;
-  color: white;
-}
-
-#resetBtn {
-  background-color: pink;
-  color: white;
-}
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 300px;
-    }
-    .modal-content button {
-      margin: 10px;
-      padding: 10px 15px;
+    .artist-dropdown a {
+      display: block;
+      padding: 12px 16px;
       font-size: 14px;
+      text-decoration: none;
+      color: #333;
     }
-    @media (max-width: 600px) {
-      #container {
-        flex-direction: column;
-        align-items: center;
-      }
-      #rankedList, #dropdownContainer, #songList {
-        max-width: 100%;
-        width: 100%;
-      }
-      .toggle-group {
-        flex-direction: column;
-      }
+    .artist-dropdown a:hover {
+      background: #f4f4f4;
     }
-      #rankedColumn {
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  gap: 10px;
-}
-#rankedColumn {
-    display: flex;
-    flex-direction: column;
-    width: 320px;
-    gap: 10px;
-  }
-
-  /* ADD THIS BELOW */
-  #globalRankingsTable tbody {
-    display: block;
-    max-height: 300px; /* Adjust as needed */
-    overflow-y: auto;
-    width: 100%;
-  }
-
-  #globalRankingsTable thead, 
-  #globalRankingsTable tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  @media (min-width: 601px) {
-  #resultsModal .modal-content {
-    margin: 40px auto 20px auto !important;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-}
-
   </style>
 </head>
 <body>
-<h1 class="hero-heading">🔥 Rank Your Top 20 Connor Price Songs</h1>
-<a href="index.html" class="back-home-btn" aria-label="Back to Home">
-  <!-- Left arrow SVG -->
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-  Back to Home
-</a>
 
-<!-- Info section for ranking instructions, leaderboard, tip, and explore more artists -->
-<div class="info-section" style="max-width:700px;margin:32px auto 18px auto;padding:18px 24px;background:rgba(255,255,255,0.08);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.08);font-size:1.15rem;color:#222;text-align:center;">
-  <strong>Make your Top 20 and see how it stacks up against fans worldwide.</strong><br>
-  The global leaderboard updates in real time as votes come in.<br><br>
-  <em>Tip:</em> add your must-have tracks first, fill in the rest, then nudge songs up or down.<br><br>
-  <span style="font-size:1.05rem;color:#444;">Explore more artists:
-    <a href="nf_ranks.html">NF</a> ·
-    <a href="kb_ranks.html">KB</a> ·
-    <a href="liv_ranks.html">Livingston</a> ·
-    <a href="jj_ranks.html">Jack Johnson</a> ·
-    <a href="FAQs.html">FAQs</a>
-  </span>
-</div>
+  <header>
+  <div class="glass-card">
+    <h1>RankSongs</h1>
+    <div class="tagline">Rankings directly from YOU!</div>
+  </div>
+  <div class="artist-nav">
 
-<div class="section-header">Rank With</div>
-<div class="toggle-group" id="rankByToggles">
-  <button class="toggle-btn active" data-mode="click">Click-to-Add</button>
-  <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
-  
-</div>
+      <!-- NF -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">NF</button>
+        <div class="artist-dropdown">
+          <a href="nf_ranks.html">Rank NF</a>
+          <a href="https://www.nfrealmusic.com" target="_blank">Site</a>
+          <a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank">Spotify</a>
+          <a href="https://music.apple.com/us/artist/nf/898094630" target="_blank">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank">Amazon Music</a>
+          <a href="nf_global.html">Global Rankings</a>
+        </div>
+      </div>
 
-<div class="section-header">Sort By</div>
-<div class="toggle-group" id="sortByToggles">
-  <button class="toggle-btn active" data-sort="release">Release Date</button>
-  <button class="toggle-btn" data-sort="alpha">Alphabetical</button>
-</div>
+      <!-- Livingston -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Livingston</button>
+        <div class="artist-dropdown">
+          <a href="liv_ranks.html">Rank Livingston</a>
+          <a href="https://www.livingstonofficial.com" target="_blank">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank">Spotify</a>
+          <a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank">Amazon Music</a>
+          <a href="liv_global.html">Global Rankings</a>
+        </div>
+      </div>
 
-<div id="container">
-  <div id="songList" class="column"></div>
+      <!-- KB -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">KB</button>
+        <div class="artist-dropdown">
+          <a href="kb_ranks.html">Rank KB</a>
+          <a href="https://whoiskb.com" target="_blank">Site</a>
+          <a href="https://en.wikipedia.org/wiki/KB_(rapper)" target="_blank">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank">Spotify</a>
+          <a href="https://music.apple.com/us/artist/kb/74520603" target="_blank">Apple Music</a>
+          <a href="https://www.amazon.com/music/player/artists/B000QKHD7C/kb" target="_blank">Amazon Music</a>
+          <a href="kb_global.html">Global Rankings</a>
+        </div>
+      </div>
 
-  <div id="rankedColumn">
-    <div id="rankedList"></div>
-    <div id="submitSection">
-      <button id="submitBtn">Submit Rankings</button>
-      <button id="resetBtn">Reset My Rankings</button>
+      <!-- Connor Price -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Connor Price</button>
+        <div class="artist-dropdown">
+          <a href="cp_ranks.html">Rank Connor Price</a> 
+          <a href="https://connorprice.shop" target="_blank">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank">Spotify</a>
+          <a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank">Apple Music</a>
+          <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank">Amazon Music</a>
+          <a href="cp_global.html">Global Rankings</a>
+        </div>
+      </div>
+
+      <!-- Jack Johnson -->
+      <div class="artist-button">
+        <button onclick="toggleDropdown(this)">Jack Johnson</button>
+        <div class="artist-dropdown">
+          <a href="jj_ranks.html">Rank Jack Johnson</a> 
+          <a href="https://jackjohnsonmusic.com" target="_blank">Site</a>
+          <a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank">Wikipedia</a>
+          <a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank">Spotify</a>
+          <a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank">Apple Music</a>
+          <a href="https://music.amazon.com/en-ar/artists/B000QJPQU4/jack-johnson" target="_blank">Amazon Music</a>
+          <a href="jj_global.html">Global Rankings</a>
+        </div>
+      </div>
+
     </div>
-  </div>
-</div>
+  </header>
 
-<form id="dropdownContainer"></form>
+  <!-- Force scroll space so background image can be seen -->
+  <!-- Extra space so you can scroll and see background -->
+  <div style="height: 100vh;"></div>
 
-<div id="submitModal" class="modal">
-  <div class="modal-content">
-    <p>Are you sure you would like to submit your rankings?</p>
-    <button onclick="confirmSubmit(true)">Yes, Submit</button>
-    <button onclick="confirmSubmit(false)">No, Go Back</button>
-  </div>
-</div>
+  <script>
+    function toggleDropdown(btn) {
+      const dropdown = btn.nextElementSibling;
+      const isVisible = dropdown.style.display === 'block';
+      // Close any other open dropdowns
+      document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      // Toggle this one
+      dropdown.style.display = isVisible ? 'none' : 'block';
+    }
 
-<div id="resetModal" class="modal">
-  <div class="modal-content">
-    <p>Are you sure you would like to reset your rankings?</p>
-    <button onclick="confirmReset(true)">Yes, Reset</button>
-    <button onclick="confirmReset(false)">No, Go Back</button>
-  </div>
-</div>
-<div id="resultsModal" class="modal">
-  <div class="modal-content" style="max-width: 600px; overflow-x: auto;">
-    <h3>🎧 My Rankings</h3>
-    <ol id="myRankingsList"></ol>
-    <div id="shareButtons" style="margin:18px auto 8px auto;max-width:600px;text-align:center;">
-      <div style="margin-bottom:8px;font-weight:600;">Share your list</div>
-      <a id="share-x"
-         href="https://twitter.com/intent/tweet"
-         target="_blank" rel="noopener"
-         style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1d9bf0;color:#fff;">Post on X</a>
-      <a id="share-fb"
-         href="https://www.facebook.com/sharer/sharer.php"
-         target="_blank" rel="noopener"
-         style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1877f2;color:#fff;">Share on Facebook</a>
-      <span id="copyMsg" style="display:none;margin-left:10px;color:#34a853;font-weight:600;"></span>
-    </div>
-    <h3>🌍 Global Rankings</h3>
-    <table id="globalRankingsTable" border="1" style="width: 100%; border-collapse: collapse;">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Song</th>
-          <th>Avg Rank</th>
-          <th># Times Ranked</th>
-          <th>Total Points</th>
-          <th>Composite Score</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button type="button" onclick="closeResults()">Close</button>
-  </div>
-</div>
-
-<!-- Facebook Copy Confirmation Modal -->
-<div id="fbCopyModal" class="modal">
-  <div class="modal-content">
-    <p>Copy List for Pasting?</p>
-    <button id="fbCopyYes">Yes</button>
-    <button id="fbCopyNo">No</button>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-document.addEventListener("DOMContentLoaded", function () {
-const PRIOR_COUNT = 25;  // Tunable: "fake votes" to smooth scores
-const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
-async function fetchGlobalRankings() {
-    // Fetch all submissions from Supabase
-    const { data, error } = await supabaseClient.from('cp_submissions').select();
-
-console.log('Supabase fetch error:', error);
-console.log('Supabase fetch data:', data);
-
-if (error) {
-  alert('Error fetching global rankings: ' + error.message);
-  return [];
-}
-
-    // Aggregate points and counts per song
-    // Points for rank i = 21 - i (rank 1 = 20 points, rank 20 = 1 point)
-    const songStats = {}; // { song: { totalPoints, timesRanked, totalRankSum, weightedRankings, weightedCount } }
-
-    // Initialize all songs
-    const allSongs = [
-      "Down Bad", "Stay The Course", "Stick Up", "Vibin", "Young & Reckless", 
-      "Violet", "Out The Mud", "Messed Up", "Cameras Up", "LIVE&LEARNRN", 
-      "Underdog", "Lost At Sea", "My Life", "Patio", "Wasted", "Days Like Today", 
-      "SAFE", "Lonely", "Low Road", "Always Sayin Sorry", "Smile", "Dead",
-      "Real Love", "Plastic", "Nothing Normal", "Break", "Faxcts", "Coolin", 
-      "So Good", "My Way", "Weekdays", "Worth Fighting For", "Breathe", "Story", 
-      "Old Me", "Overtime", "Bad News", "Truth & Consequence", "Can't Blame Me", 
-      "No Confusion", "CITY LIGHTS", "Spin My Block"
-    ];
-    
-    allSongs.forEach(song => {
-      songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-    });
-
-    data.forEach(submission => {
-      for (let i = 1; i <= 20; i++) {
-        const song = submission[`rank_${i}`];
-        if (!song) continue;
-        if (!songStats[song]) {
-          songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-        }
-        songStats[song].totalPoints += 21 - i;
-        songStats[song].timesRanked++;
-        songStats[song].totalRankSum += i;
+    // Close dropdowns if click elsewhere on page
+    document.addEventListener('click', function(e) {
+      if (!e.target.matches('.artist-button > button')) {
+        document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
       }
     });
-
-    // Convert to array and calculate average rank
-    const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
-      const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21; // Default to worst rank if never ranked
-      const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
-      const weightedScore = 21 - rawScore; // Higher is better
-
-      return {
-        song,
-        totalPoints: stats.totalPoints,
-        timesRanked: stats.timesRanked,
-        avgRank,
-        weightedScore
-      };
-    });
-
-    // Sort by Bayesian weighted score ascending
-rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
-
-    return rankingsArray;
-  }
-  const songListMaster = [
-  "Starter Pistol", "Rare Candy", "Didn't Ask", "Outside", "When You're Gone", "No Visits", 
-  "Eastern Ave Night Drive", "Love Language", "You", "The Usual", "Midsummer Freestyle", "The Birds", 
-  "Happy Alone", "Courtney Cox", "Imposter Syndrome", "Toast", "'21 Raps", "You Said", "Receipts", "Love Language (Acoustic)", 
-  "EGOT", "Talk About Us", "Roots", "Marathon", "Don't Tell Me", "Christmas in Vegas", "Happy Face", "City Lights", "Nobodies", 
-  "Smooth", "SPLAT", "Gasoline", "Jude's Song", "Start Again", "Easy", "These Days", "Grateful", "Aces", "Straight A's", "Violet", 
-  "Selfish", "Spinnin", "Chuck Taylor", "Bankroll", "DIP", "Blue Shell", "Chatter", "Trillium", "False Alarm", "Buddy", "Chirp", 
-  "Drop", "Spin The Globe", "Swing", "Not A Beanie", "Miss You (When You're Gone)", "Vroom", "I Gave Everything", "It's Going Down", 
-  "Still Hot", "Swordfish", "Till Next Time", "Still Blue", "NEW PHONE", "Hopeless", "All of the Above", "HOV (Remix)", "Underdog", 
-  "Ruby", "Riptide", "Thrillin", "Trendsetter", "No Bad Side", "Can't Give Up", "Overnight", "Pink Blue (Remix)", "East Coast", "Million Cash", 
-  "Tombstone", "AMG", "John Wick", "Customs", "Overnight", "Correct", "Too Bad", "Too Bad (Acoustic)", "Summer Secret", "Golden Goose", "Smoke", 
-  "Benjamin Button", "RUNAWAY", "PULL UP", "CROWN", "BUDDY SYSTEM", "LET ME COOK", "I Need Help", "Gift and a Curse", "Molly's Song", "Back on Tour", 
-  "NOW WHAT?", "Cubicle", "Too Easy", "Falling Behind", "Happier", "Caveman", "John Daly", "Good News", "Dabble", "Ambidextrous", "Diploma (Remix)", 
-  "Riptide", "BIG FISH", "Buffalo", "Dialed In", "By My Side", "Push", "Runnin", "Despicable", "About Time", "Boats", "Hand Sanitize", "Mula",
-  "More Mentors", "Look What I Did", "Back To You", "I Like That", "Sunday Scaries", "In Too Deep", "Hope It Never Ends", "Still Spinnin"
-];
-
-  let rankedSongs = Array(20).fill(null);
-  let currentMode = 'click';
-  let sortType = 'release';
-
-  function updateButtons(group, activeValue) {
-    document.querySelectorAll(`#${group} .toggle-btn`).forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
-    });
+  </script>
+<style>
+  #fixedFaqLink {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+    padding: 10px 0;
+    font-family: 'Candara', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+    text-shadow:
+      -1px -1px 0 #000,
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000;
+    cursor: pointer;
+    z-index: 1000;
   }
 
-  function renderSongList() {
-  const rankedSet = new Set(rankedSongs.filter(Boolean));
-  let songs = songListMaster.filter(song => !rankedSet.has(song));
-  if (sortType === 'alpha') songs.sort();
-
-  const songList = document.getElementById('songList');
-  songList.innerHTML = '';
-
-  songs.forEach(song => {
-    const div = document.createElement('div');
-    div.className = 'song-item';
-    div.textContent = song;
-    div.style.cursor = 'pointer';
-
-    div.onclick = () => {
-      if (currentMode === 'click') {
-        const index = rankedSongs.indexOf(null);
-        if (index !== -1) {
-          rankedSongs[index] = song;
-          renderAll();
-        }
-      }
-    };
-
-    songList.appendChild(div);
-  });
-}
-
-  function renderRankedList() {
-  const rankedList = document.getElementById('rankedList');
-  rankedList.innerHTML = '';
-
-  rankedSongs.forEach((song, i) => {
-    const box = document.createElement('div');
-    box.className = 'rank-box';
-    box.dataset.index = i;
-
-    const num = document.createElement('div');
-    num.className = 'rank-number';
-    num.textContent = i + 1;
-
-    const content = document.createElement('div');
-    content.className = 'rank-song';
-    content.textContent = song || '';
-
-    box.appendChild(num);
-    box.appendChild(content);
-
-    // If slot has a song, add up/down/remove controls
-    if (song) {
-      const controls = document.createElement('div');
-      controls.style.display = 'flex';
-      controls.style.marginLeft = 'auto';
-      controls.style.gap = '14px';
-
-      const upBtn = document.createElement('span');
-      upBtn.innerHTML = '▲';
-      upBtn.style.cursor = 'pointer';
-      upBtn.onclick = () => {
-        if (i > 0) {
-          [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]];
-          renderAll();
-        }
-      };
-
-      const downBtn = document.createElement('span');
-      downBtn.innerHTML = '▼';
-      downBtn.style.cursor = 'pointer';
-      downBtn.onclick = () => {
-        if (i < rankedSongs.length - 1) {
-          [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]];
-          renderAll();
-        }
-      };
-
-      const removeBtn = document.createElement('span');
-      removeBtn.textContent = '×';
-      removeBtn.style.color = 'red';
-      removeBtn.style.cursor = 'pointer';
-      removeBtn.style.fontWeight = 'bold';
-      removeBtn.style.fontSize = '18px';
-      removeBtn.onclick = () => {
-        rankedSongs[i] = null;
-        renderAll();
-      };
-
-      controls.appendChild(upBtn);
-      controls.appendChild(downBtn);
-      controls.appendChild(removeBtn);
-
-      box.appendChild(controls);
-    }
-
-    rankedList.appendChild(box);
-  });
-}
-
-  function renderDropdown() {
-  const container = document.getElementById('dropdownContainer');
-  container.innerHTML = '';
-
-  // Prepare songs to display, excluding already selected ones except current
-  const rankedSet = new Set(rankedSongs.filter(Boolean));
-  
-  let songs = songListMaster.slice();
-
-  if (sortType === 'alpha') {
-    songs.sort();
+  #fixedFaqLink a {
+    color: inherit;
+    text-decoration: none;
   }
 
-  for (let i = 0; i < 20; i++) {
-    const label = document.createElement('label');
-    label.textContent = `#${i + 1}`;
-
-    const select = document.createElement('select');
-
-    const selected = rankedSongs[i];
-
-    // Create options with sorting applied, and disable options already selected except current
-    const options = songs.map(song => {
-      const used = rankedSet.has(song) && song !== selected;
-      return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
-    });
-
-    select.innerHTML = '<option value="">Select a song</option>' + options.join('');
-
-    select.onchange = e => {
-      const selectedValue = e.target.value;
-      const exactSong = songListMaster.find(song => song === selectedValue);
-      rankedSongs[i] = exactSong || null;
-      renderDropdown();
-      toggleSubmitReset();
-    };
-
-    container.appendChild(label);
-    container.appendChild(select);
+  #fixedFaqLink a:hover {
+    text-decoration: underline;
   }
+</style>
 
-  toggleSubmitReset();
-}
-
-  function toggleSubmitReset() {
-  const ready = rankedSongs.every(Boolean);
-  document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
-
-  // Hide modals too if rankings aren't complete
-  if (!ready) {
-    document.getElementById('submitModal').style.display = 'none';
-    document.getElementById('resetModal').style.display = 'none';
-  }
-}
-
-  function renderAll() {
-    const isDropdown = currentMode === 'dropdown';
-    document.getElementById('dropdownContainer').style.display = isDropdown ? 'flex' : 'none';
-    document.getElementById('songList').style.display = isDropdown ? 'none' : 'block';
-    document.getElementById('rankedList').style.display = isDropdown ? 'none' : 'block';
-
-    renderSongList();
-    if (isDropdown) renderDropdown();
-    else renderRankedList();
-
-    toggleSubmitReset();
-  }
-
-  document.getElementById('rankByToggles').addEventListener('click', e => {
-    if (e.target.matches('button')) {
-      currentMode = e.target.dataset.mode;
-      // ===== Sortable columns for Global Rankings table =====
-
-let currentSortColumn = '';
-let currentSortAsc = true;
-let globalRankings = []; // Declare here to hold data globally
-
-// Override fetchGlobalRankings call to store data globally
-async function fetchGlobalRankings() {
-  const { data, error } = await supabaseClient.from('cp_submissions').select();
-
-  if (error) {
-    alert('Error fetching global rankings: ' + error.message);
-    return [];
-  }
-
-  // Aggregate points and counts per song
-  const songStats = {};
-
-  data.forEach(submission => {
-    for (let i = 1; i <= 20; i++) {
-      const song = submission[`rank_${i}`];
-      if (!song) continue;
-      if (!songStats[song]) {
-        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-      }
-      songStats[song].totalPoints += 21 - i;
-      songStats[song].timesRanked++;
-      songStats[song].totalRankSum += i;
-    }
-  });
-
-  const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
-    const avgRank = stats.totalRankSum / stats.timesRanked;
-    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
-    const weightedScore = 21 - rawScore;
-
-    return {
-      song,
-      totalPoints: stats.totalPoints,
-      timesRanked: stats.timesRanked,
-      avgRank,
-      weightedScore
-    };
-  });
-
-  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
-
-  globalRankings = rankingsArray; // Save globally
-
-  return rankingsArray;
-}
-
-// Add event listeners to the table headers for sorting
-document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
-  th.style.cursor = "pointer";
-  th.addEventListener("click", () => {
-    const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
-    const key = keyMap[i];
-    if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
-    else {
-      currentSortColumn = key;
-      currentSortAsc = true;
-    }
-
-    if (!globalRankings.length) return; // If no data yet, do nothing
-
-    const sorted = [...globalRankings].sort((a, b) => {
-      if (key === "song") {
-        return currentSortAsc
-          ? a.song.localeCompare(b.song)
-          : b.song.localeCompare(a.song);
-      } else if (key === "rank") {
-        // rank is just the index +1 in the original sorted array
-        return currentSortAsc ? 1 : -1; // Do nothing really
-      } else {
-        return currentSortAsc
-          ? a[key] - b[key]
-          : b[key] - a[key];
-      }
-    });
-
-    const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
-    tbody.innerHTML = '';
-    sorted.forEach((entry, index) => {
-  const row = document.createElement("tr");
-  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${entry.song}</td>
-    <td>${entry.avgRank.toFixed(2)}</td>
-    <td>${entry.timesRanked}</td>
-    <td>${entry.totalPoints}</td>
-    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-  `;
-  tbody.appendChild(row);
-});
-  });
-});
-      updateButtons('rankByToggles', currentMode);
-      renderAll();
-    }
-  });
-
-  document.getElementById('sortByToggles').addEventListener('click', e => {
-    if (e.target.matches('button')) {
-      sortType = e.target.dataset.sort;
-      updateButtons('sortByToggles', sortType);
-      renderAll();
-    }
-  });
-
-  document.getElementById('submitBtn').onclick = () => {
-  if (rankedSongs.every(Boolean)) {
-    document.getElementById('submitModal').style.display = 'flex';
-  }
-};
-
-  document.getElementById('resetBtn').onclick = () => {
-  if (rankedSongs.every(Boolean)) {
-    document.getElementById('resetModal').style.display = 'flex';
-  }
-};
-window.confirmSubmit = async function(confirmed) {
-  document.getElementById('submitModal').style.display = 'none';
-  if (!confirmed) return;
-
-  // ---- USER COOLDOWN SETTINGS ----
-  const ENFORCE_LIMIT = false;          // Change to false to turn OFF the 90-day limit
-  const LIMIT_DAYS = 90;
-
-  if (ENFORCE_LIMIT) {
-    // Check the last submission for this IP
-    let ip = '';
-    try {
-      const res = await fetch('https://api64.ipify.org?format=json');
-      const json = await res.json();
-      ip = json.ip;
-    } catch (e) {
-      console.warn('Could not get IP address');
-    }
-
-    const { data: recent, error: fetchError } = await supabaseClient
-      .from('cp_submissions')
-      .select('submitted_at')
-      .eq('ip_address', ip)
-      .order('submitted_at', { ascending: false })
-      .limit(1);
-
-    if (fetchError) {
-      console.error(fetchError);
-      alert('Error checking submission limit. Please try again.');
-      return;
-    }
-
-    if (recent && recent.length > 0) {
-      const lastDate = new Date(recent[0].submitted_at);
-      const cutoff = new Date();
-      cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
-      if (lastDate > cutoff) {
-        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
-        return;
-      }
-    }
-  }
-
-  // Build submission data
-  const dataToInsert = {};
-  rankedSongs.forEach((song, i) => {
-    dataToInsert[`rank_${i + 1}`] = song;
-  });
-
-  // IP for this submission
-  let ip = '';
-  try {
-    const res = await fetch('https://api64.ipify.org?format=json');
-    const json = await res.json();
-    ip = json.ip;
-  } catch (e) {
-    console.warn('Could not get IP address');
-  }
-  dataToInsert.ip_address = ip;
-
-  // Submit to Supabase
-  const { error } = await supabaseClient.from('cp_submissions').insert([dataToInsert]);
-
-  if (error) {
-    alert('Submission error: ' + error.message);
-    return;
-  }
-
-  // Show My Rankings
-  const myList = document.getElementById('myRankingsList');
-  myList.innerHTML = '';
-  rankedSongs.forEach(song => {
-    const li = document.createElement('li');
-    li.textContent = song;
-    myList.appendChild(li);
-  });
-
-  // Get and show global rankings
-  const rankings = await fetchGlobalRankings();
-  const tbody = document.querySelector('#globalRankingsTable tbody');
-  tbody.innerHTML = '';
-  rankings.forEach((entry, index) => {
-    const row = document.createElement('tr');
-    const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${entry.song}</td>
-      <td>${entry.avgRank.toFixed(2)}</td>
-      <td>${entry.timesRanked}</td>
-      <td>${entry.totalPoints}</td>
-      <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-    `;
-    tbody.appendChild(row);
-  });
-
-  // Show results modal
-  document.getElementById('resultsModal').style.display = 'flex';
-
-  // Reset rankings
-  rankedSongs = Array(20).fill(null);
-  renderAll();
-};
-window.closeResults = function () {
-  document.getElementById('resultsModal').style.display = 'none';
-};
-
-  window.confirmReset = function(confirmed) {
-    document.getElementById('resetModal').style.display = 'none';
-    if (confirmed) {
-      rankedSongs = Array(20).fill(null);
-      renderAll();
-    }
-  };
-
-  updateButtons('rankByToggles', currentMode);
-  updateButtons('sortByToggles', sortType);
-  renderAll();
-});
-function showCalculation(song, avgRank, timesRanked) {
-  const PRIOR_COUNT = 25;
-  const PRIOR_AVG = 10.5;
-
-  const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (timesRanked * avgRank)) / (PRIOR_COUNT + timesRanked);
-  const weightedScore = 21 - rawScore;
-
-  const details = `
-    Song: <strong>${song}</strong><br><br>
-    Formula: <br>
-    ((${PRIOR_COUNT} × ${PRIOR_AVG}) + (${timesRanked} × ${avgRank.toFixed(2)})) ÷ (${PRIOR_COUNT} + ${timesRanked})<br><br>
-    Raw Score: <strong>${rawScore.toFixed(4)}</strong><br>
-    Weighted Score = 21 - Raw Score = <strong>${weightedScore.toFixed(2)}</strong>
-  `;
-
-  document.getElementById('calcDetails').innerHTML = details;
-  document.getElementById('calcModal').style.display = 'flex';
-}
-
-function closeCalcModal() {
-  document.getElementById('calcModal').style.display = 'none';
-}
-function getShareText() {
-  const list = Array.from(document.querySelectorAll('#myRankingsList li')).map((li, i) => `${i+1}. ${li.textContent}`);
-  return `My Top 20 Connor Price Songs\n${list.join('\n')}\n\nRank your own: https://ranksongs.com/cp_ranks.html`;
-}
-function updateShareLinks() {
-  const text = encodeURIComponent(getShareText());
-  const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
-  document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${text}`;
-  document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-}
-function copyListToClipboard() {
-  const text = getShareText();
-  navigator.clipboard.writeText(text).then(() => {
-    const msg = document.getElementById('copyMsg');
-    msg.textContent = 'Copied! Paste into your Facebook post.';
-    msg.style.display = 'inline-block';
-    setTimeout(() => { msg.style.display = 'none'; }, 2500);
-  });
-}
-function openFbCopyModal() {
-  document.getElementById('fbCopyModal').style.display = 'flex';
-}
-function fbShare(shouldCopy) {
-  document.getElementById('fbCopyModal').style.display = 'none';
-  if (shouldCopy) copyListToClipboard();
-  const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-function showResultsModal() {
-  updateShareLinks();
-  document.getElementById('resultsModal').style.display = 'flex';
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const xLink = document.getElementById('share-x');
-  const fbLink = document.getElementById('share-fb');
-  if (xLink) xLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'x', artist:'Connor Price'}));
-  if (fbLink) {
-    fbLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      openFbCopyModal();
-      window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'Connor Price'});
-    });
-  }
-  document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
-  document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
-});
-</script>
-<div id="calcModal" class="modal">
-  <div class="modal-content">
-    <h3>Composite Score Calculation</h3>
-    <p id="calcDetails"></p>
-    <button onclick="closeCalcModal()">Close</button>
-  </div>
-</div>
+<div id="fixedFaqLink">
+  <a href="FAQs.html">FAQs</a>
+</div>  
 </body>
 </html>
