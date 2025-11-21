@@ -193,8 +193,7 @@
   <details>
     <summary>#4 How are the Global Rankings calculated?</summary>
     <div class="answer">
-      To keep results stable, we use a Bayesian weighted average.
-      Each ranking gives 20 points to #1 down to 1 point for #20.<br><br>
+      To keep results stable, we use a Bayesian weighted average. Each ranking gives 20 points to #1 down to 1 point for #20. Songs not ranked get a penalty (treated as rank 21 with reduced weight). Only songs with meaningful vote counts (5% of submissions minimum) appear on the leaderboard.<br><br>
       <strong>Raw Score</strong> = ((PRIOR_COUNT × PRIOR_AVG) + (timesRanked × avgRank)) ÷ (PRIOR_COUNT + timesRanked)<br>
       <strong>Composite Score</strong> = 21 − Raw Score (higher is better).<br><br>
       This rewards songs that are both highly ranked and frequently ranked, while still letting new songs climb as votes come in.
