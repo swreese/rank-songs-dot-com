@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KB Global Rankings</title>
+  <style>
+    body {
+      font-family: Candara, Arial, sans-serif;
+      background: #f7f7fa;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    .back-home-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-size: 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+    .back-home-btn:hover {
+      background-color: #005fa3;
+    }
+    .back-home-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+    .main-heading {
+      font-size: 2.6rem;
+      font-weight: 900;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 18px;
+      background: linear-gradient(90deg, #111827, #4f46e5, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
+      letter-spacing: 1.2px;
+    }
+    .create-link {
+      display: block;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.15rem;
+      color: #0077cc;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .create-link:hover {
+      color: #005fa3;
+      text-decoration: underline;
+    }
+    .table-container {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 24px 18px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+    }
+    th {
+      background: #f4f4f8;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    tr:hover td {
+      background: #f9f9ff;
+    }
+    @media (max-width: 600px) {
+      .main-heading {
+        font-size: 1.5rem;
+        margin-top: 30px;
+      }
+      .table-container {
+        padding: 10px 2px;
+      }
+      th, td {
+        padding: 6px 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="index.html" class="back-home-btn" aria-label="Back to Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  Back to Home
+</a>
+<h1 class="main-heading">KB Global Rankings</h1>
+<a href="kb_ranks.html" class="create-link">Create My KB Ranks</a>
+<div class="table-container">
+  <table id="globalRankingsTable">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Song</th>
+        <th>Avg Rank</th>
+        <th># Times Ranked</th>
+        <th>Total Points</th>
+        <th>Composite Score</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4';
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+const PRIOR_COUNT = 25;
+const PRIOR_AVG = 10.5;
+let globalRankings = [];
+let currentSortColumn = 'weightedScore';
+let currentSortAsc = false;
+async function fetchGlobalRankings() {
+  const { data, error } = await supabaseClient.from('kb_submissions').select();
+  if (error) {
+    alert('Error fetching global rankings: ' + error.message);
+    return [];
+  }
+  // Full KB song list
+  const allSongs = [
+    "Weight Music", "Zone Out", "Anomaly", "Don't Mean Much", "Go Off", "Mr. Pretender", "Open Letter (Battlefield)", "Heart Song", "Angels", "Tear It Down", "Church Clap", "Hello", "Here We Go", "Zone Out (Amped Remix)", "Give My All", "100", "Undefeated", "Kamikaze", "Doubts", "Crazy", "Rich Forever", "Sideways", "I Believe", "Fall in Love with You", "Always & Forever", "Ima Just Do It", "Cruising", "Calling You", "Save Me", "Drowning", "Lights Go Out", "Crowns & Thorns (Oceans)", "Find Your Way", "Hometeam", "DNOU", "Tempo", "Monster", "Primetime", "Get Through", 
+    "Art of Drifting", "Art of Hope", "Not Today Satan", "I Am Not the Ones", "New Portrait", "Bring You War", "Sing to You", "Rebel Rebel 88", "No Chains", "Long Live the Champion", "Die Rich", "DNOU2", "Hold Me Back", "Lincoln", "Let It Rain", "Lil Boy", "10K", "This Is Life", "Armies", "Masterpiece", "Libre", "Yes Song", "Dark Skin", "We Right Here", "Loyal Til The End", "The Name", "Sí canción", "So Tired", "Worship In The Moshpit", "King Jesus", "Graves", "EZ", "Glory 2 Glory", "Danza", "Intro to Glory", "Too God", "Miracles", 
+    "Your Way", "Talk to Me Nice", "Daddy", "Who the Son Sets Free", "Away", "Imagine That", "Remember Me / Baby Mama", "Baby Mama 2", "Friends", "Too God (Pt. 2)", "It Ain't Safe", "I'll Love", "We Still Believe (HLY FOREVER)", "Keanu's Song", "Santo (HLY FOREVER)", "CAMPAIGN"
+  ];
+  // Initialize stats for all songs
+  const songStats = {};
+  allSongs.forEach(song => {
+    songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
+  });
+
+  const UNRANKED_WEIGHT = 0.5; // Weight for treating unranked songs as rank 0 (increased from 0.1)
+  const MIN_VOTES_FOR_LEADERBOARD = Math.max(1, Math.ceil(data.length * 0.05)); // 5% of total submissions, minimum 1
+
+  data.forEach(submission => {
+    const rankedSongs = new Set();
+    
+    // First pass: collect actual rankings
+    for (let i = 1; i <= 20; i++) {
+      const song = submission[`rank_${i}`];
+      if (!song) continue;
+      if (!songStats[song]) songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
+      songStats[song].totalPoints += 21 - i;
+      songStats[song].timesRanked++;
+      songStats[song].totalRankSum += i;
+      songStats[song].weightedRankings += i; // Full weight for actual rankings
+      songStats[song].weightedCount += 1;
+      rankedSongs.add(song);
+    }
+    
+    // Second pass: add low-confidence negative signal for unranked songs
+    allSongs.forEach(song => {
+      if (!rankedSongs.has(song)) {
+        songStats[song].weightedRankings += 21 * UNRANKED_WEIGHT; // Rank 21 (worst) with low weight
+        songStats[song].weightedCount += UNRANKED_WEIGHT;
+      }
+    });
+  });
+
+  const rankingsArray = Object.entries(songStats)
+    .filter(([song, stats]) => stats.timesRanked >= MIN_VOTES_FOR_LEADERBOARD) // Filter by minimum votes
+    .map(([song, stats]) => {
+    const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21; // Default to worst rank if never ranked
+    const weightedAvgRank = stats.weightedCount > 0 ? stats.weightedRankings / stats.weightedCount : 21;
+    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.weightedCount * weightedAvgRank)) / (PRIOR_COUNT + stats.weightedCount);
+    const weightedScore = 21 - rawScore;
+    const timesUnranked = Math.round((stats.weightedCount - stats.timesRanked) / UNRANKED_WEIGHT); // Calculate times unranked
+    return {
+      song,
+      totalPoints: stats.totalPoints,
+      timesRanked: stats.timesRanked,
+      avgRank,
+      weightedScore,
+      weightedCount: stats.weightedCount.toFixed(1),
+      timesUnranked: timesUnranked
+    };
+  });
+  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+  rankingsArray.forEach((entry, idx) => {
+    entry.rank = idx + 1;
+  });
+  globalRankings = rankingsArray;
+  sortAndRenderTable();
+}
+function sortAndRenderTable() {
+  let sorted = [...globalRankings];
+  switch (currentSortColumn) {
+    case 'rank':
+      sorted.sort((a, b) => currentSortAsc ? a.rank - b.rank : b.rank - a.rank);
+      break;
+    case 'song':
+      sorted.sort((a, b) => currentSortAsc ? a.song.localeCompare(b.song) : b.song.localeCompare(a.song));
+      break;
+    case 'avgRank':
+      sorted.sort((a, b) => currentSortAsc ? a.avgRank - b.avgRank : b.avgRank - a.avgRank);
+      break;
+    case 'timesRanked':
+      sorted.sort((a, b) => currentSortAsc ? a.timesRanked - b.timesRanked : b.timesRanked - a.timesRanked);
+      break;
+    case 'timesUnranked':
+      sorted.sort((a, b) => currentSortAsc ? a.timesUnranked - b.timesUnranked : b.timesUnranked - a.timesUnranked);
+      break;
+    case 'totalPoints':
+      sorted.sort((a, b) => currentSortAsc ? a.totalPoints - b.totalPoints : b.totalPoints - a.totalPoints);
+      break;
+    case 'weightedScore':
+      sorted.sort((a, b) => currentSortAsc ? a.weightedScore - b.weightedScore : b.weightedScore - a.weightedScore);
+      break;
+  }
+  const tbody = document.querySelector('#globalRankingsTable tbody');
+  tbody.innerHTML = '';
+  sorted.forEach((entry) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${entry.rank}</td>
+      <td>${entry.song}</td>
+      <td>${entry.avgRank.toFixed(2)}</td>
+      <td>${entry.timesRanked}</td>
+      <td>${entry.totalPoints}</td>
+      <td>${entry.weightedScore.toFixed(2)}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+document.addEventListener('DOMContentLoaded', fetchGlobalRankings);
+document.querySelectorAll('#globalRankingsTable th').forEach((th, i) => {
+  const keyMap = ['rank', 'song', 'avgRank', 'timesRanked', 'totalPoints', 'weightedScore'];
+  th.addEventListener('click', () => {
+    if (currentSortColumn === keyMap[i]) {
+      currentSortAsc = !currentSortAsc;
+    } else {
+      currentSortColumn = keyMap[i];
+      currentSortAsc = keyMap[i] === 'rank' ? true : false;
+    }
+    sortAndRenderTable();
+  });
+});
+</script>
+</body>
+</html>
