@@ -115,14 +115,65 @@
     }
     button.toggle-btn:hover { background: #505080; transform: scale(1.05); }
     button.toggle-btn.active { background: #6c63ff; }
-    #container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    #container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    #songList, #rankedColumn {
+      width: 48%;
+      min-width: 160px;
+      max-width: 420px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #rankedList {
+      width: 100%;
+      max-width: 100%;
+    }
+    @media (max-width: 900px) {
+      #container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 100vw;
+      }
+      #songList, #rankedColumn {
+        width: 50vw;
+        min-width: 0;
+        max-width: 100vw;
+      }
+    }
+    @media (max-width: 600px) {
+      #container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      #songList, #rankedColumn {
+        width: 50vw;
+        min-width: 0;
+        max-width: 100vw;
+      }
+    }
     #songList {
       width: 48%; max-height: 800px; overflow-y: auto;
       border: 1px solid #ccc; padding: 10px; display: flex; flex-direction: column; gap: 5px;
     }
     .song-item { background-color: #eee; padding: 8px; border-radius: 4px; cursor: pointer; }
     #rankedColumn { display: flex; flex-direction: column; width: 48%; gap: 10px; }
-    #rankedList { display: flex; flex-direction: column; width: 320px; gap: 10px; }
     .rank-box { display: flex; align-items: center; padding: 8px; border: 2px dashed #aaa; border-radius: 6px; background-color: #f9f9f9; }
     .rank-number { width: 30px; text-align: center; font-weight: bold; color: #555; }
     .rank-song { flex: 1; padding-left: 10px; }
@@ -136,17 +187,51 @@
     #resetBtn { background-color: pink; color: white; }
 
     .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-    .modal-content { background: white; padding: 20px; border-radius: 10px; text-align: center; max-width: 600px; overflow-x: auto; }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: auto;
+      box-sizing: border-box;
+    }
     .modal-content button { margin: 10px; padding: 10px 15px; font-size: 14px; }
 
     /* Global rankings table (scrollable body) */
     #globalRankingsTable tbody { display: block; max-height: 300px; overflow-y: auto; width: 100%; }
     #globalRankingsTable thead, #globalRankingsTable tbody tr { display: table; width: 100%; table-layout: fixed; }
 
+    @media (max-width: 900px) {
+      #container {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100vw;
+      }
+      #songList, #rankedColumn {
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+      }
+    }
     @media (max-width: 600px) {
-      #container { flex-direction: column; align-items: center; }
-      #rankedList, #dropdownContainer, #songList { max-width: 100%; width: 100%; }
-      .toggle-group { flex-direction: column; }
+      #container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100vw;
+        max-width: 100vw;
+      }
+      #songList, #rankedColumn {
+        width: 50vw;
+        min-width: 0;
+        max-width: 100vw;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   </style>
 </head>
@@ -164,21 +249,21 @@
     Back to Home
   </a>
 
-  <!-- Intro -->
-  <section style="max-width:900px;margin:0 auto 20px auto;padding:0 10px;text-align:center;">
-    <h2 style="margin:10px 0 8px 0;">Rank NF’s Best Songs</h2>
-    <p style="margin:0 auto 10px auto;line-height:1.6;">
-      Make your Top 20 and see how it stacks up against fans worldwide.
-      The global leaderboard updates in real time as votes come in.
-    </p>
-    <p style="margin:0 auto 10px auto;line-height:1.6;">
-      Tip: add your must-have tracks first, fill in the rest, then nudge songs up or down.
-    </p>
-    <p style="margin:0 auto 10px auto;">
-      Explore more artists: <a href="kb_ranks.html">KB</a> · <a href="cp_ranks.html">Connor Price</a> ·
-      <a href="liv_ranks.html">Livingston</a> · <a href="jj_ranks.html">Jack Johnson</a> · <a href="FAQs.html">FAQs</a>
-    </p>
-  </section>
+  <!-- Info section for ranking instructions and global leaderboard -->
+  <div class="info-section" style="max-width:700px;margin:32px auto 18px auto;padding:18px 24px;background:rgba(255,255,255,0.08);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.08);font-size:1.15rem;color:#222;text-align:center;">
+    <strong>Make your Top 20 and see how it stacks up against fans worldwide.</strong><br>
+    The global leaderboard updates in real time as votes come in.<br><br>
+    <em>Tip:</em> add your must-have tracks first, fill in the rest, then nudge songs up or down.<br><br>
+    <span style="font-size:1.05rem;color:#444;">Explore more artists:
+      <a href="kb_ranks.html">KB</a> ·
+      <a href="cp_ranks.html">Connor Price</a> ·
+      <a href="liv_ranks.html">Livingston</a> ·
+      <a href="jj_ranks.html">Jack Johnson</a> ·
+      <a href="FAQs.html">FAQs</a>
+    </span>
+  </div>
+
+    
 
   <!-- (Optional) Manual AdSense unit — uncomment after you have a valid data-ad-slot
   <ins class="adsbygoogle"
@@ -222,8 +307,8 @@
   <div id="submitModal" class="modal">
     <div class="modal-content">
       <p>Submit your rankings now?</p>
-      <button onclick="confirmSubmit(true)">Yes, submit</button>
-      <button onclick="confirmSubmit(false)">No, go back</button>
+      <button onclick="window.confirmSubmit(true)">Yes, submit</button>
+      <button onclick="window.confirmSubmit(false)">No, go back</button>
     </div>
   </div>
 
@@ -239,6 +324,18 @@
     <div class="modal-content">
       <h3>🎧 My Rankings</h3>
       <ol id="myRankingsList"></ol>
+      <div id="shareButtons" style="margin:18px auto 8px auto;max-width:600px;text-align:center;">
+        <div style="margin-bottom:8px;font-weight:600;">Share your list</div>
+        <a id="share-x"
+           href="https://twitter.com/intent/tweet"
+           target="_blank" rel="noopener"
+           style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1d9bf0;color:#fff;">Post on X</a>
+        <a id="share-fb"
+           href="https://www.facebook.com/sharer/sharer.php"
+           target="_blank" rel="noopener"
+           style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1877f2;color:#fff;">Share on Facebook</a>
+        <span id="copyMsg" style="display:none;margin-left:10px;color:#34a853;font-weight:600;"></span>
+      </div>
       <h3>🌍 Global Rankings</h3>
       <table id="globalRankingsTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
@@ -257,6 +354,15 @@
     </div>
   </div>
 
+  <!-- Facebook Copy Modal -->
+  <div id="fbCopyModal" class="modal">
+    <div class="modal-content">
+      <p>Copy your list for pasting into your Facebook post?</p>
+      <button id="fbCopyYes">Yes, copy & share</button>
+      <button id="fbCopyNo">No, just share</button>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
@@ -272,7 +378,7 @@
     let sortType = 'release';
     let globalRankings = [];
 
-    const PRIOR_COUNT = 10;  // smoothing votes
+    const PRIOR_COUNT = 25;  // smoothing votes
     const PRIOR_AVG = 10.5;  // midpoint average rank
 
     function updateButtons(group, activeValue) {
@@ -287,7 +393,7 @@
         "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
         "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up (Single)","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options"
         ,"Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma",
-        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING"
+        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING","FEAR","HOME","WHO I WAS","GIVE ME A REASON","SORRY","WASHED UP"
       ];
       const songListMaster = Array.from(new Set(base));
 
@@ -433,33 +539,130 @@
     });
 
     document.getElementById('submitBtn').onclick = () => {
-      if (rankedSongs.every(Boolean)) document.getElementById('submitModal').style.display = 'flex';
+      if (rankedSongs.every(Boolean)) {
+        document.getElementById('submitModal').style.display = 'flex';
+        // Ensure confirmSubmit is called on Yes button
+        document.querySelector('#submitModal button[onclick*="confirmSubmit(true)"]').onclick = function() {
+          window.confirmSubmit(true);
+        };
+        document.querySelector('#submitModal button[onclick*="confirmSubmit(false)"]').onclick = function() {
+          window.confirmSubmit(false);
+        };
+      }
     };
     document.getElementById('resetBtn').onclick = () => {
       if (rankedSongs.every(Boolean)) document.getElementById('resetModal').style.display = 'flex';
     };
 
+    // Helper to format ranked list for sharing
+    function getShareText() {
+      const list = Array.from(document.querySelectorAll('#myRankingsList li')).map((li, i) => `${i+1}. ${li.textContent}`);
+      return `My Top 20 NF Songs\n${list.join('\n')}\n\nRank your own: https://ranksongs.com/nf_ranks.html`;
+    }
+
+    // Update share buttons in results modal to share the actual list
+    function updateShareLinks() {
+      const text = encodeURIComponent(getShareText());
+      const url = encodeURIComponent('https://ranksongs.com/nf_ranks.html');
+      // X (Twitter)
+      document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${text}`;
+      // Facebook (site link only)
+      document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    }
+
+    // Copy list to clipboard for Facebook
+    function copyListToClipboard() {
+      const text = getShareText();
+      navigator.clipboard.writeText(text).then(() => {
+        const msg = document.getElementById('copyMsg');
+        msg.textContent = 'Copied! Paste into your Facebook post.';
+        msg.style.display = 'inline-block';
+        setTimeout(() => { msg.style.display = 'none'; }, 2500);
+      });
+    }
+
+    function copyListAndShareFacebook() {
+      const text = getShareText();
+      navigator.clipboard.writeText(text).then(() => {
+        const msg = document.getElementById('copyMsg');
+        msg.textContent = 'Copied! Paste into your Facebook post.';
+        msg.style.display = 'inline-block';
+        setTimeout(() => { msg.style.display = 'none'; }, 2500);
+        // Open Facebook share dialog
+        const url = encodeURIComponent('https://ranksongs.com/nf_ranks.html');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      });
+    }
+
+    // Call updateShareLinks when results modal is shown
+    function showResultsModal() {
+      updateShareLinks();
+      document.getElementById('resultsModal').style.display = 'flex';
+    }
+
     async function fetchGlobalRankings() {
       const { data, error } = await supabaseClient.from('nf_submissions').select();
       if (error) { alert('Error fetching global rankings: ' + error.message); return []; }
 
+      // Full NF song list
+      const allSongs = [
+        "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
+        "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up (Single)","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options",
+        "Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma",
+        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING","FEAR","HOME","WHO I WAS","GIVE ME A REASON","SORRY","WASHED UP"
+      ];
+
+      // Initialize stats for all songs
       const songStats = {};
+      allSongs.forEach(song => {
+        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
+      });
+
+      const UNRANKED_WEIGHT = 0.5; // Weight for treating unranked songs as rank 0 (increased from 0.1)
+      const MIN_VOTES_FOR_LEADERBOARD = Math.max(1, Math.ceil(data.length * 0.05)); // 5% of total submissions, minimum 1
+
       data.forEach(submission => {
+        const rankedSongs = new Set();
+        
+        // First pass: collect actual rankings
         for (let i = 1; i <= 20; i++) {
           const song = submission['rank_' + i];
           if (!song) continue;
-          if (!songStats[song]) songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+          if (!songStats[song]) songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
           songStats[song].totalPoints += 21 - i;
           songStats[song].timesRanked++;
           songStats[song].totalRankSum += i;
+          songStats[song].weightedRankings += i; // Full weight for actual rankings
+          songStats[song].weightedCount += 1;
+          rankedSongs.add(song);
         }
+        
+        // Second pass: add low-confidence negative signal for unranked songs
+        allSongs.forEach(song => {
+          if (!rankedSongs.has(song)) {
+            songStats[song].weightedRankings += 21 * UNRANKED_WEIGHT; // Rank 21 (worst) with low weight
+            songStats[song].weightedCount += UNRANKED_WEIGHT;
+          }
+        });
       });
 
-      const arr = Object.entries(songStats).map(([song, s]) => {
-        const avgRank = s.totalRankSum / s.timesRanked;
-        const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (s.timesRanked * avgRank)) / (PRIOR_COUNT + s.timesRanked);
+      const arr = Object.entries(songStats)
+        .filter(([song, stats]) => stats.timesRanked >= MIN_VOTES_FOR_LEADERBOARD) // Filter by minimum votes
+        .map(([song, stats]) => {
+        const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21; // Default to worst rank if never ranked
+        const weightedAvgRank = stats.weightedCount > 0 ? stats.weightedRankings / stats.weightedCount : 21;
+        const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.weightedCount * weightedAvgRank)) / (PRIOR_COUNT + stats.weightedCount);
         const weightedScore = 21 - rawScore;
-        return { song, totalPoints: s.totalPoints, timesRanked: s.timesRanked, avgRank, weightedScore };
+        const timesUnranked = Math.round((stats.weightedCount - stats.timesRanked) / UNRANKED_WEIGHT); // Calculate times unranked
+        return { 
+          song, 
+          totalPoints: stats.totalPoints, 
+          timesRanked: stats.timesRanked, 
+          avgRank, 
+          weightedScore,
+          weightedCount: stats.weightedCount.toFixed(1),
+          timesUnranked: timesUnranked
+        };
       });
 
       arr.sort((a, b) => b.weightedScore - a.weightedScore);
@@ -513,7 +716,7 @@
       // Global
       const rankings = await fetchGlobalRankings();
       renderGlobalTable(rankings);
-      document.getElementById('resultsModal').style.display = 'flex';
+      showResultsModal(); // <-- instead of direct modal display
 
       // Reset
       rankedSongs = Array(20).fill(null);
@@ -558,8 +761,34 @@
       const xLink = document.getElementById('share-x');
       const fbLink = document.getElementById('share-fb');
       if (xLink) xLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'x', artist:'NF'}));
-      if (fbLink) fbLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'NF'}));
+      if (fbLink) {
+        fbLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          openFbCopyModal();
+          window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'NF'});
+        });
+      }
+      // Facebook modal buttons
+      document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
+      document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
     });
+
+    // Facebook share button logic
+    function openFbCopyModal() {
+      document.getElementById('fbCopyModal').style.display = 'flex';
+    }
+    function fbShare(shouldCopy) {
+      document.getElementById('fbCopyModal').style.display = 'none';
+      if (shouldCopy) copyListToClipboard();
+      const url = encodeURIComponent('https://ranksongs.com/nf_ranks.html');
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+    document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
+    document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
+    document.getElementById('share-fb').onclick = function(e) {
+      e.preventDefault();
+      openFbCopyModal();
+    };
   </script>
 
   <!-- Calculation modal -->
@@ -570,18 +799,5 @@
       <button onclick="document.getElementById('calcModal').style.display='none'">Close</button>
     </div>
   </div>
-
-  <!-- Share buttons -->
-  <section style="max-width:900px;margin:18px auto 0 auto;padding:0 10px;text-align:center;">
-    <div style="margin-bottom:8px;font-weight:600;">Share your list</div>
-    <a id="share-x"
-       href="https://twitter.com/intent/tweet?text=Here%27s%20my%20Top%2020%20NF%20songs%20on%20RankSongs%20—%20what%27s%20yours%3F&url=https%3A%2F%2Franksongs.com%2Fnf_ranks.html"
-       target="_blank" rel="noopener"
-       style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1d9bf0;color:#fff;">Post on X</a>
-    <a id="share-fb"
-       href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Franksongs.com%2Fnf_ranks.html"
-       target="_blank" rel="noopener"
-       style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1877f2;color:#fff;">Share on Facebook</a>
-  </section>
 </body>
 </html>
