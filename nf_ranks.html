@@ -381,6 +381,14 @@
     const PRIOR_COUNT = 25;  // smoothing votes
     const PRIOR_AVG = 10.5;  // midpoint average rank
 
+    // Define the master song list once to avoid mismatches  
+    const NF_SONGS = [
+      "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
+      "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options",
+      "Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma","Chasing_(Demo)"
+      "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING","FEAR","HOME","WHO I WAS","GIVE ME A REASON","SORRY","WASHED UP"
+    ];
+
     function updateButtons(group, activeValue) {
       document.querySelectorAll('#' + group + ' .toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
@@ -388,14 +396,7 @@
     }
 
     function renderSongList() {
-      // NF song list (deduplicated)
-      const base = [
-        "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
-        "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options"
-        ,"Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma","Chasing_(Demo)",
-        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING","FEAR","HOME","WHO I WAS","GIVE ME A REASON","SORRY","WASHED UP"
-      ];
-      const songListMaster = Array.from(new Set(base));
+      const songListMaster = Array.from(new Set(NF_SONGS));
 
       const rankedSet = new Set(rankedSongs.filter(Boolean));
       let songs = songListMaster.filter(song => !rankedSet.has(song));
@@ -476,14 +477,8 @@
       const container = document.getElementById('dropdownContainer');
       container.innerHTML = '';
 
-      // Same set as renderSongList()
-      const base = [
-        "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
-        "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up (Single)","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options"
-        ,"Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma",
-        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING"
-      ];
-      const songs = Array.from(new Set(base)).sort((a,b) => sortType==='alpha' ? a.localeCompare(b) : 0);
+      // Use the same master list as renderSongList()
+      const songs = Array.from(new Set(NF_SONGS)).sort((a,b) => sortType==='alpha' ? a.localeCompare(b) : 0);
 
       for (let i = 0; i < 20; i++) {
         const label = document.createElement('label');
@@ -604,13 +599,8 @@
       const { data, error } = await supabaseClient.from('nf_submissions').select();
       if (error) { alert('Error fetching global rankings: ' + error.message); return []; }
 
-      // Full NF song list
-      const allSongs = [
-        "Hands Up","Only One","Thing Called Love","Just Being Me","Intro","Mansion","All I Have","Wait","Wake Up","Face It","Motivated","Notepad","Turn The Music Up","Paralyzed","I'll Keep On",
-        "Intro 2","Therapy Session","I Just Wanna Know","How Could You Leave Us","Breathe","Real","Oh Lord","I Can Feel It","Got You On My Mind","Grindin'","Wish You Wouldn't","Statement","All I Do","Lost In The Moment","Warm Up (Single)","Intro III","Outcast","10 Feet Down","Green Lights","Dreams","Let You Down","Destiny","My Life","You're Special","If You Want Love","Know","Remember This","Lie","3 A.M.","One Hundred","Options",
-        "Time","The Search","Leave Me Alone","Change","My Stress","Nate","Returns","When I Grow Up","Only","Let Me Go","Hate Myself","I Miss The Days","No Excuses","Like This","Thinking","Trauma",
-        "CLOUDS","THAT'S A JOKE","JUST LIKE YOU","STORY","PRIDEFUL","LOST","LAYERS","DRIFTING","TRUST","PAID MY DUES","HOPE","MOTTO","CAREFUL","MAMA","HAPPY","PANDEMONIUM","SUFFICE","GONE","TURN MY BACK","MISTAKE","LET EM PRAY","RUNNING","FEAR","HOME","WHO I WAS","GIVE ME A REASON","SORRY","WASHED UP"
-      ];
+      // Use the same master list for consistency
+      const allSongs = NF_SONGS;
 
       // Initialize stats for all songs
       const songStats = {};
