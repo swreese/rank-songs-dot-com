@@ -278,6 +278,11 @@
 
   <h1 class="hero-heading">🔥 Rank Your Top 20 NF Songs</h1>
 
+  <!-- Random Quote Section -->
+  <div style="max-width:600px;margin:10px auto 20px auto;text-align:center;font-style:italic;font-size:1.1rem;color:#555;padding:0 20px;">
+    "<span id="randomQuote">Loading quote...</span>"
+  </div>
+
   <a href="index.html" class="back-home-btn" aria-label="Back to Home">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -416,6 +421,21 @@
 
     const PRIOR_COUNT = 25;  // smoothing votes
     const PRIOR_AVG = 10.5;  // midpoint average rank
+
+    // NF Quotes for random display
+    const NF_QUOTES = [
+      "Everybody has a dark side. I feel embarrased when they see mine."
+      "The flow is so cold, you would think it was snowin'."
+      "World don't stop just because I'm in a bad mood"
+      "Look, hold up, hold up, wait a minute, please."
+      "You are not a baller 'cause your closet's full of Jordan's."
+      "Got so many cadences. No way to pick one. Which bag is my hand in?"
+      "I'm on a rampage, hit 'em with the record release."
+    ];
+
+    function getRandomQuote() {
+      return NF_QUOTES[Math.floor(Math.random() * NF_QUOTES.length)];
+    }
 
     // Define the master song list once to avoid mismatches  
     const NF_SONGS = [
@@ -781,6 +801,12 @@
 
     // Init
     document.addEventListener("DOMContentLoaded", async () => {
+      // Display random quote
+      const quoteElement = document.getElementById('randomQuote');
+      if (quoteElement) {
+        quoteElement.textContent = getRandomQuote();
+      }
+
       updateButtons('rankByToggles', currentMode);
       updateButtons('sortByToggles', sortType);
       renderAll();
