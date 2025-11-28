@@ -727,7 +727,7 @@
 
     @media (max-width: 900px) {
       body {
-        padding: 15px;
+        padding: 8px;
       }
       
       .hero-heading {
@@ -736,96 +736,36 @@
       }
       
       #container {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        flex-direction: row; /* Keep side by side */
+        align-items: flex-start;
+        gap: 8px; /* Reduced gap */
         max-width: 100%;
         width: 100%;
       }
       
       #songList, #rankedColumn {
-        width: 100%;
+        width: 48%; /* Keep 48% each */
         min-width: 0;
-        max-width: 100%;
+        max-width: 48%;
       }
       
       #songList {
-        height: 1476px; /* Matches rankedColumn: padding(40px) + 20 boxes(1120px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1476px */
-      }
-      
-      .song-item {
-        padding: 14px 18px;
-        font-size: 14px;
-      }
-      
-      .rank-box {
-        padding: 14px 18px;
-        min-height: 56px;
-      }
-      
-      .rank-number {
-        width: 36px;
-        height: 36px;
-        font-size: 13px;
-      }
-    }
-    
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      
-      .back-home-btn {
-        top: 10px;
-        right: 10px;
-        padding: 8px 12px;
-        font-size: 12px;
-      }
-      
-      .hero-heading {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
-        margin: 10px 0 20px;
-      }
-      
-      .toggle-group {
-        gap: 6px;
-      }
-      
-      button.toggle-btn {
-        padding: 8px 16px;
-        font-size: 12px;
-        min-width: 100px;
-      }
-      
-      #container {
-        gap: 15px;
-        padding: 0 5px;
-      }
-      
-      #songList, #rankedColumn {
-        min-width: 0;
-        max-width: 100%;
-        width: 100%;
-        margin: 0;
-      }
-      
-      #songList {
-        height: 1390px; /* Matches rankedColumn: padding(40px) + 20 boxes(1040px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(50px) = 1390px */
-        padding: 15px;
+        height: 1400px; /* Adjusted height */
+        padding: 12px; /* Reduced padding */
       }
       
       #rankedColumn {
-        padding: 15px;
+        padding: 12px; /* Reduced padding */
       }
       
       .song-item {
-        padding: 12px 16px;
-        font-size: 13px;
+        padding: 12px 14px; /* Reduced padding */
+        font-size: 13px; /* Smaller font */
       }
       
       .rank-box {
-        padding: 12px 16px;
-        min-height: 52px;
+        padding: 12px 14px; /* Reduced padding */
+        min-height: 52px; /* Smaller height */
       }
       
       .rank-number {
@@ -836,34 +776,127 @@
       
       .rank-song {
         font-size: 13px;
-        padding-left: 15px;
+        padding-left: 12px; /* Reduced padding */
       }
       
       .rank-controls span {
         width: 28px;
         height: 28px;
+        font-size: 10px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 5px;
+      }
+      
+      .back-home-btn {
+        top: 5px;
+        right: 5px;
+        padding: 6px 10px;
         font-size: 11px;
       }
       
+      .hero-heading {
+        font-size: clamp(1.3rem, 7vw, 2.2rem);
+        margin: 8px 0 15px;
+      }
+      
+      .toggle-group {
+        gap: 4px;
+        margin-bottom: 15px;
+      }
+      
+      button.toggle-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-width: 80px;
+      }
+      
+      #container {
+        gap: 6px; /* Very small gap */
+        padding: 0 2px;
+        flex-direction: row; /* Keep side by side */
+      }
+      
+      #songList, #rankedColumn {
+        width: 48%; /* Keep side by side */
+        min-width: 0;
+        max-width: 48%;
+        margin: 0;
+      }
+      
+      #songList {
+        height: 1200px; /* Reduced height for mobile */
+        padding: 8px; /* Minimal padding */
+      }
+      
+      #rankedColumn {
+        padding: 8px; /* Minimal padding */
+      }
+      
+      .song-item {
+        padding: 8px 10px; /* Very compact */
+        font-size: 11px; /* Smaller font */
+      }
+      
+      .rank-box {
+        padding: 8px 10px; /* Very compact */
+        min-height: 44px; /* Smaller height */
+      }
+      
+      .rank-number {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+      }
+      
+      .rank-song {
+        font-size: 11px;
+        padding-left: 8px; /* Minimal padding */
+      }
+      
+      .rank-controls span {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+      }
+      
       #submitBtn, #resetBtn {
-        height: 50px;
-        font-size: 13px;
+        height: 44px; /* Smaller buttons */
+        font-size: 11px;
       }
       
       .modal-content {
-        margin: 15px;
-        padding: 20px;
-        max-width: calc(100vw - 30px);
+        margin: 10px;
+        padding: 15px;
+        max-width: calc(100vw - 20px);
       }
       
       #dropdownContainer {
-        padding: 20px 15px;
+        padding: 15px 8px;
       }
       
       #dropdownContainer select {
         width: 100%;
-        padding: 14px 16px;
-        font-size: 14px;
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+      
+      .info-section {
+        margin: 10px auto 20px auto !important;
+        padding: 15px 12px !important;
+        font-size: 0.9rem !important;
+      }
+      
+      .info-section strong {
+        font-size: 1rem !important;
+      }
+      
+      .info-section div[style*="margin-top:10px"] a {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
       }
     }
   </style>
