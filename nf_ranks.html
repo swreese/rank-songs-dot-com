@@ -75,200 +75,795 @@
   </script>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 10px;
-      background-color: #ffffff;
-      color: #111827;
-      position: relative;
-      z-index: 0;
+    * {
+      box-sizing: border-box;
     }
+    
+    html {
+      background: #0f0f23 !important;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+      min-height: 100vh;
+      color: #ffffff !important;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(119, 221, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
     .hero-heading {
-      font-size: 3rem;
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 900;
       text-align: center;
-      margin-top: 40px;
-      margin-bottom: 30px;
-      background: linear-gradient(90deg, #111827, #4f46e5, #ec4899);
+      margin: 20px 0 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 300% 300%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-      letter-spacing: 1.2px;
+      animation: gradientShift 6s ease infinite;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     .back-home-btn {
-      position: fixed; top: 20px; right: 20px;
-      background-color: #0077cc; color: #fff;
-      padding: 10px 16px; border-radius: 25px; font-size: 16px;
-      text-decoration: none; display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: background-color .3s ease; z-index: 1000;
+      position: fixed; 
+      top: 20px; 
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 20px; 
+      border-radius: 50px; 
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none; 
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease; 
+      z-index: 1000;
     }
-    .back-home-btn:hover { background-color: #005fa3; }
-    .back-home-btn svg { width: 16px; height: 16px; fill: white; }
-    .section-header { text-align: center; font-weight: bold; margin-top: 20px; }
-    .toggle-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; margin-bottom: 10px; }
+    .back-home-btn:hover { 
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .back-home-btn svg { 
+      width: 16px; 
+      height: 16px; 
+      fill: white; 
+      transition: transform 0.3s ease;
+    }
+    .back-home-btn:hover svg {
+      transform: translateX(-2px);
+    }
+    .section-header { 
+      text-align: center; 
+      font-weight: 700; 
+      font-size: 1.1rem;
+      margin: 30px 0 15px;
+      color: #ffffff !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .toggle-group { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      align-items: center; 
+      margin-bottom: 25px; 
+    }
+    
     button.toggle-btn {
-      padding: 12px 20px; font-size: 15px; font-weight: 600;
-      border-radius: 9999px; border: none; background: #3a3a5c; color: #fff;
-      transition: background .3s ease, transform .2s ease; cursor: pointer;
+      padding: 12px 24px; 
+      font-size: 14px; 
+      font-weight: 600;
+      border-radius: 50px; 
+      border: 2px solid rgba(255, 255, 255, 0.3); 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-width: 120px;
+      text-align: center;
     }
-    button.toggle-btn:hover { background: #505080; transform: scale(1.05); }
-    button.toggle-btn.active { background: #6c63ff; }
+    
+    button.toggle-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    button.toggle-btn:hover::before {
+      left: 100%;
+    }
+    
+    button.toggle-btn:hover { 
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    button.toggle-btn.active { 
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
     #container {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      gap: 24px;
+      gap: 30px;
       justify-content: center;
       align-items: flex-start;
       width: 100%;
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
+      position: relative;
     }
+    
     #songList, #rankedColumn {
       width: 48%;
-      min-width: 160px;
-      max-width: 420px;
+      min-width: 300px;
+      max-width: 500px;
       margin: 0;
       display: flex;
       flex-direction: column;
       align-items: stretch;
     }
+    
     #rankedList {
       width: 100%;
       max-width: 100%;
-    }
-    @media (max-width: 900px) {
-      #container {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        max-width: 100vw;
-      }
-      #songList, #rankedColumn {
-        width: 50vw;
-        min-width: 0;
-        max-width: 100vw;
-      }
-    }
-    @media (max-width: 600px) {
-      #container {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100vw;
-        max-width: 100vw;
-      }
-      #songList, #rankedColumn {
-        width: 50vw;
-        min-width: 0;
-        max-width: 100vw;
-      }
-    }
-    #songList {
-      width: 48%; max-height: 800px; overflow-y: auto;
-      border: 1px solid #ccc; padding: 10px; display: flex; flex-direction: column; gap: 5px;
-    }
-    .song-item { background-color: #eee; padding: 8px; border-radius: 4px; cursor: pointer; }
-    .song-item:hover { background-color: #ddd; }
-    #rankedColumn { display: flex; flex-direction: column; width: 48%; gap: 10px; }
-    .rank-box { display: flex; align-items: center; padding: 8px; border: 2px dashed #aaa; border-radius: 6px; background-color: #f9f9f9; }
-    .rank-number { width: 30px; text-align: center; font-weight: bold; color: #555; }
-    .rank-song { flex: 1; padding-left: 10px; }
-    #dropdownContainer { display: none; flex-direction: column; align-items: center; margin-top: 20px; gap: 8px; }
-    #dropdownContainer label { 
-      margin-top: 10px; 
-      font-size: 16px; 
-      font-weight: bold; 
-      color: #333; 
-    }
-    #dropdownContainer select { 
-      width: 70%; 
-      max-width: 500px; 
-      padding: 12px 16px; 
-      margin: 0 auto; 
-      display: block; 
-      font-size: 16px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      background-color: #fff;
-      cursor: pointer;
-    }
-    select, option { 
-      text-transform: none; 
-      font-family: Candara, sans-serif; 
-      font-size: 16px;
+      min-height: 600px; /* Ensure consistent height */
     }
     
+    #songList {
+      width: 48%; 
+      height: 1556px; /* Matches rankedColumn: padding(40px) + 20 boxes(1200px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1556px */
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #songList::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #songList::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .song-item { 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px; 
+      border-radius: 12px; 
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+    }
+    
+    .song-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: left 0.5s;
+    }
+    
+    .song-item:hover::before {
+      left: 100%;
+    }
+    
+    .song-item:hover { 
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+    
+    .song-item:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    .song-item.floating {
+      animation: floatToRanking 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      z-index: 1000;
+    }
+    
+    @keyframes floatToRanking {
+      0% {
+        transform: translateY(-2px) scale(1.02);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-20px) scale(1.1) rotateY(10deg);
+        opacity: 0.8;
+      }
+      70% {
+        transform: translateX(200px) translateY(-10px) scale(0.9) rotateY(-5deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateX(400px) translateY(0) scale(0.8);
+        opacity: 0;
+      }
+    }
+    #rankedColumn { 
+      display: flex; 
+      flex-direction: column; 
+      width: 48%; 
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      /* Remove fixed height to allow natural scrolling */
+    }
+    
+    #rankedList {
+      flex: 1;
+      /* Remove overflow-y: auto to allow natural page scrolling */
+    }
+    
+    .rank-box { 
+      display: flex; 
+      align-items: center; 
+      padding: 16px 20px; 
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      min-height: 60px;
+      position: relative;
+      overflow: hidden;
+      /* margin-bottom: 8px; Removed - using gap instead */
+    }
+    
+    .rank-box.filled {
+      background: rgba(102, 126, 234, 0.25);
+      border: 1px solid rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .rank-box.filled:hover {
+      background: rgba(102, 126, 234, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .rank-box:not(.filled) {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .rank-box:not(.filled):hover {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+    
+    .rank-number { 
+      width: 40px; 
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700; 
+      color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      flex-shrink: 0;
+    }
+    
+    .rank-song { 
+      flex: 1; 
+      padding-left: 20px;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+      min-height: 20px;
+    }
+    
+    .rank-box:not(.filled) .rank-song::after {
+      content: "Click-to-Add";
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      font-weight: 400;
+    }
+    
+    .rank-controls {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    
+    .rank-controls span {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .rank-controls span:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+    
+    .rank-controls .remove-btn {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.4);
+    }
+    
+    .rank-controls .remove-btn:hover {
+      background: rgba(255, 107, 107, 0.25);
+      color: #fff;
+    }
+    #dropdownContainer { 
+      display: none; 
+      flex-direction: column; 
+      align-items: center; 
+      margin-top: 30px; 
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #dropdownContainer label { 
+      margin-top: 15px; 
+      font-size: 16px; 
+      font-weight: 600; 
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #dropdownContainer select { 
+      width: 80%; 
+      max-width: 400px; 
+      padding: 15px 20px; 
+      margin: 5px auto; 
+      display: block; 
+      font-size: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #dropdownContainer select:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    #dropdownContainer select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+    
+    select, option { 
+      text-transform: none; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      font-size: 15px;
+    }
+    
+    option {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px;
+    }
     /* Mobile-specific improvements for dropdowns */
     @media (max-width: 768px) {
       #dropdownContainer select { 
-        width: 90%; 
-        padding: 14px 18px; 
-        font-size: 18px;
-        border-radius: 10px;
+        width: 95%; 
+        padding: 16px 20px; 
+        font-size: 16px;
+        border-radius: 12px;
       }
       #dropdownContainer label {
-        font-size: 18px;
+        font-size: 16px;
       }
       select, option {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
-    #submitSection { margin-top: 10px; display: none; flex-direction: row; justify-content: space-between; gap: 10px; width: 100%; }
-    #submitBtn, #resetBtn { height: 48px; width: 50%; font-size: 16px; border: none; border-radius: 24px; cursor: pointer; user-select: none; }
-    #submitBtn { background-color: royalblue; color: white; }
-    #resetBtn { background-color: pink; color: white; }
+    
+    #submitSection { 
+      margin-top: 20px; 
+      display: none; 
+      flex-direction: row; 
+      justify-content: space-between; 
+      gap: 15px; 
+      width: 100%; 
+    }
+    
+    #submitBtn, #resetBtn { 
+      height: 56px; 
+      width: 50%; 
+      font-size: 16px; 
+      font-weight: 600;
+      border: none; 
+      border-radius: 16px; 
+      cursor: pointer; 
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #submitBtn { 
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
+    }
+    
+    #submitBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+    }
+    
+    #resetBtn { 
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(250, 112, 154, 0.4);
+    }
+    
+    #resetBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(250, 112, 154, 0.6);
+    }
+    
+    #submitBtn:active, #resetBtn:active {
+      transform: translateY(0);
+    }
 
-    .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 999; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      justify-content: center; 
+      align-items: center; 
+    }
+    
     .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
       text-align: center;
-      max-width: 600px;
-      max-height: 90vh;
+      max-width: 700px;
+      max-height: 85vh;
       overflow-y: auto;
       overflow-x: auto;
       box-sizing: border-box;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      color: #fff;
     }
-    .modal-content button { margin: 10px; padding: 10px 15px; font-size: 14px; }
+    
+    .modal-content h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .modal-content button { 
+      margin: 8px; 
+      padding: 12px 24px; 
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal-content button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
 
     /* Global rankings table (scrollable body) */
-    #globalRankingsTable tbody { display: block; max-height: 300px; overflow-y: auto; width: 100%; }
-    #globalRankingsTable thead, #globalRankingsTable tbody tr { display: table; width: 100%; table-layout: fixed; }
+    #globalRankingsTable {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+    
+    #globalRankingsTable thead {
+      background: rgba(102, 126, 234, 0.2);
+    }
+    
+    #globalRankingsTable th {
+      color: #fff;
+      font-weight: 600;
+      padding: 15px 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    
+    #globalRankingsTable td {
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    #globalRankingsTable tbody tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    #globalRankingsTable tbody { 
+      display: block; 
+      max-height: 300px; 
+      overflow-y: auto; 
+      width: 100%; 
+    }
+    
+    #globalRankingsTable thead, #globalRankingsTable tbody tr { 
+      display: table; 
+      width: 100%; 
+      table-layout: fixed; 
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
 
     @media (max-width: 900px) {
+      body {
+        padding: 15px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+        margin: 15px 0 30px;
+      }
+      
       #container {
         flex-direction: column;
         align-items: center;
-        max-width: 100vw;
+        gap: 20px;
+        max-width: 100%;
+        width: 100%;
       }
+      
       #songList, #rankedColumn {
         width: 100%;
         min-width: 0;
-        max-width: 100vw;
+        max-width: 100%;
+      }
+      
+      #songList {
+        height: 1476px; /* Matches rankedColumn: padding(40px) + 20 boxes(1120px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1476px */
+      }
+      
+      .song-item {
+        padding: 14px 18px;
+        font-size: 14px;
+      }
+      
+      .rank-box {
+        padding: 14px 18px;
+        min-height: 56px;
+      }
+      
+      .rank-number {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
       }
     }
+    
     @media (max-width: 600px) {
-      #container {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100vw;
-        max-width: 100vw;
+      body {
+        padding: 10px;
       }
+      
+      .back-home-btn {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        margin: 10px 0 20px;
+      }
+      
+      .toggle-group {
+        gap: 6px;
+      }
+      
+      button.toggle-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+        min-width: 100px;
+      }
+      
+      #container {
+        gap: 15px;
+        padding: 0 5px;
+      }
+      
       #songList, #rankedColumn {
-        width: 50vw;
         min-width: 0;
-        max-width: 100vw;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      
+      #songList {
+        height: 1390px; /* Matches rankedColumn: padding(40px) + 20 boxes(1040px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(50px) = 1390px */
+        padding: 15px;
+      }
+      
+      #rankedColumn {
+        padding: 15px;
+      }
+      
+      .song-item {
+        padding: 12px 16px;
+        font-size: 13px;
+      }
+      
+      .rank-box {
+        padding: 12px 16px;
+        min-height: 52px;
+      }
+      
+      .rank-number {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+      
+      .rank-song {
+        font-size: 13px;
+        padding-left: 15px;
+      }
+      
+      .rank-controls span {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+      }
+      
+      #submitBtn, #resetBtn {
+        height: 50px;
+        font-size: 13px;
+      }
+      
+      .modal-content {
+        margin: 15px;
+        padding: 20px;
+        max-width: calc(100vw - 30px);
+      }
+      
+      #dropdownContainer {
+        padding: 20px 15px;
+      }
+      
+      #dropdownContainer select {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 14px;
       }
     }
   </style>
@@ -281,7 +876,7 @@
   <h1 class="hero-heading">🔥 Rank Your Top 20 NF Songs</h1>
 
   <!-- Random Quote Section -->
-  <div style="max-width:600px;margin:10px auto 20px auto;text-align:center;font-style:italic;font-size:1.1rem;color:#555;padding:0 20px;">
+  <div style="max-width:700px;margin:20px auto 30px auto;text-align:center;font-style:italic;font-size:1.2rem;color:rgba(255,255,255,0.8);padding:0 20px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:25px;">
     &ldquo;<span id="randomQuote">Loading quote...</span>&rdquo;
   </div>
 
@@ -293,17 +888,20 @@
   </a>
 
   <!-- Info section for ranking instructions and global leaderboard -->
-  <div class="info-section" style="max-width:700px;margin:32px auto 18px auto;padding:18px 24px;background:rgba(255,255,255,0.08);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.08);font-size:1.15rem;color:#222;text-align:center;">
-    <strong>Make your Top 20 and see how it stacks up against fans worldwide.</strong><br>
-    The global leaderboard updates in real time as votes come in.<br><br>
-    <em>Tip:</em> add your must-have tracks first, fill in the rest, then nudge songs up or down.<br><br>
-    <span style="font-size:1.05rem;color:#444;">Explore more artists:
-      <a href="kb_ranks.html">KB</a> ·
-      <a href="cp_ranks.html">Connor Price</a> ·
-      <a href="liv_ranks.html">Livingston</a> ·
-      <a href="jj_ranks.html">Jack Johnson</a> ·
-      <a href="FAQs.html">FAQs</a>
-    </span>
+  <div class="info-section" style="max-width:800px;margin:20px auto 35px auto;padding:25px 30px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-size:1.1rem;color:rgba(255,255,255,0.9);text-align:center;">
+    <strong style="color:#fff;font-size:1.2rem;">Make your Top 20 and see how it stacks up against fans worldwide.</strong><br><br>
+    <span style="color:rgba(255,255,255,0.8);">The global leaderboard updates in real time as votes come in.</span><br><br>
+    <em style="color:rgba(102,126,234,1);">💡 Tip:</em> <span style="color:rgba(255,255,255,0.8);">add your must-have tracks first, fill in the rest, then nudge songs up or down.</span><br><br>
+    <div style="font-size:1rem;color:rgba(255,255,255,0.7);margin-top:20px;">
+      <span style="color:rgba(255,255,255,0.9);font-weight:600;">Explore more artists:</span><br>
+      <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a href="kb_ranks.html" style="color:#667eea;text-decoration:none;padding:8px 16px;background:rgba(102,126,234,0.1);border-radius:20px;border:1px solid rgba(102,126,234,0.2);transition:all 0.3s ease;">KB</a>
+        <a href="cp_ranks.html" style="color:#764ba2;text-decoration:none;padding:8px 16px;background:rgba(118,75,162,0.1);border-radius:20px;border:1px solid rgba(118,75,162,0.2);transition:all 0.3s ease;">Connor Price</a>
+        <a href="liv_ranks.html" style="color:#f093fb;text-decoration:none;padding:8px 16px;background:rgba(240,147,251,0.1);border-radius:20px;border:1px solid rgba(240,147,251,0.2);transition:all 0.3s ease;">Livingston</a>
+        <a href="jj_ranks.html" style="color:#4facfe;text-decoration:none;padding:8px 16px;background:rgba(79,172,254,0.1);border-radius:20px;border:1px solid rgba(79,172,254,0.2);transition:all 0.3s ease;">Jack Johnson</a>
+        <a href="FAQs.html" style="color:#fee140;text-decoration:none;padding:8px 16px;background:rgba(254,225,64,0.1);border-radius:20px;border:1px solid rgba(254,225,64,0.2);transition:all 0.3s ease;">FAQs</a>
+      </div>
+    </div>
   </div>
 
     
@@ -435,7 +1033,7 @@
       "I'm on a rampage, hit 'em with the record release.",
       "What's the point of having love with no pain?",
       "'Cause I thought you had me in prison this whole time, but I'm the one holdin' the keys.",
-      "2020 mencould never hold a candle to the present-day me standing here before you.",
+      "2020 me could never hold a candle to the present-day me standing here before you.",
       "I been running for a while; they ain't ready for me.",
       "Hey, Nate, how's life?",
       "'Let You Down's' the only song youve heard of? Well, then you're behind.",
@@ -479,8 +1077,14 @@
           if (currentMode === 'click') {
             const index = rankedSongs.indexOf(null);
             if (index !== -1) {
-              rankedSongs[index] = song;
-              renderAll();
+              // Add floating animation
+              div.classList.add('floating');
+              
+              // Add the song to ranking after animation starts
+              setTimeout(() => {
+                rankedSongs[index] = song;
+                renderAll();
+              }, 300);
             }
           }
         };
@@ -494,7 +1098,7 @@
 
       rankedSongs.forEach((song, i) => {
         const box = document.createElement('div');
-        box.className = 'rank-box';
+        box.className = song ? 'rank-box filled' : 'rank-box';
 
         const num = document.createElement('div');
         num.className = 'rank-number';
@@ -504,29 +1108,43 @@
         content.className = 'rank-song';
         content.textContent = song || '';
 
+        box.appendChild(num);
+        box.appendChild(content);
+
         if (song) {
           const controls = document.createElement('div');
-          controls.style.display = 'flex';
-          controls.style.marginLeft = 'auto';
-          controls.style.gap = '14px';
+          controls.className = 'rank-controls';
 
           const upBtn = document.createElement('span');
           upBtn.innerHTML = '▲';
           upBtn.style.cursor = 'pointer';
-          upBtn.onclick = () => { if (i > 0) { [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]]; renderAll(); }};
+          upBtn.onclick = () => { 
+            if (i > 0) { 
+              [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]]; 
+              renderAll(); 
+            }
+          };
 
           const downBtn = document.createElement('span');
           downBtn.innerHTML = '▼';
           downBtn.style.cursor = 'pointer';
-          downBtn.onclick = () => { if (i < rankedSongs.length - 1) { [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]]; renderAll(); }};
+          downBtn.onclick = () => { 
+            if (i < rankedSongs.length - 1) { 
+              [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]]; 
+              renderAll(); 
+            }
+          };
 
           const removeBtn = document.createElement('span');
+          removeBtn.className = 'remove-btn';
           removeBtn.textContent = '×';
-          removeBtn.style.color = 'red';
           removeBtn.style.cursor = 'pointer';
           removeBtn.style.fontWeight = 'bold';
-          removeBtn.style.fontSize = '18px';
-          removeBtn.onclick = () => { rankedSongs[i] = null; renderAll(); };
+          removeBtn.style.fontSize = '16px';
+          removeBtn.onclick = () => { 
+            rankedSongs[i] = null; 
+            renderAll(); 
+          };
 
           controls.appendChild(upBtn);
           controls.appendChild(downBtn);
@@ -534,8 +1152,6 @@
           box.appendChild(controls);
         }
 
-        box.appendChild(num);
-        box.appendChild(content);
         rankedList.appendChild(box);
       });
     }
@@ -570,12 +1186,46 @@
         container.appendChild(label);
         container.appendChild(select);
       }
+      
+      // Add submit buttons at the end when all songs are selected
+      const ready = rankedSongs.every(Boolean);
+      if (ready) {
+        const submitSection = document.createElement('div');
+        submitSection.style.cssText = 'margin-top: 30px; display: flex; flex-direction: row; justify-content: space-between; gap: 15px; width: 100%; max-width: 400px;';
+        
+        const submitBtn = document.createElement('button');
+        submitBtn.textContent = 'Submit Rankings';
+        submitBtn.style.cssText = 'height: 56px; width: 50%; font-size: 16px; font-weight: 600; border: none; border-radius: 16px; cursor: pointer; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em;';
+        submitBtn.onmouseover = () => submitBtn.style.transform = 'translateY(-2px)';
+        submitBtn.onmouseout = () => submitBtn.style.transform = 'translateY(0)';
+        submitBtn.onclick = () => {
+          if (rankedSongs.every(Boolean)) {
+            document.getElementById('submitModal').style.display = 'flex';
+          }
+        };
+        
+        const resetBtn = document.createElement('button');
+        resetBtn.textContent = 'Reset My Rankings';
+        resetBtn.style.cssText = 'height: 56px; width: 50%; font-size: 16px; font-weight: 600; border: none; border-radius: 16px; cursor: pointer; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; box-shadow: 0 8px 30px rgba(250, 112, 154, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em;';
+        resetBtn.onmouseover = () => resetBtn.style.transform = 'translateY(-2px)';
+        resetBtn.onmouseout = () => resetBtn.style.transform = 'translateY(0)';
+        resetBtn.onclick = () => {
+          if (rankedSongs.every(Boolean)) document.getElementById('resetModal').style.display = 'flex';
+        };
+        
+        submitSection.appendChild(submitBtn);
+        submitSection.appendChild(resetBtn);
+        container.appendChild(submitSection);
+      }
+      
       toggleSubmitReset();
     }
 
     function toggleSubmitReset() {
       const ready = rankedSongs.every(Boolean);
-      document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
+      // Only show the original submit section in click mode, not dropdown mode
+      const showOriginalSubmit = ready && currentMode !== 'dropdown';
+      document.getElementById('submitSection').style.display = showOriginalSubmit ? 'flex' : 'none';
       if (!ready) {
         document.getElementById('submitModal').style.display = 'none';
         document.getElementById('resetModal').style.display = 'none';
