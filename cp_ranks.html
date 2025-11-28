@@ -2,285 +2,832 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Connor Price Rankings</title> Song Ranking</title>
+  <title>🎤 Connor Price Songs Ranked | Fan Top 20 Leaderboard</title>
   <style>
-      .back-home-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #0077cc;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 25px;
-  font-size: 16px;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
-  z-index: 1000;
-}
-.back-home-btn:hover {
-  background-color: #005fa3;
-}
-
-.back-home-btn svg {
-  width: 16px;
-  height: 16px;
-  fill: white;
-}
-    .hero-heading {
-  font-size: 3rem;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #111827, #4f46e5, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1.2px;
-}
-
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      background: #0f0f23 !important;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
-      max-width: 1000px;
-      margin: 30px auto;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+      min-height: 100vh;
+      color: #ffffff !important;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(119, 221, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .hero-heading {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      text-align: center;
+      margin: 20px 0 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .back-home-btn {
+      position: fixed; 
+      top: 20px; 
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 20px; 
+      border-radius: 50px; 
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none; 
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease; 
+      z-index: 1000;
+    }
+    .back-home-btn:hover { 
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .back-home-btn svg { 
+      width: 16px; 
+      height: 16px; 
+      fill: white; 
+      transition: transform 0.3s ease;
+    }
+    .back-home-btn:hover svg {
+      transform: translateX(-2px);
+    }
+    .section-header { 
+      text-align: center; 
+      font-weight: 700; 
+      font-size: 1.1rem;
+      margin: 30px 0 15px;
+      color: #ffffff !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .toggle-group { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      align-items: center; 
+      margin-bottom: 25px; 
+    }
+    
+    button.toggle-btn {
+      padding: 12px 24px; 
+      font-size: 14px; 
+      font-weight: 600;
+      border-radius: 50px; 
+      border: 2px solid rgba(255, 255, 255, 0.3); 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    button.toggle-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    button.toggle-btn:hover::before {
+      left: 100%;
+    }
+    
+    button.toggle-btn:hover { 
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    button.toggle-btn.active { 
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    #container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    #songList, #rankedColumn {
+      width: 48%;
+      min-width: 300px;
+      max-width: 500px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    #rankedList {
+      width: 100%;
+      max-width: 100%;
+      min-height: 600px; /* Ensure consistent height */
+    }
+    
+    #songList {
+      width: 48%; 
+      height: 1556px; /* Matches rankedColumn: padding(40px) + 20 boxes(1200px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1556px */
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #songList::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #songList::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .song-item { 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px; 
+      border-radius: 12px; 
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+    }
+    
+    .song-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: left 0.5s;
+    }
+    
+    .song-item:hover::before {
+      left: 100%;
+    }
+    
+    .song-item:hover { 
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+    
+    .song-item:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    .song-item.floating {
+      animation: floatToRanking 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      z-index: 1000;
+    }
+    
+    @keyframes floatToRanking {
+      0% {
+        transform: translateY(-2px) scale(1.02);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-20px) scale(1.1) rotateY(10deg);
+        opacity: 0.8;
+      }
+      70% {
+        transform: translateX(200px) translateY(-10px) scale(0.9) rotateY(-5deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateX(400px) translateY(0) scale(0.8);
+        opacity: 0;
+      }
+    }
+    #rankedColumn { 
+      display: flex; 
+      flex-direction: column; 
+      width: 48%; 
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      /* Remove fixed height to allow natural scrolling */
+    }
+    
+    #rankedList {
+      flex: 1;
+      /* Remove overflow-y: auto to allow natural page scrolling */
+    }
+    
+    .rank-box { 
+      display: flex; 
+      align-items: center; 
+      padding: 16px 20px; 
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      min-height: 60px;
+      position: relative;
+      overflow: hidden;
+      /* margin-bottom: 8px; Removed - using gap instead */
+    }
+    
+    .rank-box.filled {
+      background: rgba(102, 126, 234, 0.25);
+      border: 1px solid rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .rank-box.filled:hover {
+      background: rgba(102, 126, 234, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .rank-box:not(.filled) {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .rank-box:not(.filled):hover {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+    
+    .rank-number { 
+      width: 40px; 
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700; 
+      color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      flex-shrink: 0;
+    }
+    
+    .rank-song { 
+      flex: 1; 
+      padding-left: 20px;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+      min-height: 20px;
+    }
+    
+    .rank-box:not(.filled) .rank-song::after {
+      content: "Click-to-Add";
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      font-weight: 400;
+    }
+    
+    .rank-controls {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    
+    .rank-controls span {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .rank-controls span:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+    
+    .rank-controls .remove-btn {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.4);
+    }
+    
+    .rank-controls .remove-btn:hover {
+      background: rgba(255, 107, 107, 0.25);
+      color: #fff;
+    }
+    #dropdownContainer { 
+      display: none; 
+      flex-direction: column; 
+      align-items: center; 
+      margin-top: 30px; 
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #dropdownContainer label { 
+      margin-top: 15px; 
+      font-size: 16px; 
+      font-weight: 600; 
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #dropdownContainer select { 
+      width: 80%; 
+      max-width: 400px; 
+      padding: 15px 20px; 
+      margin: 5px auto; 
+      display: block; 
+      font-size: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #dropdownContainer select:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    #dropdownContainer select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+    
+    select, option { 
+      text-transform: none; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      font-size: 15px;
+    }
+    
+    option {
+      background: #1a1a2e;
+      color: #fff;
       padding: 10px;
     }
-    body {
-  position: relative;
-  z-index: 0;
-  background: none;
-}
-
-body {
-  background-color: #ffffff;
-  color: #111827;
-}
-      
-    h1 {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 3em; /* Twice the default size (1.5em is default for h1) */
-  font-family: Candara, sans-serif;
-  color: black;
-  text-shadow:
-    -1px -1px 0 white,
-     1px -1px 0 white,
-    -1px  1px 0 white,
-     1px  1px 0 white;
-}
-    .section-header {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .toggle-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    button.toggle-btn {
-  padding: 12px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 9999px;
-  border: none;
-  background: #3a3a5c;
-  color: #fff;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-button.toggle-btn:hover {
-  background: #505080;
-  transform: scale(1.05);
-}
-
-button.toggle-btn.active {
-  background: #6c63ff;
-}
-    #container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-#songList {
-  width: 48%;
-  max-height: 800px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-#rankedColumn {
-  display: flex;
-  flex-direction: column;
-  width: 48%;
-  gap: 10px;
-}
-    .song-item {
-      background-color: #eee;
-      padding: 8px;
-      border-radius: 4px;
-      cursor: grab;
-    }
-    #rankedList {
-      display: flex;
-      flex-direction: column;
-      width: 320px;
-      gap: 10px;
-    }
-    .rank-box {
-      display: flex;
-      align-items: center;
-      padding: 8px;
-      border: 2px dashed #aaa;
-      border-radius: 6px;
-      background-color: #f9f9f9;
-    }
-    .rank-number {
-      width: 30px;
-      text-align: center;
-      font-weight: bold;
-      color: #555;
-    }
-    .rank-song {
-      flex: 1;
-      padding-left: 10px;
-    }
-    #dropdownContainer {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-    }
-    #dropdownContainer label {
-      margin-top: 10px;
-    }
-    #dropdownContainer select {
-  width: 50%;
-  max-width: 400px;
-  padding: 8px;
-  margin: 0 auto;
-  display: block;
-}
-      select, option {
-  text-transform: none;
-  font-family: Candara, sans-serif;
-}
-    #submitSection {
-  margin-top: 10px;
-  display: none;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
-}
-
-#submitBtn, #resetBtn {
-  height: 48px;
-  width: 50%;
-  font-size: 16px;
-  border: none;
-  border-radius: 24px;
-  cursor: pointer;
-  user-select: none;
-}
-
-#submitBtn {
-  background-color: royalblue;
-  color: white;
-}
-
-#resetBtn {
-  background-color: pink;
-  color: white;
-}
-
-#resetBtn {
-  background-color: pink;
-  color: white;
-}
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 300px;
-    }
-    .modal-content button {
-      margin: 10px;
-      padding: 10px 15px;
-      font-size: 14px;
-    }
-    @media (max-width: 600px) {
-      #container {
-        flex-direction: column;
-        align-items: center;
+    /* Mobile-specific improvements for dropdowns */
+    @media (max-width: 768px) {
+      #dropdownContainer select { 
+        width: 95%; 
+        padding: 16px 20px; 
+        font-size: 16px;
+        border-radius: 12px;
       }
-      #rankedList, #dropdownContainer, #songList {
+      #dropdownContainer label {
+        font-size: 16px;
+      }
+      select, option {
+        font-size: 16px;
+      }
+    }
+    
+    #submitSection { 
+      margin-top: 20px; 
+      display: none; 
+      flex-direction: row; 
+      justify-content: space-between; 
+      gap: 15px; 
+      width: 100%; 
+    }
+    
+    #submitBtn, #resetBtn { 
+      height: 56px; 
+      width: 50%; 
+      font-size: 16px; 
+      font-weight: 600;
+      border: none; 
+      border-radius: 16px; 
+      cursor: pointer; 
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #submitBtn { 
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
+    }
+    
+    #submitBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+    }
+    
+    #resetBtn { 
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(250, 112, 154, 0.4);
+    }
+    
+    #resetBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(250, 112, 154, 0.6);
+    }
+    
+    #submitBtn:active, #resetBtn:active {
+      transform: translateY(0);
+    }
+
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 999; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      justify-content: center; 
+      align-items: center; 
+    }
+    
+    .modal-content {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 700px;
+      max-height: 85vh;
+      overflow-y: auto;
+      overflow-x: auto;
+      box-sizing: border-box;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+    
+    .modal-content h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .modal-content button { 
+      margin: 8px; 
+      padding: 12px 24px; 
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal-content button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Global rankings table (scrollable body) */
+    #globalRankingsTable {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+    
+    #globalRankingsTable thead {
+      background: rgba(102, 126, 234, 0.2);
+    }
+    
+    #globalRankingsTable th {
+      color: #fff;
+      font-weight: 600;
+      padding: 15px 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    
+    #globalRankingsTable td {
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    #globalRankingsTable tbody tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    #globalRankingsTable tbody { 
+      display: block; 
+      max-height: 300px; 
+      overflow-y: auto; 
+      width: 100%; 
+    }
+    
+    #globalRankingsTable thead, #globalRankingsTable tbody tr { 
+      display: table; 
+      width: 100%; 
+      table-layout: fixed; 
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 8px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+        margin: 15px 0 30px;
+      }
+      
+      #container {
+        flex-direction: row; /* Keep side by side */
+        align-items: flex-start;
+        gap: 8px; /* Reduced gap */
         max-width: 100%;
         width: 100%;
       }
-      .toggle-group {
-        flex-direction: column;
+      
+      #songList, #rankedColumn {
+        width: 48%; /* Keep 48% each */
+        min-width: 0;
+        max-width: 48%;
+      }
+      
+      #songList {
+        height: 1400px; /* Adjusted height */
+        padding: 12px; /* Reduced padding */
+      }
+      
+      #rankedColumn {
+        padding: 12px; /* Reduced padding */
+      }
+      
+      .song-item {
+        padding: 12px 14px; /* Reduced padding */
+        font-size: 13px; /* Smaller font */
+      }
+      
+      .rank-box {
+        padding: 12px 14px; /* Reduced padding */
+        min-height: 52px; /* Smaller height */
+      }
+      
+      .rank-number {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+      
+      .rank-song {
+        font-size: 13px;
+        padding-left: 12px; /* Reduced padding */
+      }
+      
+      .rank-controls span {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
       }
     }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 5px;
+      }
+      
+      .back-home-btn {
+        top: 5px;
+        right: 5px;
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.3rem, 7vw, 2.2rem);
+        margin: 8px 0 15px;
+      }
+      
+      .toggle-group {
+        gap: 4px;
+        margin-bottom: 15px;
+      }
+      
+      button.toggle-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-width: 80px;
+      }
+      
+      #container {
+        gap: 6px; /* Very small gap */
+        padding: 0 2px;
+        flex-direction: row; /* Keep side by side */
+      }
+      
+      #songList, #rankedColumn {
+        width: 48%; /* Keep side by side */
+        min-width: 0;
+        max-width: 48%;
+        margin: 0;
+      }
+      
+      #songList {
+        height: 1200px; /* Reduced height for mobile */
+        padding: 8px; /* Minimal padding */
+      }
+      
       #rankedColumn {
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  gap: 10px;
-}
-#rankedColumn {
-    display: flex;
-    flex-direction: column;
-    width: 320px;
-    gap: 10px;
-  }
-
-  /* ADD THIS BELOW */
-  #globalRankingsTable tbody {
-    display: block;
-    max-height: 300px; /* Adjust as needed */
-    overflow-y: auto;
-    width: 100%;
-  }
-
-  #globalRankingsTable thead, 
-  #globalRankingsTable tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-  }
-  @media (min-width: 601px) {
-  #resultsModal .modal-content {
-    margin: 40px auto 20px auto !important;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-}
-
+        padding: 8px; /* Minimal padding */
+      }
+      
+      .song-item {
+        padding: 8px 10px; /* Very compact */
+        font-size: 11px; /* Smaller font */
+      }
+      
+      .rank-box {
+        padding: 8px 10px; /* Very compact */
+        min-height: 44px; /* Smaller height */
+      }
+      
+      .rank-number {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+      }
+      
+      .rank-song {
+        font-size: 11px;
+        padding-left: 8px; /* Minimal padding */
+      }
+      
+      .rank-controls span {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+      }
+      
+      #submitBtn, #resetBtn {
+        height: 44px; /* Smaller buttons */
+        font-size: 11px;
+      }
+      
+      .modal-content {
+        margin: 10px;
+        padding: 15px;
+        max-width: calc(100vw - 20px);
+      }
+      
+      #dropdownContainer {
+        padding: 15px 8px;
+      }
+      
+      #dropdownContainer select {
+        width: 100%;
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+      
+      .info-section {
+        margin: 10px auto 20px auto !important;
+        padding: 15px 12px !important;
+        font-size: 0.9rem !important;
+      }
+      
+      .info-section strong {
+        font-size: 1rem !important;
+      }
+      
+      .info-section div[style*="margin-top:10px"] a {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -293,18 +840,21 @@ button.toggle-btn.active {
   Back to Home
 </a>
 
-<!-- Info section for ranking instructions, leaderboard, tip, and explore more artists -->
-<div class="info-section" style="max-width:700px;margin:32px auto 18px auto;padding:18px 24px;background:rgba(255,255,255,0.08);border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,0.08);font-size:1.15rem;color:#222;text-align:center;">
-  <strong>Make your Top 20 and see how it stacks up against fans worldwide.</strong><br>
-  The global leaderboard updates in real time as votes come in.<br><br>
-  <em>Tip:</em> add your must-have tracks first, fill in the rest, then nudge songs up or down.<br><br>
-  <span style="font-size:1.05rem;color:#444;">Explore more artists:
-    <a href="nf_ranks.html">NF</a> ·
-    <a href="kb_ranks.html">KB</a> ·
-    <a href="liv_ranks.html">Livingston</a> ·
-    <a href="jj_ranks.html">Jack Johnson</a> ·
-    <a href="FAQs.html">FAQs</a>
-  </span>
+<!-- Info section for ranking instructions and global leaderboard -->
+<div class="info-section" style="max-width:800px;margin:20px auto 35px auto;padding:25px 30px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-size:1.1rem;color:rgba(255,255,255,0.9);text-align:center;">
+  <strong style="color:#fff;font-size:1.2rem;">Make your Top 20 and see how it stacks up against fans worldwide.</strong><br><br>
+  <span style="color:rgba(255,255,255,0.8);">The global leaderboard updates in real time as votes come in.</span><br><br>
+  <em style="color:rgba(102,126,234,1);">💡 Tip:</em> <span style="color:rgba(255,255,255,0.8);">add your must-have tracks first, fill in the rest, then nudge songs up or down.</span><br><br>
+  <div style="font-size:1rem;color:rgba(255,255,255,0.7);margin-top:20px;">
+    <span style="color:rgba(255,255,255,0.9);font-weight:600;">Explore more artists:</span><br>
+    <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <a href="nf_ranks.html" style="color:#667eea;text-decoration:none;padding:8px 16px;background:rgba(102,126,234,0.1);border-radius:20px;border:1px solid rgba(102,126,234,0.2);transition:all 0.3s ease;">NF</a>
+      <a href="kb_ranks.html" style="color:#764ba2;text-decoration:none;padding:8px 16px;background:rgba(118,75,162,0.1);border-radius:20px;border:1px solid rgba(118,75,162,0.2);transition:all 0.3s ease;">KB</a>
+      <a href="liv_ranks.html" style="color:#f093fb;text-decoration:none;padding:8px 16px;background:rgba(240,147,251,0.1);border-radius:20px;border:1px solid rgba(240,147,251,0.2);transition:all 0.3s ease;">Livingston</a>
+      <a href="jj_ranks.html" style="color:#4facfe;text-decoration:none;padding:8px 16px;background:rgba(79,172,254,0.1);border-radius:20px;border:1px solid rgba(79,172,254,0.2);transition:all 0.3s ease;">Jack Johnson</a>
+      <a href="FAQs.html" style="color:#fee140;text-decoration:none;padding:8px 16px;background:rgba(254,225,64,0.1);border-radius:20px;border:1px solid rgba(254,225,64,0.2);transition:all 0.3s ease;">FAQs</a>
+    </div>
+  </div>
 </div>
 
 <div class="section-header">Rank With</div>
