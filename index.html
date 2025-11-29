@@ -2,293 +2,714 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RankSongs.com</title>
+  <meta name="description" content="Rank your favorite songs from NF, Livingston, KB, Connor Price, and Jack Johnson. See how your rankings compare with fans worldwide." />
+  <meta name="robots" content="index,follow" />
+  <title>🎵 RankSongs.com - Rank Your Favorite Artists</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      background: #0f0f23 !important;
+    }
+
     body {
-      min-height: 200vh; /* makes page twice the screen height to allow scrolling */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
-      background: url('home_background.jpg') top center / cover no-repeat;
-      background-size: 100% auto; /* fit horizontally, scale height proportionally */
-      font-family: 'Candara', sans-serif;
-      color: #333;
-      background-color: black; /* fallback color to fill empty space */
+      padding: 0;
+      min-height: 100vh;
+      color: #ffffff !important;
+      position: relative;
+      overflow-x: hidden;
+      
+      /* Custom background image with modern overlay */
+      background-image: 
+        linear-gradient(135deg, rgba(15, 15, 35, 0.4) 0%, rgba(26, 26, 46, 0.45) 50%, rgba(22, 33, 62, 0.4) 100%),
+        url('home_background.jpg');
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
     }
-    header {
+
+    /* Modern ambient gradients overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(119, 221, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Container for proper layout */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Modern hero section */
+    .hero-section {
       text-align: center;
-      padding: 60px 20px 30px;
-      background-color: transparent;   /* let page background show through */
-      box-shadow: none;                /* removes header shadow */
-      background-color: transparent;
-      box-shadow: none;
+      padding: 60px 20px 40px;
+      margin-bottom: 40px;
     }
 
-    h1 {
-  font-size: clamp(2.8rem, 7vw, 5rem);
-  font-weight: 900;
-  margin-bottom: 10px;
-  letter-spacing: 2.5px;
-  background: linear-gradient(90deg, #ff0080, #7928ca, #2af598, #fad961, #ff0080);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-  text-shadow:
-    0 2px 12px rgba(0,0,0,0.25),
-    0 1px 0 #fff,
-    0 0px 20px #fad961;
-  animation: gradientMove 4s ease-in-out infinite;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@media (max-width: 375px) {
-  h1 {
-    font-size: 2rem;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
-    /* Glassmorphism card for header - less opaque */
-  .glass-card {
-    margin: 0 auto;
-    margin-top: 40px;
-    max-width: 600px;
-    padding: 24px 22px 20px 22px;
-    background: rgba(255,255,255,0.06); /* less opaque glass effect */
-    border-radius: 32px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1.5px solid rgba(255,255,255,0.18); /* slightly lighter border */
-    text-align: center;
-    position: relative;
-    z-index: 2;
-  }
-  .glass-card h1 {
-    margin-bottom: 18px;
-  }
-  .tagline {
-    font-size: 1.35rem;
-    font-weight: 500;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.18), 0 1px 0 #7928ca;
-    letter-spacing: 1.2px;
-    margin-bottom: 0;
-    animation: fadeInTagline 1.2s ease;
-  }
-  @media (max-width: 700px) {
-    .glass-card {
-      max-width: 95vw;
-      padding: 18px 7px 13px 7px;
-    }
-    .tagline {
-      font-size: 1rem;
-    }
-  }
-  @keyframes fadeInTagline {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-    .artist-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 30px;
-    }
-
-    /* button */
-    .artist-button {
+    .hero-heading {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      text-align: center;
+      margin: 20px 0 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
       position: relative;
     }
-    .artist-button > button {
-      padding: 12px 20px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .artist-button > button:hover {
-      background-color: #005fa3;
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
-    /* dropdown */
-    .artist-dropdown {
-      display: none;
+    .tagline {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Modern glassmorphism card for artists */
+    .artists-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Artist grid */
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .artist-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .artist-card::before {
+      content: '';
       position: absolute;
-      top: 115%;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .artist-card:hover::before {
+      left: 100%;
+    }
+
+    .artist-card:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .artist-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .artist-preview {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    /* Expanded Artist Modal */
+    .artist-modal {
+      position: fixed;
+      top: 0;
       left: 0;
-      min-width: 200px;
-      background: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      border-radius: 8px;
-      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-    .artist-dropdown a {
-      display: block;
-      padding: 12px 16px;
-      font-size: 14px;
+
+    .artist-modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      position: relative;
+      animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-artist-name {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    .modal-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .modal-section {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-link {
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #ffffff;
       text-decoration: none;
-      color: #333;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .artist-dropdown a:hover {
-      background: #f4f4f4;
+
+    .modal-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-link.primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      font-weight: 600;
+    }
+
+    .modal-link.primary:hover {
+      background: linear-gradient(135deg, #5a6fd8, #6a42a0);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .modal-link.secondary {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .modal-link.secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .external-icon {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    /* Mobile adjustments for modal */
+    @media (max-width: 768px) {
+      .modal-content {
+        padding: 30px 20px;
+        margin: 10px;
+        max-width: calc(100% - 20px);
+      }
+
+      .modal-artist-name {
+        font-size: 2rem;
+        margin-bottom: 25px;
+      }
+
+      .modal-sections {
+        gap: 20px;
+      }
+
+      .modal-section {
+        padding: 15px;
+      }
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .faq-btn {
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(250, 112, 154, 0.4);
+    }
+
+    .faq-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(250, 112, 154, 0.6);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .hero-section {
+        padding: 40px 15px 30px;
+      }
+
+      .artists-container {
+        padding: 25px 15px;
+      }
+
+      .artist-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+
+      .artist-card {
+        padding: 15px 8px;
+        min-height: 100px;
+      }
+
+      .artist-name {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .artist-preview {
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-heading {
+        margin: 10px 0 20px;
+      }
+
+      .tagline {
+        margin-bottom: 30px;
+      }
+
+      .artists-container {
+        padding: 20px 10px;
+      }
+
+      .artist-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+      }
+
+      .artist-card {
+        padding: 12px 5px;
+        min-height: 85px;
+      }
+
+      .artist-name {
+        font-size: 0.8rem;
+        margin-bottom: 3px;
+      }
+
+      .artist-preview {
+        font-size: 9px;
+      }
+    }
+
+    /* Scroll indicator for background visibility */
+    .scroll-space {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+    }
+
+    .scroll-indicator {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-
-  <header>
-  <div class="glass-card">
-    <h1>RankSongs</h1>
-    <div class="tagline">Rankings directly from YOU!</div>
-  </div>
-  <div class="artist-nav">
-
-      <!-- NF -->
-      <div class="artist-button">
-        <button onclick="toggleDropdown(this)">NF</button>
-        <div class="artist-dropdown">
-          <a href="nf_ranks.html">Rank NF</a>
-          <a href="https://www.nfrealmusic.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/nf/898094630" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank">Amazon Music</a>
-          <a href="nf_global.html">Global Rankings</a>
-        </div>
-      </div>
-
-      <!-- Livingston -->
-      <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Livingston</button>
-        <div class="artist-dropdown">
-          <a href="liv_ranks.html">Rank Livingston</a>
-          <a href="https://www.livingstonofficial.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank">Amazon Music</a>
-          <a href="liv_global.html">Global Rankings</a>
-        </div>
-      </div>
-
-      <!-- KB -->
-      <div class="artist-button">
-        <button onclick="toggleDropdown(this)">KB</button>
-        <div class="artist-dropdown">
-          <a href="kb_ranks.html">Rank KB</a>
-          <a href="https://whoiskb.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/KB_(rapper)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/kb/74520603" target="_blank">Apple Music</a>
-          <a href="https://www.amazon.com/music/player/artists/B000QKHD7C/kb" target="_blank">Amazon Music</a>
-          <a href="kb_global.html">Global Rankings</a>
-        </div>
-      </div>
-
-      <!-- Connor Price -->
-      <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Connor Price</button>
-        <div class="artist-dropdown">
-          <a href="cp_ranks.html">Rank Connor Price</a> 
-          <a href="https://connorprice.shop" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank">Amazon Music</a>
-          <a href="cp_global.html">Global Rankings</a>
-        </div>
-      </div>
-
-      <!-- Jack Johnson -->
-      <div class="artist-button">
-        <button onclick="toggleDropdown(this)">Jack Johnson</button>
-        <div class="artist-dropdown">
-          <a href="jj_ranks.html">Rank Jack Johnson</a> 
-          <a href="https://jackjohnsonmusic.com" target="_blank">Site</a>
-          <a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank">Wikipedia</a>
-          <a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank">Spotify</a>
-          <a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank">Apple Music</a>
-          <a href="https://music.amazon.com/en-ar/artists/B000QJPQU4/jack-johnson" target="_blank">Amazon Music</a>
-          <a href="jj_global.html">Global Rankings</a>
-        </div>
-      </div>
-
+  <div class="container">
+    <div class="hero-section">
+      <h1 class="hero-heading">RankSongs</h1>
+      <div class="tagline">Rankings directly from YOU!</div>
     </div>
-  </header>
 
-  <!-- Force scroll space so background image can be seen -->
-  <!-- Extra space so you can scroll and see background -->
-  <div style="height: 100vh;"></div>
+    <div class="artists-container">
+      <h2 class="section-title">Choose Your Artist</h2>
+      
+      <div class="artist-grid">
+        <!-- NF -->
+        <div class="artist-card" onclick="openArtistModal('nf')">
+          <div class="artist-name">🔥 NF</div>
+          <div class="artist-preview">Click to explore options</div>
+        </div>
+
+        <!-- Livingston -->
+        <div class="artist-card" onclick="openArtistModal('liv')">
+          <div class="artist-name">🎵 Livingston</div>
+          <div class="artist-preview">Click to explore options</div>
+        </div>
+
+        <!-- KB -->
+        <div class="artist-card" onclick="openArtistModal('kb')">
+          <div class="artist-name">🎤 KB</div>
+          <div class="artist-preview">Click to explore options</div>
+        </div>
+
+        <!-- Connor Price -->
+        <div class="artist-card" onclick="openArtistModal('cp')">
+          <div class="artist-name">🎤 Connor Price</div>
+          <div class="artist-preview">Click to explore options</div>
+        </div>
+
+        <!-- Jack Johnson -->
+        <div class="artist-card" onclick="openArtistModal('jj')">
+          <div class="artist-name">🎸 Jack Johnson</div>
+          <div class="artist-preview">Click to explore options</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Artist Modals -->
+    <!-- NF Modal -->
+    <div class="artist-modal" id="nf-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-artist-name">🔥 NF</div>
+        <div class="modal-sections">
+          <div class="modal-section">
+            <div class="modal-section-title">🎵 Ranking & Stats</div>
+            <div class="modal-links">
+              <a href="nf_ranks.html" class="modal-link primary">Rank NF Songs</a>
+              <a href="nf_global.html" class="modal-link secondary">Global Rankings</a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🌐 Official Links</div>
+            <div class="modal-links">
+              <a href="https://www.nfrealmusic.com" target="_blank" rel="noopener" class="modal-link">Official Website <span class="external-icon">↗</span></a>
+              <a href="https://en.wikipedia.org/wiki/NF_(rapper)" target="_blank" rel="noopener" class="modal-link">Wikipedia <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🎧 Streaming Platforms</div>
+            <div class="modal-links">
+              <a href="https://open.spotify.com/artist/6fOMl44jA4Sp5b9PpYCkzz" target="_blank" rel="noopener" class="modal-link">Spotify <span class="external-icon">↗</span></a>
+              <a href="https://music.apple.com/us/artist/nf/898094630" target="_blank" rel="noopener" class="modal-link">Apple Music <span class="external-icon">↗</span></a>
+              <a href="https://music.amazon.com/artists/B00FPGTO3I/nf" target="_blank" rel="noopener" class="modal-link">Amazon Music <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Livingston Modal -->
+    <div class="artist-modal" id="liv-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-artist-name">🎵 Livingston</div>
+        <div class="modal-sections">
+          <div class="modal-section">
+            <div class="modal-section-title">🎵 Ranking & Stats</div>
+            <div class="modal-links">
+              <a href="liv_ranks.html" class="modal-link primary">Rank Livingston Songs</a>
+              <a href="liv_global.html" class="modal-link secondary">Global Rankings</a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🌐 Official Links</div>
+            <div class="modal-links">
+              <a href="https://www.livingstonofficial.com" target="_blank" rel="noopener" class="modal-link">Official Website <span class="external-icon">↗</span></a>
+              <a href="https://en.wikipedia.org/wiki/Livingston_(musician)" target="_blank" rel="noopener" class="modal-link">Wikipedia <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🎧 Streaming Platforms</div>
+            <div class="modal-links">
+              <a href="https://open.spotify.com/artist/2fPsJqR6zfoHatC1eFr0eQ" target="_blank" rel="noopener" class="modal-link">Spotify <span class="external-icon">↗</span></a>
+              <a href="https://music.apple.com/us/artist/livingston/1499716345" target="_blank" rel="noopener" class="modal-link">Apple Music <span class="external-icon">↗</span></a>
+              <a href="https://music.amazon.com/artists/B000QJPIK2/livingston" target="_blank" rel="noopener" class="modal-link">Amazon Music <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KB Modal -->
+    <div class="artist-modal" id="kb-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-artist-name">🎤 KB</div>
+        <div class="modal-sections">
+          <div class="modal-section">
+            <div class="modal-section-title">🎵 Ranking & Stats</div>
+            <div class="modal-links">
+              <a href="kb_ranks.html" class="modal-link primary">Rank KB Songs</a>
+              <a href="kb_global.html" class="modal-link secondary">Global Rankings</a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🌐 Official Links</div>
+            <div class="modal-links">
+              <a href="https://whoiskb.com" target="_blank" rel="noopener" class="modal-link">Official Website <span class="external-icon">↗</span></a>
+              <a href="https://en.wikipedia.org/wiki/KB_(rapper)" target="_blank" rel="noopener" class="modal-link">Wikipedia <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🎧 Streaming Platforms</div>
+            <div class="modal-links">
+              <a href="https://open.spotify.com/artist/77IKXFvO7SpWrq8hflrUXc" target="_blank" rel="noopener" class="modal-link">Spotify <span class="external-icon">↗</span></a>
+              <a href="https://music.apple.com/us/artist/kb/74520603" target="_blank" rel="noopener" class="modal-link">Apple Music <span class="external-icon">↗</span></a>
+              <a href="https://www.amazon.com/music/player/artists/B000QKHD7C/kb" target="_blank" rel="noopener" class="modal-link">Amazon Music <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connor Price Modal -->
+    <div class="artist-modal" id="cp-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-artist-name">🎤 Connor Price</div>
+        <div class="modal-sections">
+          <div class="modal-section">
+            <div class="modal-section-title">🎵 Ranking & Stats</div>
+            <div class="modal-links">
+              <a href="cp_ranks.html" class="modal-link primary">Rank Connor Price Songs</a>
+              <a href="cp_global.html" class="modal-link secondary">Global Rankings</a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🌐 Official Links</div>
+            <div class="modal-links">
+              <a href="https://connorprice.shop" target="_blank" rel="noopener" class="modal-link">Official Website <span class="external-icon">↗</span></a>
+              <a href="https://en.wikipedia.org/wiki/Connor_Price" target="_blank" rel="noopener" class="modal-link">Wikipedia <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🎧 Streaming Platforms</div>
+            <div class="modal-links">
+              <a href="https://open.spotify.com/artist/5zixe6AbgXPqt4c1uSl94L" target="_blank" rel="noopener" class="modal-link">Spotify <span class="external-icon">↗</span></a>
+              <a href="https://music.apple.com/us/artist/connor-price/494189511" target="_blank" rel="noopener" class="modal-link">Apple Music <span class="external-icon">↗</span></a>
+              <a href="https://music.amazon.com/artists/B07VWSMQMK/connor-price" target="_blank" rel="noopener" class="modal-link">Amazon Music <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jack Johnson Modal -->
+    <div class="artist-modal" id="jj-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-artist-name">🎸 Jack Johnson</div>
+        <div class="modal-sections">
+          <div class="modal-section">
+            <div class="modal-section-title">🎵 Ranking & Stats</div>
+            <div class="modal-links">
+              <a href="jj_ranks.html" class="modal-link primary">Rank Jack Johnson Songs</a>
+              <a href="jj_global.html" class="modal-link secondary">Global Rankings</a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🌐 Official Links</div>
+            <div class="modal-links">
+              <a href="https://jackjohnsonmusic.com" target="_blank" rel="noopener" class="modal-link">Official Website <span class="external-icon">↗</span></a>
+              <a href="https://en.wikipedia.org/wiki/Jack_Johnson_(musician)" target="_blank" rel="noopener" class="modal-link">Wikipedia <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">🎧 Streaming Platforms</div>
+            <div class="modal-links">
+              <a href="https://open.spotify.com/artist/3GBPw9NK25X1Wt2OUvOwY3" target="_blank" rel="noopener" class="modal-link">Spotify <span class="external-icon">↗</span></a>
+              <a href="https://music.apple.com/kg/artist/jack-johnson/909253" target="_blank" rel="noopener" class="modal-link">Apple Music <span class="external-icon">↗</span></a>
+              <a href="https://music.amazon.com/en-ar/artists/B000QJPQU4/jack-johnson" target="_blank" rel="noopener" class="modal-link">Amazon Music <span class="external-icon">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="faq-section">
+      <a href="FAQs.html" class="faq-btn">📋 Frequently Asked Questions</a>
+    </div>
+
+    <div class="scroll-space">
+      <div class="scroll-indicator">
+        Scroll to see the background 🎨
+      </div>
+    </div>
+  </div>
 
   <script>
-    function toggleDropdown(btn) {
-      const dropdown = btn.nextElementSibling;
-      const isVisible = dropdown.style.display === 'block';
-      // Close any other open dropdowns
-      document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
-      // Toggle this one
-      dropdown.style.display = isVisible ? 'none' : 'block';
+    function openArtistModal(artistId) {
+      const modal = document.getElementById(artistId + '-modal');
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
 
-    // Close dropdowns if click elsewhere on page
+    function closeModal() {
+      document.querySelectorAll('.artist-modal').forEach(modal => {
+        modal.classList.remove('show');
+      });
+      document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    // Close modal when clicking outside the content
     document.addEventListener('click', function(e) {
-      if (!e.target.matches('.artist-button > button')) {
-        document.querySelectorAll('.artist-dropdown').forEach(d => d.style.display = 'none');
+      if (e.target.classList.contains('artist-modal')) {
+        closeModal();
+      }
+    });
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
       }
     });
   </script>
-<style>
-  #fixedFaqLink {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
-    text-align: center;
-    padding: 10px 0;
-    font-family: 'Candara', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: white;
-    -webkit-text-stroke: 1px black;
-    text-shadow:
-      -1px -1px 0 #000,
-       1px -1px 0 #000,
-      -1px  1px 0 #000,
-       1px  1px 0 #000;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
-  #fixedFaqLink a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  #fixedFaqLink a:hover {
-    text-decoration: underline;
-  }
-</style>
-
-<div id="fixedFaqLink">
-  <a href="FAQs.html">FAQs</a>
-</div>  
 </body>
 </html>
