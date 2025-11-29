@@ -947,20 +947,28 @@
     <button id="fbCopyNo">No</button>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// Debug logging for GitHub Pages
+console.log('🐛 DEBUG: Script loaded');
+console.log('🐛 Current URL:', window.location.href);
+console.log('🐛 Supabase client:', supabaseClient);
+
 document.addEventListener("DOMContentLoaded", function () {
+console.log('🐛 DEBUG: DOM loaded');
 const PRIOR_COUNT = 25;  // Tunable: "fake votes" to smooth scores
 const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
 async function fetchGlobalRankings() {
+    console.log('🐛 DEBUG: fetchGlobalRankings called');
     // Fetch all submissions from Supabase
     const { data, error } = await supabaseClient.from('jj_submissions').select();
 
-console.log('Supabase fetch error:', error);
-console.log('Supabase fetch data:', data);
+console.log('🐛 DEBUG: Supabase fetch error:', error);
+console.log('🐛 DEBUG: Supabase fetch data:', data);
 
 if (error) {
   alert('Error fetching global rankings: ' + error.message);
