@@ -1608,4 +1608,1614 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 </div>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎸 Jack Johnson Songs Ranked | Fan Top 20 Leaderboard</title>
+
+  <!-- Mobile + basic SEO -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Rank Jack Johnson's songs and see how your list compares with fans worldwide. Submit your Top 20 and explore the global leaderboard in real time." />
+  <meta name="robots" content="index,follow" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      background: #0f0f23 !important;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+      min-height: 100vh;
+      color: #ffffff !important;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(119, 221, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .hero-heading {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      text-align: center;
+      margin: 20px 0 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .back-home-btn {
+      position: fixed; 
+      top: 20px; 
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 12px 20px; 
+      border-radius: 50px; 
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none; 
+      display: flex; 
+      align-items: center; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease; 
+      z-index: 1000;
+    }
+    .back-home-btn:hover { 
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    .back-home-btn svg { 
+      width: 16px; 
+      height: 16px; 
+      fill: white; 
+      transition: transform 0.3s ease;
+    }
+    .back-home-btn:hover svg {
+      transform: translateX(-2px);
+    }
+    .section-header { 
+      text-align: center; 
+      font-weight: 700; 
+      font-size: 1.1rem;
+      margin: 30px 0 15px;
+      color: #ffffff !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .toggle-group { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      align-items: center; 
+      margin-bottom: 25px; 
+    }
+    
+    button.toggle-btn {
+      padding: 12px 24px; 
+      font-size: 14px; 
+      font-weight: 600;
+      border-radius: 50px; 
+      border: 2px solid rgba(255, 255, 255, 0.3); 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    button.toggle-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    button.toggle-btn:hover::before {
+      left: 100%;
+    }
+    
+    button.toggle-btn:hover { 
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    button.toggle-btn.active { 
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    #container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    
+    #songList, #rankedColumn {
+      width: 48%;
+      min-width: 300px;
+      max-width: 500px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    #rankedList {
+      width: 100%;
+      max-width: 100%;
+      min-height: 600px; /* Ensure consistent height */
+    }
+    
+    #songList {
+      width: 48%; 
+      height: 1556px; /* Matches rankedColumn: padding(40px) + 20 boxes(1200px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1556px */
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #songList::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #songList::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+    
+    #songList::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .song-item { 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px; 
+      border-radius: 12px; 
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+    }
+    
+    .song-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: left 0.5s;
+    }
+    
+    .song-item:hover::before {
+      left: 100%;
+    }
+    
+    .song-item:hover { 
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+    
+    .song-item:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    .song-item.floating {
+      animation: floatToRanking 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      z-index: 1000;
+    }
+    
+    @keyframes floatToRanking {
+      0% {
+        transform: translateY(-2px) scale(1.02);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-20px) scale(1.1) rotateY(10deg);
+        opacity: 0.8;
+      }
+      70% {
+        transform: translateX(200px) translateY(-10px) scale(0.9) rotateY(-5deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateX(400px) translateY(0) scale(0.8);
+        opacity: 0;
+      }
+    }
+    #rankedColumn { 
+      display: flex; 
+      flex-direction: column; 
+      width: 48%; 
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      /* Remove fixed height to allow natural scrolling */
+    }
+    
+    #rankedList {
+      flex: 1;
+      /* Remove overflow-y: auto to allow natural page scrolling */
+    }
+    
+    .rank-box { 
+      display: flex; 
+      align-items: center; 
+      padding: 16px 20px; 
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      min-height: 60px;
+      position: relative;
+      overflow: hidden;
+      /* margin-bottom: 8px; Removed - using gap instead */
+    }
+    
+    .rank-box.filled {
+      background: rgba(102, 126, 234, 0.25);
+      border: 1px solid rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+    }
+    
+    .rank-box.filled:hover {
+      background: rgba(102, 126, 234, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .rank-box:not(.filled) {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .rank-box:not(.filled):hover {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+    
+    .rank-number { 
+      width: 40px; 
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700; 
+      color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      flex-shrink: 0;
+    }
+    
+    .rank-song { 
+      flex: 1; 
+      padding-left: 20px;
+      font-weight: 500;
+      color: #ffffff !important;
+      font-size: 15px;
+      min-height: 20px;
+    }
+    
+    .rank-box:not(.filled) .rank-song::after {
+      content: "Click-to-Add";
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      font-weight: 400;
+    }
+    
+    .rank-controls {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    
+    .rank-controls span {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .rank-controls span:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
+    
+    .rank-controls .remove-btn {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.4);
+    }
+    
+    .rank-controls .remove-btn:hover {
+      background: rgba(255, 107, 107, 0.25);
+      color: #fff;
+    }
+    #dropdownContainer { 
+      display: none; 
+      flex-direction: column; 
+      align-items: center; 
+      margin-top: 30px; 
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    #dropdownContainer label { 
+      margin-top: 15px; 
+      font-size: 16px; 
+      font-weight: 600; 
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #dropdownContainer select { 
+      width: 80%; 
+      max-width: 400px; 
+      padding: 15px 20px; 
+      margin: 5px auto; 
+      display: block; 
+      font-size: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #dropdownContainer select:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    #dropdownContainer select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+    
+    select, option { 
+      text-transform: none; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      font-size: 15px;
+    }
+    
+    option {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px;
+    }
+    /* Mobile-specific improvements for dropdowns */
+    @media (max-width: 768px) {
+      #dropdownContainer select { 
+        width: 95%; 
+        padding: 16px 20px; 
+        font-size: 16px;
+        border-radius: 12px;
+      }
+      #dropdownContainer label {
+        font-size: 16px;
+      }
+      select, option {
+        font-size: 16px;
+      }
+    }
+    
+    #submitSection { 
+      margin-top: 20px; 
+      display: none; 
+      flex-direction: row; 
+      justify-content: space-between; 
+      gap: 15px; 
+      width: 100%; 
+    }
+    
+    #submitBtn, #resetBtn { 
+      height: 56px; 
+      width: 50%; 
+      font-size: 16px; 
+      font-weight: 600;
+      border: none; 
+      border-radius: 16px; 
+      cursor: pointer; 
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    #submitBtn { 
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
+    }
+    
+    #submitBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+    }
+    
+    #resetBtn { 
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      color: white;
+      box-shadow: 0 8px 30px rgba(250, 112, 154, 0.4);
+    }
+    
+    #resetBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(250, 112, 154, 0.6);
+    }
+    
+    #submitBtn:active, #resetBtn:active {
+      transform: translateY(0);
+    }
+
+    .modal { 
+      display: none; 
+      position: fixed; 
+      z-index: 999; 
+      left: 0; 
+      top: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      justify-content: center; 
+      align-items: center; 
+    }
+    
+    .modal-content {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 700px;
+      max-height: 85vh;
+      overflow-y: auto;
+      overflow-x: auto;
+      box-sizing: border-box;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+    
+    .modal-content h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .modal-content button { 
+      margin: 8px; 
+      padding: 12px 24px; 
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal-content button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Global rankings table (scrollable body) */
+    #globalRankingsTable {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+    
+    #globalRankingsTable thead {
+      background: rgba(102, 126, 234, 0.2);
+    }
+    
+    #globalRankingsTable th {
+      color: #fff;
+      font-weight: 600;
+      padding: 15px 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+    
+    #globalRankingsTable td {
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    #globalRankingsTable tbody tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    #globalRankingsTable tbody { 
+      display: block; 
+      max-height: 300px; 
+      overflow-y: auto; 
+      width: 100%; 
+    }
+    
+    #globalRankingsTable thead, #globalRankingsTable tbody tr { 
+      display: table; 
+      width: 100%; 
+      table-layout: fixed; 
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    #globalRankingsTable tbody::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 8px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+        margin: 15px 0 30px;
+      }
+      
+      #container {
+        flex-direction: row; /* Keep side by side */
+        align-items: flex-start;
+        gap: 8px; /* Reduced gap */
+        max-width: 100%;
+        width: 100%;
+      }
+      
+      #songList, #rankedColumn {
+        width: 48%; /* Keep 48% each */
+        min-width: 0;
+        max-width: 48%;
+      }
+      
+      #songList {
+        height: 1400px; /* Adjusted height */
+        padding: 12px; /* Reduced padding */
+      }
+      
+      #rankedColumn {
+        padding: 12px; /* Reduced padding */
+      }
+      
+      .song-item {
+        padding: 12px 14px; /* Reduced padding */
+        font-size: 13px; /* Smaller font */
+      }
+      
+      .rank-box {
+        padding: 12px 14px; /* Reduced padding */
+        min-height: 52px; /* Smaller height */
+      }
+      
+      .rank-number {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+      
+      .rank-song {
+        font-size: 13px;
+        padding-left: 12px; /* Reduced padding */
+      }
+      
+      .rank-controls span {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 5px;
+      }
+      
+      .back-home-btn {
+        top: 5px;
+        right: 5px;
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+      
+      .hero-heading {
+        font-size: clamp(1.3rem, 7vw, 2.2rem);
+        margin: 8px 0 15px;
+      }
+      
+      .toggle-group {
+        gap: 4px;
+        margin-bottom: 15px;
+      }
+      
+      button.toggle-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-width: 80px;
+      }
+      
+      #container {
+        gap: 6px; /* Very small gap */
+        padding: 0 2px;
+        flex-direction: row; /* Keep side by side */
+      }
+      
+      #songList, #rankedColumn {
+        width: 48%; /* Keep side by side */
+        min-width: 0;
+        max-width: 48%;
+        margin: 0;
+      }
+      
+      #songList {
+        height: 1200px; /* Reduced height for mobile */
+        padding: 8px; /* Minimal padding */
+      }
+      
+      #rankedColumn {
+        padding: 8px; /* Minimal padding */
+      }
+      
+      .song-item {
+        padding: 8px 10px; /* Very compact */
+        font-size: 11px; /* Smaller font */
+      }
+      
+      .rank-box {
+        padding: 8px 10px; /* Very compact */
+        min-height: 44px; /* Smaller height */
+      }
+      
+      .rank-number {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+      }
+      
+      .rank-song {
+        font-size: 11px;
+        padding-left: 8px; /* Minimal padding */
+      }
+      
+      .rank-controls span {
+        width: 24px;
+        height: 24px;
+        font-size: 9px;
+      }
+      
+      #submitBtn, #resetBtn {
+        height: 44px; /* Smaller buttons */
+        font-size: 11px;
+      }
+      
+      .modal-content {
+        margin: 10px;
+        padding: 15px;
+        max-width: calc(100vw - 20px);
+      }
+      
+      #dropdownContainer {
+        padding: 15px 8px;
+      }
+      
+      #dropdownContainer select {
+        width: 100%;
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+      
+      .info-section {
+        margin: 10px auto 20px auto !important;
+        padding: 15px 12px !important;
+        font-size: 0.9rem !important;
+      }
+      
+      .info-section strong {
+        font-size: 1rem !important;
+      }
+      
+      .info-section div[style*="margin-top:10px"] a {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<h1 class="hero-heading">🔥 Rank Your Top 20 Jack Johnson Songs</h1>
+<a href="index.html" class="back-home-btn" aria-label="Back to Home">
+  <!-- Left arrow SVG -->
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  Back to Home
+</a>
+
+<!-- Info section for ranking instructions and global leaderboard -->
+<div class="info-section" style="max-width:800px;margin:20px auto 35px auto;padding:25px 30px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-size:1.1rem;color:rgba(255,255,255,0.9);text-align:center;">
+  <strong style="color:#fff;font-size:1.2rem;">Make your Top 20 and see how it stacks up against fans worldwide.</strong><br><br>
+  <span style="color:rgba(255,255,255,0.8);">The global leaderboard updates in real time as votes come in.</span><br><br>
+  <em style="color:rgba(102,126,234,1);">💡 Tip:</em> <span style="color:rgba(255,255,255,0.8);">add your must-have tracks first, fill in the rest, then nudge songs up or down.</span><br><br>
+  <div style="font-size:1rem;color:rgba(255,255,255,0.7);margin-top:20px;">
+    <span style="color:rgba(255,255,255,0.9);font-weight:600;">Explore more artists:</span><br>
+    <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <a href="nf_ranks.html" style="color:#667eea;text-decoration:none;padding:8px 16px;background:rgba(102,126,234,0.1);border-radius:20px;border:1px solid rgba(102,126,234,0.2);transition:all 0.3s ease;">NF</a>
+      <a href="kb_ranks.html" style="color:#764ba2;text-decoration:none;padding:8px 16px;background:rgba(118,75,162,0.1);border-radius:20px;border:1px solid rgba(118,75,162,0.2);transition:all 0.3s ease;">KB</a>
+      <a href="cp_ranks.html" style="color:#f093fb;text-decoration:none;padding:8px 16px;background:rgba(240,147,251,0.1);border-radius:20px;border:1px solid rgba(240,147,251,0.2);transition:all 0.3s ease;">Connor Price</a>
+      <a href="liv_ranks.html" style="color:#4facfe;text-decoration:none;padding:8px 16px;background:rgba(79,172,254,0.1);border-radius:20px;border:1px solid rgba(79,172,254,0.2);transition:all 0.3s ease;">Livingston</a>
+      <a href="FAQs.html" style="color:#fee140;text-decoration:none;padding:8px 16px;background:rgba(254,225,64,0.1);border-radius:20px;border:1px solid rgba(254,225,64,0.2);transition:all 0.3s ease;">FAQs</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-header">Rank With</div>
+<div class="toggle-group" id="rankByToggles">
+  <button class="toggle-btn active" data-mode="click">Click-to-Add</button>
+  <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
+  
+</div>
+
+<div class="section-header">Sort By</div>
+<div class="toggle-group" id="sortByToggles">
+  <button class="toggle-btn active" data-sort="release">Release Date</button>
+  <button class="toggle-btn" data-sort="alpha">Alphabetical</button>
+</div>
+
+<div id="container">
+  <div id="songList" class="column"></div>
+
+  <div id="rankedColumn">
+    <div id="rankedList"></div>
+    <div id="submitSection">
+      <button id="submitBtn">Submit Rankings</button>
+      <button id="resetBtn">Reset My Rankings</button>
+    </div>
+  </div>
+</div>
+
+<form id="dropdownContainer"></form>
+
+<div id="submitModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you would like to submit your rankings?</p>
+    <button onclick="confirmSubmit(true)">Yes, Submit</button>
+    <button onclick="confirmSubmit(false)">No, Go Back</button>
+  </div>
+</div>
+
+<div id="resetModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you would like to reset your rankings?</p>
+    <button onclick="confirmReset(true)">Yes, Reset</button>
+    <button onclick="confirmReset(false)">No, Go Back</button>
+  </div>
+</div>
+<div id="resultsModal" class="modal">
+  <div class="modal-content" style="max-width: 600px; overflow-x: auto;">
+    <h3>🎧 My Rankings</h3>
+    <ol id="myRankingsList"></ol>
+    <div id="shareButtons" style="margin:18px auto 8px auto;max-width:600px;text-align:center;">
+      <div style="margin-bottom:8px;font-weight:600;">Share your list</div>
+      <a id="share-x"
+         href="https://twitter.com/intent/tweet"
+         target="_blank" rel="noopener"
+         style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1d9bf0;color:#fff;">Post on X</a>
+      <a id="share-fb"
+         href="https://www.facebook.com/sharer/sharer.php"
+         target="_blank" rel="noopener"
+         style="display:inline-block;margin:4px 6px;padding:10px 14px;border-radius:9999px;text-decoration:none;background:#1877f2;color:#fff;">Share on Facebook</a>
+      <span id="copyMsg" style="display:none;margin-left:10px;color:#34a853;font-weight:600;"></span>
+    </div>
+    <h3>🌍 Global Rankings</h3>
+    <table id="globalRankingsTable" border="1" style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Song</th>
+          <th>Avg Rank</th>
+          <th># Times Ranked</th>
+          <th>Total Points</th>
+          <th>Composite Score</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button type="button" onclick="closeResults()">Close</button>
+  </div>
+</div>
+
+<!-- Facebook Copy Confirmation Modal -->
+<div id="fbCopyModal" class="modal">
+  <div class="modal-content">
+    <p>Copy List for Pasting?</p>
+    <button id="fbCopyYes">Yes</button>
+    <button id="fbCopyNo">No</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+document.addEventListener("DOMContentLoaded", function () {
+const PRIOR_COUNT = 25;  // Tunable: "fake votes" to smooth scores
+const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
+async function fetchGlobalRankings() {
+    // Fetch all submissions from Supabase
+    const { data, error } = await supabaseClient.from('jj_submissions').select();
+
+console.log('Supabase fetch error:', error);
+console.log('Supabase fetch data:', data);
+
+if (error) {
+  alert('Error fetching global rankings: ' + error.message);
+  return [];
+}
+
+    // Aggregate points and counts per song
+    // Points for rank i = 21 - i (rank 1 = 20 points, rank 20 = 1 point)
+    const songStats = {}; // { song: { totalPoints, timesRanked, totalRankSum, weightedRankings, weightedCount } }
+
+    // Initialize all songs
+    const allSongs = [
+      "Inaudible Melodies", "Middle Man", "Posters", "Sexy Plexi", "Flake", "Bubble Toes",
+      "Fortunate Fool", "The News", "Drink The Water", "Mudfootball", "F-Stop Blues", "Losing Hope",
+      "It's All Understood", "Flake (Live)", "Inaudible Melodies (Live)", "Times Like These", "The Horizon Has Been Defeated", "Traffic In The Sky",
+      "Taylor", "Gone", "Cupid", "Wasting Time", "Holes To Heaven", "Dreams Be Dreams",
+      "Tomorrow Morning", "Fall Line", "Cookie Jar", "Rodeo Clowns", "Cocoon", "Mediocre Bad Guys",
+      "Symbol In My Driveway", "Rodeo Clowns (Live)", "Mudfootball (Live)", "Girl I Wanna Lay You Down (Live)", "Better Together", "Never Know",
+      "Banana Pancakes", "Good People", "No Other Way", "Sitting, Waiting, Wishing", "Staple It Together", "Situations",
+      "Crying Shame", "If I Could", "Breakdown", "Belle", "Do You Remember", "Constellations",
+      "Constellations (Acoustic)", "Upside Down", "Broken", "People Watching", "Wrong Turn", "Talk Of The Town",
+      "Jungle Gym", "We're Going To Be Friends", "The Sharing Song", "The 3 R's", "Lullaby", "My Own Two Hands",
+      "Questions", "Supposed To Be", "All At Once", "Sleep Through The Static", "Hope", "Angel",
+      "Enemy", "If I Had Eyes", "Same Girl", "What You Thought You Need", "Adrift", "Go On",
+      "They Do, They Don't", "While We Wait", "Monsoon", "Losing Keys", "Hope (Remix)", "Losing Keys (Remix)",
+      "Monsoon (Remix)", "Angel (Remix)", "They Do They Don't (Remix)", "If I Had Eyes (Remix)",
+      "Belle / Banana Pancakes (En Concert)", "If I Had Eyes (En Concert)", "Do You Remember / Remember (En Concert)", "Sleep Through The Static (En Concert)",
+      "Flake (En Concert)", "Bubble Toes / Express Yourself (En Concert)", "Wasting Time (En Concert)", "What You Thought You Need (En Concert)",
+      "Country Road (En Concert)", "Staple It Together (En Concert)", "Sitting Waiting Wishing (En Concert)", "Constellations (En Concert)",
+      "The Horizon Has Been Defeated / Mother and Child Reunion (En Concert)", "Good People (En Concert)", "All At Once (En Concert)", "Gone (En Concert)",
+      "Home (En Concert)", "Times Like These (En Concert)", "Angel / Better Together (En Concert)", "You And Your Heart",
+      "To The Sea", "No Good With Faces", "At Or With Me", "When I Look Up", "From The Clouds", "My Little Girl",
+      "Turn Your Love", "The Upsetter", "Red Wine, Mistakes, Mythology", "Pictures of People Taking Pictures", "Anything But The Truth", "Only The Ocean",
+      "In The Morning", "Farewell", "I Got You", "Washing Dishes", "Shot Reverse Shot", "Never Fade",
+      "Tape Deck", "Don't Believe A Thing I Say", "As I Was Saying", "You Remind Me Of You", "Radiate", "Ones And Zeros",
+      "Change", "Home", "Seasick Dream", "Subplots", "You Can't Control It", "Sunsets For Somebody Else",
+      "My Mind Is For Sale", "Daybreaks", "Big Sur", "Love Song #16", "Is One Moon Enough?", "Gather",
+      "Fragments", "Willie Got Me Stoned (Live)", "The Captain Is Drunk", "Open Mind", "3AM Radio", "Calm Down",
+      "One Step Ahead", "Meet The Moonlight", "Don't Look Now", "Costume Party", "I Tend To Digress", "Windblown Eyes",
+      "Any Wonder", "Sunsets For Somebody Else (Brasil)", "Big Sur (Brasil)", "Traffic In The Sky (Scratch)", "Traffic In The Sky (Subatomic)", "Wasting Time (Subatomic)",
+      "No Other Way (Dennis Bovell)", "Times Like These (Scratch)", "Calm Down (Dennis Bovell)", "Better Together (Nightmares On Wax)", "One Step Ahead (Scientist)", "Breakdown (Nightmares on Wax)",
+      "Turn Your Love (Mad Professor)", "You Can't Control It (Yaadcore)", "It's All Understood (Monk)", "In The Morning (Maui Live)", "Little Bit of Love (Maui Live)", "Country Road (Maui Live)",
+      "Breakdown (Maui Live)", "Constellations (Maui Live)", "Turn Your Love (Maui Live)", "Give Voice (Maui Live)", "Island Style (Maui Live)", "Banana Pancakes (Maui Live)",
+      "Mudfootball (Maui Live)", "Someday At Christmas", "Angel (Holiday)", "In The Morning", "New Axe", "I Can't Go to Sleep",
+      "Rudolph The Red Nosed Reindeer", "Home (w/ Stick Figure)", "Banana Pancakes (Mic Most Remix)"
+    ];
+    
+    allSongs.forEach(song => {
+      songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
+    });
+
+    const UNRANKED_WEIGHT = 0.5; // Weight for treating unranked songs as rank 0 (increased from 0.1)
+    const MIN_VOTES_FOR_LEADERBOARD = 3; // Minimum actual votes to appear on leaderboard
+
+    data.forEach(submission => {
+      const rankedSongs = new Set();
+      
+      // First pass: collect actual rankings
+      for (let i = 1; i <= 20; i++) {
+        const song = submission[`rank_${i}`];
+        if (!song) continue;
+        if (!songStats[song]) {
+          songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0, weightedRankings: 0, weightedCount: 0 };
+        }
+        songStats[song].totalPoints += 21 - i;
+        songStats[song].timesRanked++;
+        songStats[song].totalRankSum += i;
+        songStats[song].weightedRankings += i; // Full weight for actual rankings
+        songStats[song].weightedCount += 1;
+        rankedSongs.add(song);
+      }
+      
+      // Second pass: add low-confidence negative signal for unranked songs
+      allSongs.forEach(song => {
+        if (!rankedSongs.has(song)) {
+          songStats[song].weightedRankings += 21 * UNRANKED_WEIGHT; // Rank 21 (worst) with low weight
+          songStats[song].weightedCount += UNRANKED_WEIGHT;
+        }
+      });
+    });
+
+    // Convert to array and calculate average rank
+    const rankingsArray = Object.entries(songStats)
+      .filter(([song, stats]) => stats.timesRanked >= MIN_VOTES_FOR_LEADERBOARD) // Filter by minimum votes
+      .map(([song, stats]) => {
+      const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21; // Default to worst rank if never ranked
+      const weightedAvgRank = stats.weightedCount > 0 ? stats.weightedRankings / stats.weightedCount : 21;
+      const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.weightedCount * weightedAvgRank)) / (PRIOR_COUNT + stats.weightedCount);
+      const weightedScore = 21 - rawScore; // Higher is better
+
+      return {
+        song,
+        totalPoints: stats.totalPoints,
+        timesRanked: stats.timesRanked,
+        avgRank,
+        weightedScore,
+        weightedCount: stats.weightedCount.toFixed(1)
+      };
+    });
+
+    // Sort by Bayesian weighted score ascending
+rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+
+    return rankingsArray;
+  }
+  const songListMaster = [
+  "Inaudible Melodies", "Middle Man", "Posters", "Sexy Plexi", "Flake", "Bubble Toes",
+  "Fortunate Fool", "The News", "Drink The Water", "Mudfootball", "F-Stop Blues", "Losing Hope",
+  "It's All Understood", "Flake (Live)", "Inaudible Melodies (Live)", "Times Like These", "The Horizon Has Been Defeated", "Traffic In The Sky",
+  "Taylor", "Gone", "Cupid", "Wasting Time", "Holes To Heaven", "Dreams Be Dreams",
+  "Tomorrow Morning", "Fall Line", "Cookie Jar", "Rodeo Clowns", "Cocoon", "Mediocre Bad Guys",
+  "Symbol In My Driveway", "Rodeo Clowns (Live)", "Mudfootball (Live)", "Girl I Wanna Lay You Down (Live)", "Better Together", "Never Know",
+  "Banana Pancakes", "Good People", "No Other Way", "Sitting, Waiting, Wishing", "Staple It Together", "Situations",
+  "Crying Shame", "If I Could", "Breakdown", "Belle", "Do You Remember", "Constellations",
+  "Constellations (Acoustic)", "Upside Down", "Broken", "People Watching", "Wrong Turn", "Talk Of The Town",
+  "Jungle Gym", "We're Going To Be Friends", "The Sharing Song", "The 3 R's", "Lullaby", "My Own Two Hands",
+  "Questions", "Supposed To Be", "All At Once", "Sleep Through The Static", "Hope", "Angel",
+  "Enemy", "If I Had Eyes", "Same Girl", "What You Thought You Need", "Adrift", "Go On",
+  "They Do, They Don't", "While We Wait", "Monsoon", "Losing Keys", "Hope (Remix)", "Losing Keys (Remix)",
+  "Monsoon (Remix)", "Angel (Remix)", "They Do They Don't (Remix)", "If I Had Eyes (Remix)",
+  "Belle / Banana Pancakes (En Concert)", "If I Had Eyes (En Concert)", "Do You Remember / Remember (En Concert)", "Sleep Through The Static (En Concert)",
+  "Flake (En Concert)", "Bubble Toes / Express Yourself (En Concert)", "Wasting Time (En Concert)", "What You Thought You Need (En Concert)",
+  "Country Road (En Concert)", "Staple It Together (En Concert)", "Sitting Waiting Wishing (En Concert)", "Constellations (En Concert)",
+  "The Horizon Has Been Defeated / Mother and Child Reunion (En Concert)", "Good People (En Concert)", "All At Once (En Concert)", "Gone (En Concert)",
+  "Home (En Concert)", "Times Like These (En Concert)", "Angel / Better Together (En Concert)", "You And Your Heart",
+  "To The Sea", "No Good With Faces", "At Or With Me", "When I Look Up", "From The Clouds", "My Little Girl",
+  "Turn Your Love", "The Upsetter", "Red Wine, Mistakes, Mythology", "Pictures of People Taking Pictures", "Anything But The Truth", "Only The Ocean",
+  "In The Morning", "Farewell", "I Got You", "Washing Dishes", "Shot Reverse Shot", "Never Fade",
+  "Tape Deck", "Don't Believe A Thing I Say", "As I Was Saying", "You Remind Me Of You", "Radiate", "Ones And Zeros",
+  "Change", "Home", "Seasick Dream", "Subplots", "You Can't Control It", "Sunsets For Somebody Else",
+  "My Mind Is For Sale", "Daybreaks", "Big Sur", "Love Song #16", "Is One Moon Enough?", "Gather",
+  "Fragments", "Willie Got Me Stoned (Live)", "The Captain Is Drunk", "Open Mind", "3AM Radio", "Calm Down",
+  "One Step Ahead", "Meet The Moonlight", "Don't Look Now", "Costume Party", "I Tend To Digress", "Windblown Eyes",
+  "Any Wonder", "Sunsets For Somebody Else (Brasil)", "Big Sur (Brasil)", "Traffic In The Sky (Scratch)", "Traffic In The Sky (Subatomic)", "Wasting Time (Subatomic)",
+  "No Other Way (Dennis Bovell)", "Times Like These (Scratch)", "Calm Down (Dennis Bovell)", "Better Together (Nightmares On Wax)", "One Step Ahead (Scientist)", "Breakdown (Nightmares on Wax)",
+  "Turn Your Love (Mad Professor)", "You Can't Control It (Yaadcore)", "It's All Understood (Monk)", "In The Morning (Maui Live)", "Little Bit of Love (Maui Live)", "Country Road (Maui Live)",
+  "Breakdown (Maui Live)", "Constellations (Maui Live)", "Turn Your Love (Maui Live)", "Give Voice (Maui Live)", "Island Style (Maui Live)", "Banana Pancakes (Maui Live)",
+  "Mudfootball (Maui Live)", "Someday At Christmas", "Angel (Holiday)", "In The Morning", "New Axe", "I Can't Go to Sleep",
+  "Rudolph The Red Nosed Reindeer", "Home (w/ Stick Figure)", "Banana Pancakes (Mic Most Remix)"
+];
+
+  let rankedSongs = Array(20).fill(null);
+  let currentMode = 'click';
+  let sortType = 'release';
+
+  function updateButtons(group, activeValue) {
+    document.querySelectorAll(`#${group} .toggle-btn`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
+    });
+  }
+
+  function renderSongList() {
+  const rankedSet = new Set(rankedSongs.filter(Boolean));
+  let songs = songListMaster.filter(song => !rankedSet.has(song));
+  if (sortType === 'alpha') songs.sort();
+
+  const songList = document.getElementById('songList');
+  songList.innerHTML = '';
+
+  songs.forEach(song => {
+    const div = document.createElement('div');
+    div.className = 'song-item';
+    div.textContent = song;
+    div.style.cursor = 'pointer';
+
+    div.onclick = () => {
+      if (currentMode === 'click') {
+        const index = rankedSongs.indexOf(null);
+        if (index !== -1) {
+          rankedSongs[index] = song;
+          renderAll();
+        }
+      }
+    };
+
+    songList.appendChild(div);
+  });
+}
+
+  function renderRankedList() {
+  const rankedList = document.getElementById('rankedList');
+  rankedList.innerHTML = '';
+
+  rankedSongs.forEach((song, i) => {
+    const box = document.createElement('div');
+    box.className = 'rank-box';
+    box.dataset.index = i;
+
+    const num = document.createElement('div');
+    num.className = 'rank-number';
+    num.textContent = i + 1;
+
+    const content = document.createElement('div');
+    content.className = 'rank-song';
+    content.textContent = song || '';
+
+    box.appendChild(num);
+    box.appendChild(content);
+
+    // If slot has a song, add up/down/remove controls
+    if (song) {
+      const controls = document.createElement('div');
+      controls.style.display = 'flex';
+      controls.style.marginLeft = 'auto';
+      controls.style.gap = '14px';
+
+      const upBtn = document.createElement('span');
+      upBtn.innerHTML = '▲';
+      upBtn.style.cursor = 'pointer';
+      upBtn.onclick = () => {
+        if (i > 0) {
+          [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]];
+          renderAll();
+        }
+      };
+
+      const downBtn = document.createElement('span');
+      downBtn.innerHTML = '▼';
+      downBtn.style.cursor = 'pointer';
+      downBtn.onclick = () => {
+        if (i < rankedSongs.length - 1) {
+          [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]];
+          renderAll();
+        }
+      };
+
+      const removeBtn = document.createElement('span');
+      removeBtn.textContent = '×';
+      removeBtn.style.color = 'red';
+      removeBtn.style.cursor = 'pointer';
+      removeBtn.style.fontWeight = 'bold';
+      removeBtn.style.fontSize = '18px';
+      removeBtn.onclick = () => {
+        rankedSongs[i] = null;
+        renderAll();
+      };
+
+      controls.appendChild(upBtn);
+      controls.appendChild(downBtn);
+      controls.appendChild(removeBtn);
+
+      box.appendChild(controls);
+    }
+
+    rankedList.appendChild(box);
+  });
+}
+
+  function renderDropdown() {
+  const container = document.getElementById('dropdownContainer');
+  container.innerHTML = '';
+
+  // Prepare songs to display, excluding already selected ones except current
+  const rankedSet = new Set(rankedSongs.filter(Boolean));
+  
+  let songs = songListMaster.slice();
+
+  if (sortType === 'alpha') {
+    songs.sort();
+  }
+
+  for (let i = 0; i < 20; i++) {
+    const label = document.createElement('label');
+    label.textContent = `#${i + 1}`;
+
+    const select = document.createElement('select');
+
+    const selected = rankedSongs[i];
+
+    // Create options with sorting applied, and disable options already selected except current
+    const options = songs.map(song => {
+      const used = rankedSet.has(song) && song !== selected;
+      return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
+    });
+
+    select.innerHTML = '<option value="">Select a song</option>' + options.join('');
+
+    select.onchange = e => {
+      const selectedValue = e.target.value;
+      const exactSong = songListMaster.find(song => song === selectedValue);
+      rankedSongs[i] = exactSong || null;
+      renderDropdown();
+      toggleSubmitReset();
+    };
+
+    container.appendChild(label);
+    container.appendChild(select);
+  }
+
+  toggleSubmitReset();
+}
+
+  function toggleSubmitReset() {
+  const ready = rankedSongs.every(Boolean);
+  document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
+
+  // Hide modals too if rankings aren't complete
+  if (!ready) {
+    document.getElementById('submitModal').style.display = 'none';
+    document.getElementById('resetModal').style.display = 'none';
+  }
+}
+
+  function renderAll() {
+    const isDropdown = currentMode === 'dropdown';
+    document.getElementById('dropdownContainer').style.display = isDropdown ? 'flex' : 'none';
+    document.getElementById('songList').style.display = isDropdown ? 'none' : 'block';
+    document.getElementById('rankedList').style.display = isDropdown ? 'none' : 'block';
+
+    renderSongList();
+    if (isDropdown) renderDropdown();
+    else renderRankedList();
+
+    toggleSubmitReset();
+  }
+
+  document.getElementById('rankByToggles').addEventListener('click', e => {
+    if (e.target.matches('button')) {
+      currentMode = e.target.dataset.mode;
+      // ===== Sortable columns for Global Rankings table =====
+
+let currentSortColumn = '';
+let currentSortAsc = true;
+let globalRankings = []; // Declare here to hold data globally
+
+// Override fetchGlobalRankings call to store data globally
+async function fetchGlobalRankings() {
+  const { data, error } = await supabaseClient.from('jj_submissions').select();
+
+  if (error) {
+    alert('Error fetching global rankings: ' + error.message);
+    return [];
+  }
+
+  // Aggregate points and counts per song
+  const songStats = {};
+
+  data.forEach(submission => {
+    for (let i = 1; i <= 20; i++) {
+      const song = submission[`rank_${i}`];
+      if (!song) continue;
+      if (!songStats[song]) {
+        songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+      }
+      songStats[song].totalPoints += 21 - i;
+      songStats[song].timesRanked++;
+      songStats[song].totalRankSum += i;
+    }
+  });
+
+  const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
+    const avgRank = stats.totalRankSum / stats.timesRanked;
+    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
+    const weightedScore = 21 - rawScore;
+
+    return {
+      song,
+      totalPoints: stats.totalPoints,
+      timesRanked: stats.timesRanked,
+      avgRank,
+      weightedScore
+    };
+  });
+
+  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+
+  globalRankings = rankingsArray; // Save globally
+
+  return rankingsArray;
+}
+
+// Add event listeners to the table headers for sorting
+document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
+  th.style.cursor = "pointer";
+  th.addEventListener("click", () => {
+    const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
+    const key = keyMap[i];
+    if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
+    else {
+      currentSortColumn = key;
+      currentSortAsc = true;
+    }
+
+    if (!globalRankings.length) return; // If no data yet, do nothing
+
+    const sorted = [...globalRankings].sort((a, b) => {
+      if (key === "song") {
+        return currentSortAsc
+          ? a.song.localeCompare(b.song)
+          : b.song.localeCompare(a.song);
+      } else if (key === "rank") {
+        // rank is just the index +1 in the original sorted array
+        return currentSortAsc ? 1 : -1; // Do nothing really
+      } else {
+        return currentSortAsc
+          ? a[key] - b[key]
+          : b[key] - a[key];
+      }
+    });
+
+    const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
+    tbody.innerHTML = '';
+    sorted.forEach((entry, index) => {
+  const row = document.createElement("tr");
+  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${entry.song}</td>
+    <td>${entry.avgRank.toFixed(2)}</td>
+    <td>${entry.timesRanked}</td>
+    <td>${entry.totalPoints}</td>
+    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+  `;
+  tbody.appendChild(row);
+});
+  });
+});
+      updateButtons('rankByToggles', currentMode);
+      renderAll();
+    }
+  });
+
+  document.getElementById('sortByToggles').addEventListener('click', e => {
+    if (e.target.matches('button')) {
+      sortType = e.target.dataset.sort;
+      updateButtons('sortByToggles', sortType);
+      renderAll();
+    }
+  });
+
+  document.getElementById('submitBtn').onclick = () => {
+  if (rankedSongs.every(Boolean)) {
+    document.getElementById('submitModal').style.display = 'flex';
+  }
+};
+
+  document.getElementById('resetBtn').onclick = () => {
+  if (rankedSongs.every(Boolean)) {
+    document.getElementById('resetModal').style.display = 'flex';
+  }
+};
+window.confirmSubmit = async function(confirmed) {
+  document.getElementById('submitModal').style.display = 'none';
+  if (!confirmed) return;
+
+  // ---- USER COOLDOWN SETTINGS ----
+  const ENFORCE_LIMIT = false;          // Change to false to turn OFF the 90-day limit
+  const LIMIT_DAYS = 90;
+
+  if (ENFORCE_LIMIT) {
+    // Check the last submission for this IP
+    let ip = '';
+    try {
+      const res = await fetch('https://api64.ipify.org?format=json');
+      const json = await res.json();
+      ip = json.ip;
+    } catch (e) {
+      console.warn('Could not get IP address');
+    }
+
+    const { data: recent, error: fetchError } = await supabaseClient
+      .from('jj_submissions')
+      .select('submitted_at')
+      .eq('ip_address', ip)
+      .order('submitted_at', { ascending: false })
+      .limit(1);
+
+    if (fetchError) {
+      console.error(fetchError);
+      alert('Error checking submission limit. Please try again.');
+      return;
+    }
+
+    if (recent && recent.length > 0) {
+      const lastDate = new Date(recent[0].submitted_at);
+      const cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
+      if (lastDate > cutoff) {
+        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
+        return;
+      }
+    }
+  }
+
+  // Build submission data
+  const dataToInsert = {};
+  rankedSongs.forEach((song, i) => {
+    dataToInsert[`rank_${i + 1}`] = song;
+  });
+
+  // IP for this submission
+  let ip = '';
+  try {
+    const res = await fetch('https://api64.ipify.org?format=json');
+    const json = await res.json();
+    ip = json.ip;
+  } catch (e) {
+    console.warn('Could not get IP address');
+  }
+  dataToInsert.ip_address = ip;
+
+  // Submit to Supabase
+  const { error } = await supabaseClient.from('jj_submissions').insert([dataToInsert]);
+
+  if (error) {
+    alert('Submission error: ' + error.message);
+    return;
+  }
+
+  // Show My Rankings
+  const myList = document.getElementById('myRankingsList');
+  myList.innerHTML = '';
+  rankedSongs.forEach(song => {
+    const li = document.createElement('li');
+    li.textContent = song;
+    myList.appendChild(li);
+  });
+
+  // Get and show global rankings
+  const rankings = await fetchGlobalRankings();
+  const tbody = document.querySelector('#globalRankingsTable tbody');
+  tbody.innerHTML = '';
+  rankings.forEach((entry, index) => {
+    const row = document.createElement('tr');
+    const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${entry.song}</td>
+      <td>${entry.avgRank.toFixed(2)}</td>
+      <td>${entry.timesRanked}</td>
+      <td>${entry.totalPoints}</td>
+      <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Show results modal
+  document.getElementById('resultsModal').style.display = 'flex';
+
+  // Reset rankings
+  rankedSongs = Array(20).fill(null);
+  renderAll();
+};
+window.closeResults = function () {
+  document.getElementById('resultsModal').style.display = 'none';
+};
+
+  window.confirmReset = function(confirmed) {
+    document.getElementById('resetModal').style.display = 'none';
+    if (confirmed) {
+      rankedSongs = Array(20).fill(null);
+      renderAll();
+    }
+  };
+
+  updateButtons('rankByToggles', currentMode);
+  updateButtons('sortByToggles', sortType);
+  renderAll();
+});
+function showCalculation(song, avgRank, timesRanked) {
+  const PRIOR_COUNT = 25;
+  const PRIOR_AVG = 10.5;
+
+  const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (timesRanked * avgRank)) / (PRIOR_COUNT + timesRanked);
+  const weightedScore = 21 - rawScore;
+
+  const details = `
+    Song: <strong>${song}</strong><br><br>
+    Formula: <br>
+    ((${PRIOR_COUNT} × ${PRIOR_AVG}) + (${timesRanked} × ${avgRank.toFixed(2)})) ÷ (${PRIOR_COUNT} + ${timesRanked})<br><br>
+    Raw Score: <strong>${rawScore.toFixed(4)}</strong><br>
+    Weighted Score = 21 - Raw Score = <strong>${weightedScore.toFixed(2)}</strong>
+  `;
+
+  document.getElementById('calcDetails').innerHTML = details;
+  document.getElementById('calcModal').style.display = 'flex';
+}
+
+function closeCalcModal() {
+  document.getElementById('calcModal').style.display = 'none';
+}
+
+// Helper to format ranked list for sharing
+function getShareText() {
+  const list = Array.from(document.querySelectorAll('#myRankingsList li')).map((li, i) => `${i+1}. ${li.textContent}`);
+  return `My Top 20 Jack Johnson Songs\n${list.join('\n')}\n\nRank your own: https://ranksongs.com/jj_ranks.html`;
+}
+// Update share buttons in results modal to share the actual list
+function updateShareLinks() {
+  const text = encodeURIComponent(getShareText());
+  const url = encodeURIComponent('https://ranksongs.com/jj_ranks.html');
+  // X (Twitter)
+  document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${text}`;
+  // Facebook (site link only)
+  document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+}
+// Copy list to clipboard for Facebook
+function copyListToClipboard() {
+  const text = getShareText();
+  navigator.clipboard.writeText(text).then(() => {
+    const msg = document.getElementById('copyMsg');
+    msg.textContent = 'Copied! Paste into your Facebook post.';
+    msg.style.display = 'inline-block';
+    setTimeout(() => { msg.style.display = 'none'; }, 2500);
+  });
+}
+// Facebook share popup logic
+function openFbCopyModal() {
+  document.getElementById('fbCopyModal').style.display = 'flex';
+}
+function fbShare(shouldCopy) {
+  document.getElementById('fbCopyModal').style.display = 'none';
+  if (shouldCopy) copyListToClipboard();
+  const url = encodeURIComponent('https://ranksongs.com/jj_ranks.html');
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+// Call updateShareLinks when results modal is shown
+function showResultsModal() {
+  updateShareLinks();
+  document.getElementById('resultsModal').style.display = 'flex';
+}
+document.addEventListener("DOMContentLoaded", function () {
+  // ...existing code...
+  // Share link click tracking via dataLayer
+  const xLink = document.getElementById('share-x');
+  const fbLink = document.getElementById('share-fb');
+  if (xLink) xLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'x', artist:'Jack Johnson'}));
+  if (fbLink) {
+    fbLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      openFbCopyModal();
+      window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'Jack Johnson'});
+    });
+  }
+  // Facebook modal buttons
+  document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
+  document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
+});
+</script>
+<div id="calcModal" class="modal">
+  <div class="modal-content">
+    <h3>Composite Score Calculation</h3>
+    <p id="calcDetails"></p>
+    <button onclick="closeCalcModal()">Close</button>
+  </div>
+</div>
+</body>
 </html>
