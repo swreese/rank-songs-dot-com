@@ -1089,7 +1089,7 @@ rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
 
   rankedSongs.forEach((song, i) => {
     const box = document.createElement('div');
-    box.className = 'rank-box';
+    box.className = song ? 'rank-box filled' : 'rank-box';
     box.dataset.index = i;
 
     const num = document.createElement('div');
