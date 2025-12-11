@@ -2,17 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>🎤 Connor Price Songs Ranked | Fan Top 20 Leaderboard</title>
+  <title>🔥 Connor Price Songs Ranked | Fan Top 20 Leaderboard</title>
 
   <!-- Mobile + basic SEO -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Rank Connor Price's songs and see how your list compares with fans worldwide. Submit your Top 20 and explore the global leaderboard in real time." />
+  <meta name="description" content="Rank your Top 20 Connor Price songs and see how your list compares with fans worldwide. Submit your picks and explore the live global leaderboard." />
   <meta name="robots" content="index,follow" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Google Tag Manager (GTM-NGW77446) -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NGW77446');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google AdSense (replace client with your real ca-pub ID) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+
+  <!-- Advanced JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ranksongs.com/#website",
+        "url": "https://ranksongs.com/",
+        "name": "RankSongs",
+        "description": "Fan-powered interactive rankings of songs by your favorite artists.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ranksongs.com/cp_ranks.html#webpage",
+        "url": "https://ranksongs.com/cp_ranks.html",
+        "name": "Rank Your Top 20 Connor Price Songs",
+        "description": "Interactive tool to rank your Top 20 Connor Price songs and compare against the global leaderboard.",
+        "isPartOf": {
+          "@id": "https://ranksongs.com/#website"
+        },
+        "breadcrumb": {
+          "@id": "https://ranksongs.com/cp_ranks.html#breadcrumb"
+        },
+        "inLanguage": "en",
+        "mainEntity": {
+          "@id": "https://ranksongs.com/cp_ranks.html#app"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ranksongs.com/cp_ranks.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ranksongs.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Connor Price",
+            "item": "https://ranksongs.com/cp_ranks.html"
+          }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ranksongs.com/cp_ranks.html#app",
+        "name": "Connor Price Song Ranker",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "url": "https://ranksongs.com/cp_ranks.html",
+        "description": "Create and submit your Top 20 Connor Price songs and see how they compare to fans worldwide in the live global leaderboard.",
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
 
   <style>
     * {
@@ -194,12 +269,12 @@
     #rankedList {
       width: 100%;
       max-width: 100%;
-      min-height: 600px; /* Ensure consistent height */
+      min-height: 600px;
     }
     
     #songList {
       width: 48%; 
-      height: 1556px; /* Matches rankedColumn: padding(40px) + 20 boxes(1200px) + gaps(228px) + section gap(12px) + margin(20px) + buttons(56px) = 1556px */
+      height: 1556px;
       overflow-y: auto;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(20px);
@@ -306,12 +381,10 @@
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      /* Remove fixed height to allow natural scrolling */
     }
     
     #rankedList {
       flex: 1;
-      /* Remove overflow-y: auto to allow natural page scrolling */
     }
     
     .rank-box { 
@@ -326,7 +399,6 @@
       min-height: 60px;
       position: relative;
       overflow: hidden;
-      /* margin-bottom: 8px; Removed - using gap instead */
     }
     
     .rank-box.filled {
@@ -482,7 +554,7 @@
       color: #fff;
       padding: 10px;
     }
-    /* Mobile-specific improvements for dropdowns */
+
     @media (max-width: 768px) {
       #dropdownContainer select { 
         width: 95%; 
@@ -606,7 +678,6 @@
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     }
 
-    /* Global rankings table (scrollable body) */
     #globalRankingsTable {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
@@ -665,6 +736,20 @@
       border-radius: 3px;
     }
 
+    .info-section {
+      max-width: 800px;
+      margin: 20px auto 35px auto;
+      padding: 25px 30px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+    }
+
     @media (max-width: 900px) {
       body {
         padding: 8px;
@@ -676,36 +761,36 @@
       }
       
       #container {
-        flex-direction: row; /* Keep side by side */
+        flex-direction: row;
         align-items: flex-start;
-        gap: 8px; /* Reduced gap */
+        gap: 8px;
         max-width: 100%;
         width: 100%;
       }
       
       #songList, #rankedColumn {
-        width: 48%; /* Keep 48% each */
+        width: 48%;
         min-width: 0;
         max-width: 48%;
       }
       
       #songList {
-        height: 1400px; /* Adjusted height */
-        padding: 12px; /* Reduced padding */
+        height: 1400px;
+        padding: 12px;
       }
       
       #rankedColumn {
-        padding: 12px; /* Reduced padding */
+        padding: 12px;
       }
       
       .song-item {
-        padding: 12px 14px; /* Reduced padding */
-        font-size: 13px; /* Smaller font */
+        padding: 12px 14px;
+        font-size: 13px;
       }
       
       .rank-box {
-        padding: 12px 14px; /* Reduced padding */
-        min-height: 52px; /* Smaller height */
+        padding: 12px 14px;
+        min-height: 52px;
       }
       
       .rank-number {
@@ -716,7 +801,7 @@
       
       .rank-song {
         font-size: 13px;
-        padding-left: 12px; /* Reduced padding */
+        padding-left: 12px;
       }
       
       .rank-controls span {
@@ -755,35 +840,35 @@
       }
       
       #container {
-        gap: 6px; /* Very small gap */
+        gap: 6px;
         padding: 0 2px;
-        flex-direction: row; /* Keep side by side */
+        flex-direction: row;
       }
       
       #songList, #rankedColumn {
-        width: 48%; /* Keep side by side */
+        width: 48%;
         min-width: 0;
         max-width: 48%;
         margin: 0;
       }
       
       #songList {
-        height: 1200px; /* Reduced height for mobile */
-        padding: 8px; /* Minimal padding */
+        height: 1200px;
+        padding: 8px;
       }
       
       #rankedColumn {
-        padding: 8px; /* Minimal padding */
+        padding: 8px;
       }
       
       .song-item {
-        padding: 8px 10px; /* Very compact */
-        font-size: 11px; /* Smaller font */
+        padding: 8px 10px;
+        font-size: 11px;
       }
       
       .rank-box {
-        padding: 8px 10px; /* Very compact */
-        min-height: 44px; /* Smaller height */
+        padding: 8px 10px;
+        min-height: 44px;
       }
       
       .rank-number {
@@ -794,7 +879,7 @@
       
       .rank-song {
         font-size: 11px;
-        padding-left: 8px; /* Minimal padding */
+        padding-left: 8px;
       }
       
       .rank-controls span {
@@ -804,7 +889,7 @@
       }
       
       #submitBtn, #resetBtn {
-        height: 44px; /* Smaller buttons */
+        height: 44px;
         font-size: 11px;
       }
       
@@ -839,12 +924,36 @@
         font-size: 11px !important;
       }
     }
+
+    footer.site-footer {
+      margin: 40px auto 10px auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 800px;
+    }
+    footer.site-footer a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+    footer.site-footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGW77446"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
 <h1 class="hero-heading">🔥 Rank Your Top 20 Connor Price Songs</h1>
 <a href="index.html" class="back-home-btn" aria-label="Back to Home">
-  <!-- Left arrow SVG -->
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
     <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
@@ -852,10 +961,11 @@
 </a>
 
 <!-- Info section for ranking instructions and global leaderboard -->
-<div class="info-section" style="max-width:800px;margin:20px auto 35px auto;padding:25px 30px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-size:1.1rem;color:rgba(255,255,255,0.9);text-align:center;">
-  <strong style="color:#fff;font-size:1.2rem;">Make your Top 20 and see how it stacks up against fans worldwide.</strong><br><br>
-  <span style="color:rgba(255,255,255,0.8);">The global leaderboard updates in real time as votes come in.</span><br><br>
-  <em style="color:rgba(102,126,234,1);">💡 Tip:</em> <span style="color:rgba(255,255,255,0.8);">add your must-have tracks first, fill in the rest, then nudge songs up or down.</span><br><br>
+<div class="info-section">
+  <strong style="color:#fff;font-size:1.2rem;">Make your Top 20 and see how it stacks up against Connor Price fans worldwide.</strong><br><br>
+  <span style="color:rgba(255,255,255,0.8);">The global leaderboard updates as new votes come in.</span><br><br>
+  <em style="color:rgba(102,126,234,1);">💡 Pro tip:</em>
+  <span style="color:rgba(255,255,255,0.8);">drop in your must-have tracks first, then nudge them up or down until the list feels right.</span><br><br>
   <div style="font-size:1rem;color:rgba(255,255,255,0.7);margin-top:20px;">
     <span style="color:rgba(255,255,255,0.9);font-weight:600;">Explore more artists:</span><br>
     <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
@@ -872,7 +982,6 @@
 <div class="toggle-group" id="rankByToggles">
   <button class="toggle-btn active" data-mode="click">Click-to-Add</button>
   <button class="toggle-btn" data-mode="dropdown">Dropdown</button>
-  
 </div>
 
 <div class="section-header">Sort By</div>
@@ -910,6 +1019,7 @@
     <button onclick="confirmReset(false)">No, Go Back</button>
   </div>
 </div>
+
 <div id="resultsModal" class="modal">
   <div class="modal-content" style="max-width: 600px; overflow-x: auto;">
     <h3>🎧 My Rankings</h3>
@@ -952,583 +1062,569 @@
     <button id="fbCopyNo">No</button>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script>
-  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co'; // Your project URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4'; // Replace this with your anon public key
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-document.addEventListener("DOMContentLoaded", function () {
-const PRIOR_COUNT = 25;  // Tunable: "fake votes" to smooth scores
-const PRIOR_AVG = 10.5;  // Tunable: midpoint average rank
-async function fetchGlobalRankings() {
-    // Fetch all submissions from Supabase
-    const { data, error } = await supabaseClient.from('cp_submissions').select();
+  const supabaseUrl = 'https://xtptcdopoitufrexwtng.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh0cHRjZG9wb2l0dWZyZXh3dG5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NjE4ODUsImV4cCI6MjA2NjQzNzg4NX0.2LeRd-F4aKkObx5ylGxIVQGuDG3VO4lR8BlYshiBoh4';
+  const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-console.log('Supabase fetch error:', error);
-console.log('Supabase fetch data:', data);
+  document.addEventListener("DOMContentLoaded", function () {
+    const PRIOR_COUNT = 25;
+    const PRIOR_AVG = 10.5;
 
-if (error) {
-  alert('Error fetching global rankings: ' + error.message);
-  return [];
-}
+    async function fetchGlobalRankings() {
+      const { data, error } = await supabaseClient.from('cp_submissions').select();
 
-    // Aggregate points and counts per song
-    // Points for rank i = 21 - i (rank 1 = 20 points, rank 20 = 1 point)
-    const songStats = {}; // { song: { totalPoints, timesRanked, totalRankSum, weightedRankings, weightedCount } }
+      console.log('Supabase fetch error:', error);
+      console.log('Supabase fetch data:', data);
 
-    // Initialize all songs
-    const allSongs = [
-      "Down Bad", "Stay The Course", "Stick Up", "Vibin", "Young & Reckless", 
-      "Violet", "Out The Mud", "Messed Up", "Cameras Up", "LIVE&LEARNRN", 
-      "Underdog", "Lost At Sea", "My Life", "Patio", "Wasted", "Days Like Today", 
-      "SAFE", "Lonely", "Low Road", "Always Sayin Sorry", "Smile", "Dead",
-      "Real Love", "Plastic", "Nothing Normal", "Break", "Faxcts", "Coolin", 
-      "So Good", "My Way", "Weekdays", "Worth Fighting For", "Breathe", "Story", 
-      "Old Me", "Overtime", "Bad News", "Truth & Consequence", "Can't Blame Me", 
-      "No Confusion", "CITY LIGHTS", "Spin My Block"
-    ];
-    
-    allSongs.forEach(song => {
-      songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-    });
-
-    data.forEach(submission => {
-      for (let i = 1; i <= 20; i++) {
-        const song = submission[`rank_${i}`];
-        if (!song) continue;
-        if (!songStats[song]) {
-          songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
-        }
-        songStats[song].totalPoints += 21 - i;
-        songStats[song].timesRanked++;
-        songStats[song].totalRankSum += i;
+      if (error) {
+        alert('Error fetching global rankings: ' + error.message);
+        return [];
       }
-    });
 
-    // Convert to array and calculate average rank
-    const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
-      const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21; // Default to worst rank if never ranked
-      const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
-      const weightedScore = 21 - rawScore; // Higher is better
-
-      return {
-        song,
-        totalPoints: stats.totalPoints,
-        timesRanked: stats.timesRanked,
-        avgRank,
-        weightedScore
-      };
-    });
-
-    // Sort by Bayesian weighted score ascending
-rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
-
-    return rankingsArray;
-  }
-  const songListMaster = [
-  "Starter Pistol", "Rare Candy", "Didn't Ask", "Outside", "When You're Gone", "No Visits", 
-  "Eastern Ave Night Drive", "Love Language", "You", "The Usual", "Midsummer Freestyle", "The Birds", 
-  "Happy Alone", "Courtney Cox", "Imposter Syndrome", "Toast", "'21 Raps", "You Said", "Receipts", "Love Language (Acoustic)", 
-  "EGOT", "Talk About Us", "Roots", "Marathon", "Don't Tell Me", "Christmas in Vegas", "Happy Face", "City Lights", "Nobodies", 
-  "Smooth", "SPLAT", "Gasoline", "Jude's Song", "Start Again", "Easy", "These Days", "Grateful", "Aces", "Straight A's", "Violet", 
-  "Selfish", "Spinnin", "Chuck Taylor", "Bankroll", "DIP", "Blue Shell", "Chatter", "Trillium", "False Alarm", "Buddy", "Chirp", 
-  "Drop", "Spin The Globe", "Swing", "Not A Beanie", "Miss You (When You're Gone)", "Vroom", "I Gave Everything", "It's Going Down", 
-  "Still Hot", "Swordfish", "Till Next Time", "Still Blue", "NEW PHONE", "Hopeless", "All of the Above", "HOV (Remix)", "Underdog", 
-  "Ruby", "Riptide", "Thrillin", "Trendsetter", "No Bad Side", "Can't Give Up", "Overnight", "Pink Blue (Remix)", "East Coast", "Million Cash", 
-  "Tombstone", "AMG", "John Wick", "Customs", "Overnight", "Correct", "Too Bad", "Too Bad (Acoustic)", "Summer Secret", "Golden Goose", "Smoke", 
-  "Benjamin Button", "RUNAWAY", "PULL UP", "CROWN", "BUDDY SYSTEM", "LET ME COOK", "I Need Help", "Gift and a Curse", "Molly's Song", "Back on Tour", 
-  "NOW WHAT?", "Cubicle", "Too Easy", "Falling Behind", "Happier", "Caveman", "John Daly", "Good News", "Dabble", "Ambidextrous", "Diploma (Remix)", 
-  "Riptide", "BIG FISH", "Buffalo", "Dialed In", "By My Side", "Push", "Runnin", "Despicable", "About Time", "Boats", "Hand Sanitize", "Mula",
-  "More Mentors", "Look What I Did", "Back To You", "I Like That", "Sunday Scaries", "In Too Deep", "Hope It Never Ends", "Still Spinnin"
-];
-
-  let rankedSongs = Array(20).fill(null);
-  let currentMode = 'click';
-  let sortType = 'release';
-
-  function updateButtons(group, activeValue) {
-    document.querySelectorAll(`#${group} .toggle-btn`).forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
-    });
-  }
-
-  function renderSongList() {
-  const rankedSet = new Set(rankedSongs.filter(Boolean));
-  let songs = songListMaster.filter(song => !rankedSet.has(song));
-  if (sortType === 'alpha') songs.sort();
-
-  const songList = document.getElementById('songList');
-  songList.innerHTML = '';
-
-  songs.forEach(song => {
-    const div = document.createElement('div');
-    div.className = 'song-item';
-    div.textContent = song;
-    div.style.cursor = 'pointer';
-
-    div.onclick = () => {
-      if (currentMode === 'click') {
-        const index = rankedSongs.indexOf(null);
-        if (index !== -1) {
-          rankedSongs[index] = song;
-          renderAll();
-        }
-      }
-    };
-
-    songList.appendChild(div);
-  });
-}
-
-  function renderRankedList() {
-  const rankedList = document.getElementById('rankedList');
-  rankedList.innerHTML = '';
-
-  rankedSongs.forEach((song, i) => {
-    const box = document.createElement('div');
-    box.className = song ? 'rank-box filled' : 'rank-box';
-    box.dataset.index = i;
-
-    const num = document.createElement('div');
-    num.className = 'rank-number';
-    num.textContent = i + 1;
-
-    const content = document.createElement('div');
-    content.className = 'rank-song';
-    content.textContent = song || '';
-
-    box.appendChild(num);
-    box.appendChild(content);
-
-    // If slot has a song, add up/down/remove controls
-    if (song) {
-      const controls = document.createElement('div');
-      controls.style.display = 'flex';
-      controls.style.marginLeft = 'auto';
-      controls.style.gap = '14px';
-
-      const upBtn = document.createElement('span');
-      upBtn.innerHTML = '▲';
-      upBtn.style.cursor = 'pointer';
-      upBtn.onclick = () => {
-        if (i > 0) {
-          [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]];
-          renderAll();
-        }
-      };
-
-      const downBtn = document.createElement('span');
-      downBtn.innerHTML = '▼';
-      downBtn.style.cursor = 'pointer';
-      downBtn.onclick = () => {
-        if (i < rankedSongs.length - 1) {
-          [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]];
-          renderAll();
-        }
-      };
-
-      const removeBtn = document.createElement('span');
-      removeBtn.textContent = '×';
-      removeBtn.style.color = 'red';
-      removeBtn.style.cursor = 'pointer';
-      removeBtn.style.fontWeight = 'bold';
-      removeBtn.style.fontSize = '18px';
-      removeBtn.onclick = () => {
-        rankedSongs[i] = null;
-        renderAll();
-      };
-
-      controls.appendChild(upBtn);
-      controls.appendChild(downBtn);
-      controls.appendChild(removeBtn);
-
-      box.appendChild(controls);
-    }
-
-    rankedList.appendChild(box);
-  });
-}
-
-  function renderDropdown() {
-  const container = document.getElementById('dropdownContainer');
-  container.innerHTML = '';
-
-  // Prepare songs to display, excluding already selected ones except current
-  const rankedSet = new Set(rankedSongs.filter(Boolean));
-  
-  let songs = songListMaster.slice();
-
-  if (sortType === 'alpha') {
-    songs.sort();
-  }
-
-  for (let i = 0; i < 20; i++) {
-    const label = document.createElement('label');
-    label.textContent = `#${i + 1}`;
-
-    const select = document.createElement('select');
-
-    const selected = rankedSongs[i];
-
-    // Create options with sorting applied, and disable options already selected except current
-    const options = songs.map(song => {
-      const used = rankedSet.has(song) && song !== selected;
-      return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
-    });
-
-    select.innerHTML = '<option value="">Select a song</option>' + options.join('');
-
-    select.onchange = e => {
-      const selectedValue = e.target.value;
-      const exactSong = songListMaster.find(song => song === selectedValue);
-      rankedSongs[i] = exactSong || null;
-      renderDropdown();
-      toggleSubmitReset();
-    };
-
-    container.appendChild(label);
-    container.appendChild(select);
-  }
-
-  toggleSubmitReset();
-}
-
-  function toggleSubmitReset() {
-  const ready = rankedSongs.every(Boolean);
-  document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
-
-  // Hide modals too if rankings aren't complete
-  if (!ready) {
-    document.getElementById('submitModal').style.display = 'none';
-    document.getElementById('resetModal').style.display = 'none';
-  }
-}
-
-  function renderAll() {
-    const isDropdown = currentMode === 'dropdown';
-    document.getElementById('dropdownContainer').style.display = isDropdown ? 'flex' : 'none';
-    document.getElementById('songList').style.display = isDropdown ? 'none' : 'block';
-    document.getElementById('rankedList').style.display = isDropdown ? 'none' : 'block';
-
-    renderSongList();
-    if (isDropdown) renderDropdown();
-    else renderRankedList();
-
-    toggleSubmitReset();
-  }
-
-  document.getElementById('rankByToggles').addEventListener('click', e => {
-    if (e.target.matches('button')) {
-      currentMode = e.target.dataset.mode;
-      // ===== Sortable columns for Global Rankings table =====
-
-let currentSortColumn = '';
-let currentSortAsc = true;
-let globalRankings = []; // Declare here to hold data globally
-
-// Override fetchGlobalRankings call to store data globally
-async function fetchGlobalRankings() {
-  const { data, error } = await supabaseClient.from('cp_submissions').select();
-
-  if (error) {
-    alert('Error fetching global rankings: ' + error.message);
-    return [];
-  }
-
-  // Aggregate points and counts per song
-  const songStats = {};
-
-  data.forEach(submission => {
-    for (let i = 1; i <= 20; i++) {
-      const song = submission[`rank_${i}`];
-      if (!song) continue;
-      if (!songStats[song]) {
+      const songStats = {};
+      const allSongs = [
+        "Down Bad", "Stay The Course", "Stick Up", "Vibin", "Young & Reckless", 
+        "Violet", "Out The Mud", "Messed Up", "Cameras Up", "LIVE&LEARNRN", 
+        "Underdog", "Lost At Sea", "My Life", "Patio", "Wasted", "Days Like Today", 
+        "SAFE", "Lonely", "Low Road", "Always Sayin Sorry", "Smile", "Dead",
+        "Real Love", "Plastic", "Nothing Normal", "Break", "Faxcts", "Coolin", 
+        "So Good", "My Way", "Weekdays", "Worth Fighting For", "Breathe", "Story", 
+        "Old Me", "Overtime", "Bad News", "Truth & Consequence", "Can't Blame Me", 
+        "No Confusion", "CITY LIGHTS", "Spin My Block"
+      ];
+      
+      allSongs.forEach(song => {
         songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+      });
+
+      data.forEach(submission => {
+        for (let i = 1; i <= 20; i++) {
+          const song = submission[`rank_${i}`];
+          if (!song) continue;
+          if (!songStats[song]) {
+            songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+          }
+          songStats[song].totalPoints += 21 - i;
+          songStats[song].timesRanked++;
+          songStats[song].totalRankSum += i;
+        }
+      });
+
+      const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
+        const avgRank = stats.timesRanked > 0 ? stats.totalRankSum / stats.timesRanked : 21;
+        const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
+        const weightedScore = 21 - rawScore;
+
+        return {
+          song,
+          totalPoints: stats.totalPoints,
+          timesRanked: stats.timesRanked,
+          avgRank,
+          weightedScore
+        };
+      });
+
+      rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+
+      return rankingsArray;
+    }
+
+    const songListMaster = [
+      "Starter Pistol", "Rare Candy", "Didn't Ask", "Outside", "When You're Gone", "No Visits", 
+      "Eastern Ave Night Drive", "Love Language", "You", "The Usual", "Midsummer Freestyle", "The Birds", 
+      "Happy Alone", "Courtney Cox", "Imposter Syndrome", "Toast", "'21 Raps", "You Said", "Receipts", "Love Language (Acoustic)", 
+      "EGOT", "Talk About Us", "Roots", "Marathon", "Don't Tell Me", "Christmas in Vegas", "Happy Face", "City Lights", "Nobodies", 
+      "Smooth", "SPLAT", "Gasoline", "Jude's Song", "Start Again", "Easy", "These Days", "Grateful", "Aces", "Straight A's", "Violet", 
+      "Selfish", "Spinnin", "Chuck Taylor", "Bankroll", "DIP", "Blue Shell", "Chatter", "Trillium", "False Alarm", "Buddy", "Chirp", 
+      "Drop", "Spin The Globe", "Swing", "Not A Beanie", "Miss You (When You're Gone)", "Vroom", "I Gave Everything", "It's Going Down", 
+      "Still Hot", "Swordfish", "Till Next Time", "Still Blue", "NEW PHONE", "Hopeless", "All of the Above", "HOV (Remix)", "Underdog", 
+      "Ruby", "Riptide", "Thrillin", "Trendsetter", "No Bad Side", "Can't Give Up", "Overnight", "Pink Blue (Remix)", "East Coast", "Million Cash", 
+      "Tombstone", "AMG", "John Wick", "Customs", "Overnight", "Correct", "Too Bad", "Too Bad (Acoustic)", "Summer Secret", "Golden Goose", "Smoke", 
+      "Benjamin Button", "RUNAWAY", "PULL UP", "CROWN", "BUDDY SYSTEM", "LET ME COOK", "I Need Help", "Gift and a Curse", "Molly's Song", "Back on Tour", 
+      "NOW WHAT?", "Cubicle", "Too Easy", "Falling Behind", "Happier", "Caveman", "John Daly", "Good News", "Dabble", "Ambidextrous", "Diploma (Remix)", 
+      "Riptide", "BIG FISH", "Buffalo", "Dialed In", "By My Side", "Push", "Runnin", "Despicable", "About Time", "Boats", "Hand Sanitize", "Mula",
+      "More Mentors", "Look What I Did", "Back To You", "I Like That", "Sunday Scaries", "In Too Deep", "Hope It Never Ends", "Still Spinnin"
+    ];
+
+    let rankedSongs = Array(20).fill(null);
+    let currentMode = 'click';
+    let sortType = 'release';
+
+    function updateButtons(group, activeValue) {
+      document.querySelectorAll(`#${group} .toggle-btn`).forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === activeValue || btn.dataset.sort === activeValue);
+      });
+    }
+
+    function renderSongList() {
+      const rankedSet = new Set(rankedSongs.filter(Boolean));
+      let songs = songListMaster.filter(song => !rankedSet.has(song));
+      if (sortType === 'alpha') songs.sort();
+
+      const songList = document.getElementById('songList');
+      songList.innerHTML = '';
+
+      songs.forEach(song => {
+        const div = document.createElement('div');
+        div.className = 'song-item';
+        div.textContent = song;
+        div.style.cursor = 'pointer';
+
+        div.onclick = () => {
+          if (currentMode === 'click') {
+            const index = rankedSongs.indexOf(null);
+            if (index !== -1) {
+              rankedSongs[index] = song;
+              renderAll();
+            }
+          }
+        };
+
+        songList.appendChild(div);
+      });
+    }
+
+    function renderRankedList() {
+      const rankedList = document.getElementById('rankedList');
+      rankedList.innerHTML = '';
+
+      rankedSongs.forEach((song, i) => {
+        const box = document.createElement('div');
+        box.className = song ? 'rank-box filled' : 'rank-box';
+        box.dataset.index = i;
+
+        const num = document.createElement('div');
+        num.className = 'rank-number';
+        num.textContent = i + 1;
+
+        const content = document.createElement('div');
+        content.className = 'rank-song';
+        content.textContent = song || '';
+
+        box.appendChild(num);
+        box.appendChild(content);
+
+        if (song) {
+          const controls = document.createElement('div');
+          controls.style.display = 'flex';
+          controls.style.marginLeft = 'auto';
+          controls.style.gap = '14px';
+
+          const upBtn = document.createElement('span');
+          upBtn.innerHTML = '▲';
+          upBtn.style.cursor = 'pointer';
+          upBtn.onclick = () => {
+            if (i > 0) {
+              [rankedSongs[i - 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i - 1]];
+              renderAll();
+            }
+          };
+
+          const downBtn = document.createElement('span');
+          downBtn.innerHTML = '▼';
+          downBtn.style.cursor = 'pointer';
+          downBtn.onclick = () => {
+            if (i < rankedSongs.length - 1) {
+              [rankedSongs[i + 1], rankedSongs[i]] = [rankedSongs[i], rankedSongs[i + 1]];
+              renderAll();
+            }
+          };
+
+          const removeBtn = document.createElement('span');
+          removeBtn.textContent = '×';
+          removeBtn.style.color = 'red';
+          removeBtn.style.cursor = 'pointer';
+          removeBtn.style.fontWeight = 'bold';
+          removeBtn.style.fontSize = '18px';
+          removeBtn.onclick = () => {
+            rankedSongs[i] = null;
+            renderAll();
+          };
+
+          controls.appendChild(upBtn);
+          controls.appendChild(downBtn);
+          controls.appendChild(removeBtn);
+
+          box.appendChild(controls);
+        }
+
+        rankedList.appendChild(box);
+      });
+    }
+
+    function renderDropdown() {
+      const container = document.getElementById('dropdownContainer');
+      container.innerHTML = '';
+
+      const rankedSet = new Set(rankedSongs.filter(Boolean));
+      let songs = songListMaster.slice();
+      if (sortType === 'alpha') {
+        songs.sort();
       }
-      songStats[song].totalPoints += 21 - i;
-      songStats[song].timesRanked++;
-      songStats[song].totalRankSum += i;
-    }
-  });
 
-  const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
-    const avgRank = stats.totalRankSum / stats.timesRanked;
-    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
-    const weightedScore = 21 - rawScore;
+      for (let i = 0; i < 20; i++) {
+        const label = document.createElement('label');
+        label.textContent = `#${i + 1}`;
 
-    return {
-      song,
-      totalPoints: stats.totalPoints,
-      timesRanked: stats.timesRanked,
-      avgRank,
-      weightedScore
-    };
-  });
+        const select = document.createElement('select');
+        const selected = rankedSongs[i];
 
-  rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+        const options = songs.map(song => {
+          const used = rankedSet.has(song) && song !== selected;
+          return `<option value="${song}" ${song === selected ? 'selected' : ''} ${used ? 'disabled' : ''}>${song}</option>`;
+        });
 
-  globalRankings = rankingsArray; // Save globally
+        select.innerHTML = '<option value="">Select a song</option>' + options.join('');
 
-  return rankingsArray;
-}
+        select.onchange = e => {
+          const selectedValue = e.target.value;
+          const exactSong = songListMaster.find(song => song === selectedValue);
+          rankedSongs[i] = exactSong || null;
+          renderDropdown();
+          toggleSubmitReset();
+        };
 
-// Add event listeners to the table headers for sorting
-document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
-  th.style.cursor = "pointer";
-  th.addEventListener("click", () => {
-    const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
-    const key = keyMap[i];
-    if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
-    else {
-      currentSortColumn = key;
-      currentSortAsc = true;
+        container.appendChild(label);
+        container.appendChild(select);
+      }
+
+      toggleSubmitReset();
     }
 
-    if (!globalRankings.length) return; // If no data yet, do nothing
+    function toggleSubmitReset() {
+      const ready = rankedSongs.every(Boolean);
+      document.getElementById('submitSection').style.display = ready ? 'flex' : 'none';
 
-    const sorted = [...globalRankings].sort((a, b) => {
-      if (key === "song") {
-        return currentSortAsc
-          ? a.song.localeCompare(b.song)
-          : b.song.localeCompare(a.song);
-      } else if (key === "rank") {
-        // rank is just the index +1 in the original sorted array
-        return currentSortAsc ? 1 : -1; // Do nothing really
-      } else {
-        return currentSortAsc
-          ? a[key] - b[key]
-          : b[key] - a[key];
+      if (!ready) {
+        document.getElementById('submitModal').style.display = 'none';
+        document.getElementById('resetModal').style.display = 'none';
+      }
+    }
+
+    function renderAll() {
+      const isDropdown = currentMode === 'dropdown';
+      document.getElementById('dropdownContainer').style.display = isDropdown ? 'flex' : 'none';
+      document.getElementById('songList').style.display = isDropdown ? 'none' : 'block';
+      document.getElementById('rankedList').style.display = isDropdown ? 'none' : 'block';
+
+      renderSongList();
+      if (isDropdown) renderDropdown();
+      else renderRankedList();
+
+      toggleSubmitReset();
+    }
+
+    document.getElementById('rankByToggles').addEventListener('click', e => {
+      if (e.target.matches('button')) {
+        currentMode = e.target.dataset.mode;
+
+        let currentSortColumn = '';
+        let currentSortAsc = true;
+        let globalRankings = [];
+
+        async function fetchGlobalRankingsSortable() {
+          const { data, error } = await supabaseClient.from('cp_submissions').select();
+
+          if (error) {
+            alert('Error fetching global rankings: ' + error.message);
+            return [];
+          }
+
+          const songStats = {};
+
+          data.forEach(submission => {
+            for (let i = 1; i <= 20; i++) {
+              const song = submission[`rank_${i}`];
+              if (!song) continue;
+              if (!songStats[song]) {
+                songStats[song] = { totalPoints: 0, timesRanked: 0, totalRankSum: 0 };
+              }
+              songStats[song].totalPoints += 21 - i;
+              songStats[song].timesRanked++;
+              songStats[song].totalRankSum += i;
+            }
+          });
+
+          const rankingsArray = Object.entries(songStats).map(([song, stats]) => {
+            const avgRank = stats.totalRankSum / stats.timesRanked;
+            const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (stats.timesRanked * avgRank)) / (PRIOR_COUNT + stats.timesRanked);
+            const weightedScore = 21 - rawScore;
+
+            return {
+              song,
+              totalPoints: stats.totalPoints,
+              timesRanked: stats.timesRanked,
+              avgRank,
+              weightedScore
+            };
+          });
+
+          rankingsArray.sort((a, b) => b.weightedScore - a.weightedScore);
+          globalRankings = rankingsArray;
+          return rankingsArray;
+        }
+
+        document.querySelectorAll("#globalRankingsTable th").forEach((th, i) => {
+          th.style.cursor = "pointer";
+          th.addEventListener("click", () => {
+            const keyMap = ["rank", "song", "avgRank", "timesRanked", "totalPoints", "weightedScore"];
+            const key = keyMap[i];
+            if (currentSortColumn === key) currentSortAsc = !currentSortAsc;
+            else {
+              currentSortColumn = key;
+              currentSortAsc = true;
+            }
+
+            if (!globalRankings.length) return;
+
+            const sorted = [...globalRankings].sort((a, b) => {
+              if (key === "song") {
+                return currentSortAsc
+                  ? a.song.localeCompare(b.song)
+                  : b.song.localeCompare(a.song);
+              } else if (key === "rank") {
+                return currentSortAsc ? 1 : -1;
+              } else {
+                return currentSortAsc
+                  ? a[key] - b[key]
+                  : b[key] - a[key];
+              }
+            });
+
+            const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
+            tbody.innerHTML = '';
+            sorted.forEach((entry, index) => {
+              const row = document.createElement("tr");
+              const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+              row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${entry.song}</td>
+                <td>${entry.avgRank.toFixed(2)}</td>
+                <td>${entry.timesRanked}</td>
+                <td>${entry.totalPoints}</td>
+                <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+              `;
+              tbody.appendChild(row);
+            });
+          });
+        });
+
+        updateButtons('rankByToggles', currentMode);
+        renderAll();
       }
     });
 
-    const tbody = document.getElementById("globalRankingsTable").querySelector("tbody");
-    tbody.innerHTML = '';
-    sorted.forEach((entry, index) => {
-  const row = document.createElement("tr");
-  const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${entry.song}</td>
-    <td>${entry.avgRank.toFixed(2)}</td>
-    <td>${entry.timesRanked}</td>
-    <td>${entry.totalPoints}</td>
-    <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-  `;
-  tbody.appendChild(row);
-});
-  });
-});
-      updateButtons('rankByToggles', currentMode);
-      renderAll();
-    }
-  });
+    document.getElementById('sortByToggles').addEventListener('click', e => {
+      if (e.target.matches('button')) {
+        sortType = e.target.dataset.sort;
+        updateButtons('sortByToggles', sortType);
+        renderAll();
+      }
+    });
 
-  document.getElementById('sortByToggles').addEventListener('click', e => {
-    if (e.target.matches('button')) {
-      sortType = e.target.dataset.sort;
-      updateButtons('sortByToggles', sortType);
-      renderAll();
-    }
-  });
+    document.getElementById('submitBtn').onclick = () => {
+      if (rankedSongs.every(Boolean)) {
+        document.getElementById('submitModal').style.display = 'flex';
+      }
+    };
 
-  document.getElementById('submitBtn').onclick = () => {
-  if (rankedSongs.every(Boolean)) {
-    document.getElementById('submitModal').style.display = 'flex';
-  }
-};
+    document.getElementById('resetBtn').onclick = () => {
+      if (rankedSongs.every(Boolean)) {
+        document.getElementById('resetModal').style.display = 'flex';
+      }
+    };
 
-  document.getElementById('resetBtn').onclick = () => {
-  if (rankedSongs.every(Boolean)) {
-    document.getElementById('resetModal').style.display = 'flex';
-  }
-};
-window.confirmSubmit = async function(confirmed) {
-  document.getElementById('submitModal').style.display = 'none';
-  if (!confirmed) return;
+    window.confirmSubmit = async function(confirmed) {
+      document.getElementById('submitModal').style.display = 'none';
+      if (!confirmed) return;
 
-  // ---- USER COOLDOWN SETTINGS ----
-  const ENFORCE_LIMIT = false;          // Change to false to turn OFF the 90-day limit
-  const LIMIT_DAYS = 90;
+      const ENFORCE_LIMIT = false;
+      const LIMIT_DAYS = 90;
 
-  if (ENFORCE_LIMIT) {
-    // Check the last submission for this IP
-    let ip = '';
-    try {
-      const res = await fetch('https://api64.ipify.org?format=json');
-      const json = await res.json();
-      ip = json.ip;
-    } catch (e) {
-      console.warn('Could not get IP address');
-    }
+      if (ENFORCE_LIMIT) {
+        let ip = '';
+        try {
+          const res = await fetch('https://api64.ipify.org?format=json');
+          const json = await res.json();
+          ip = json.ip;
+        } catch (e) {
+          console.warn('Could not get IP address');
+        }
 
-    const { data: recent, error: fetchError } = await supabaseClient
-      .from('cp_submissions')
-      .select('submitted_at')
-      .eq('ip_address', ip)
-      .order('submitted_at', { ascending: false })
-      .limit(1);
+        const { data: recent, error: fetchError } = await supabaseClient
+          .from('cp_submissions')
+          .select('submitted_at')
+          .eq('ip_address', ip)
+          .order('submitted_at', { ascending: false })
+          .limit(1);
 
-    if (fetchError) {
-      console.error(fetchError);
-      alert('Error checking submission limit. Please try again.');
-      return;
-    }
+        if (fetchError) {
+          console.error(fetchError);
+          alert('Error checking submission limit. Please try again.');
+          return;
+        }
 
-    if (recent && recent.length > 0) {
-      const lastDate = new Date(recent[0].submitted_at);
-      const cutoff = new Date();
-      cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
-      if (lastDate > cutoff) {
-        alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
+        if (recent && recent.length > 0) {
+          const lastDate = new Date(recent[0].submitted_at);
+          const cutoff = new Date();
+          cutoff.setDate(cutoff.getDate() - LIMIT_DAYS);
+          if (lastDate > cutoff) {
+            alert(`You may only submit once every ${LIMIT_DAYS} days. Please try again later.`);
+            return;
+          }
+        }
+      }
+
+      const dataToInsert = {};
+      rankedSongs.forEach((song, i) => {
+        dataToInsert[`rank_${i + 1}`] = song;
+      });
+
+      let ip = '';
+      try {
+        const res = await fetch('https://api64.ipify.org?format=json');
+        const json = await res.json();
+        ip = json.ip;
+      } catch (e) {
+        console.warn('Could not get IP address');
+      }
+      dataToInsert.ip_address = ip;
+
+      const { error } = await supabaseClient.from('cp_submissions').insert([dataToInsert]);
+
+      if (error) {
+        alert('Submission error: ' + error.message);
         return;
       }
-    }
-  }
 
-  // Build submission data
-  const dataToInsert = {};
-  rankedSongs.forEach((song, i) => {
-    dataToInsert[`rank_${i + 1}`] = song;
-  });
+      const myList = document.getElementById('myRankingsList');
+      myList.innerHTML = '';
+      rankedSongs.forEach(song => {
+        const li = document.createElement('li');
+        li.textContent = song;
+        myList.appendChild(li);
+      });
 
-  // IP for this submission
-  let ip = '';
-  try {
-    const res = await fetch('https://api64.ipify.org?format=json');
-    const json = await res.json();
-    ip = json.ip;
-  } catch (e) {
-    console.warn('Could not get IP address');
-  }
-  dataToInsert.ip_address = ip;
+      const rankings = await fetchGlobalRankings();
+      const tbody = document.querySelector('#globalRankingsTable tbody');
+      tbody.innerHTML = '';
+      rankings.forEach((entry, index) => {
+        const row = document.createElement('tr');
+        const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${entry.song}</td>
+          <td>${entry.avgRank.toFixed(2)}</td>
+          <td>${entry.timesRanked}</td>
+          <td>${entry.totalPoints}</td>
+          <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
+        `;
+        tbody.appendChild(row);
+      });
 
-  // Submit to Supabase
-  const { error } = await supabaseClient.from('cp_submissions').insert([dataToInsert]);
+      document.getElementById('resultsModal').style.display = 'flex';
 
-  if (error) {
-    alert('Submission error: ' + error.message);
-    return;
-  }
-
-  // Show My Rankings
-  const myList = document.getElementById('myRankingsList');
-  myList.innerHTML = '';
-  rankedSongs.forEach(song => {
-    const li = document.createElement('li');
-    li.textContent = song;
-    myList.appendChild(li);
-  });
-
-  // Get and show global rankings
-  const rankings = await fetchGlobalRankings();
-  const tbody = document.querySelector('#globalRankingsTable tbody');
-  tbody.innerHTML = '';
-  rankings.forEach((entry, index) => {
-    const row = document.createElement('tr');
-    const safeSong = entry.song.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${entry.song}</td>
-      <td>${entry.avgRank.toFixed(2)}</td>
-      <td>${entry.timesRanked}</td>
-      <td>${entry.totalPoints}</td>
-      <td><a href="#" onclick="event.preventDefault(); showCalculation('${safeSong}', ${entry.avgRank}, ${entry.timesRanked});">${entry.weightedScore.toFixed(2)}</a></td>
-    `;
-    tbody.appendChild(row);
-  });
-
-  // Show results modal
-  document.getElementById('resultsModal').style.display = 'flex';
-
-  // Reset rankings
-  rankedSongs = Array(20).fill(null);
-  renderAll();
-};
-window.closeResults = function () {
-  document.getElementById('resultsModal').style.display = 'none';
-};
-
-  window.confirmReset = function(confirmed) {
-    document.getElementById('resetModal').style.display = 'none';
-    if (confirmed) {
       rankedSongs = Array(20).fill(null);
       renderAll();
-    }
-  };
+    };
 
-  updateButtons('rankByToggles', currentMode);
-  updateButtons('sortByToggles', sortType);
-  renderAll();
-});
-function showCalculation(song, avgRank, timesRanked) {
-  const PRIOR_COUNT = 25;
-  const PRIOR_AVG = 10.5;
+    window.closeResults = function () {
+      document.getElementById('resultsModal').style.display = 'none';
+    };
 
-  const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (timesRanked * avgRank)) / (PRIOR_COUNT + timesRanked);
-  const weightedScore = 21 - rawScore;
+    window.confirmReset = function(confirmed) {
+      document.getElementById('resetModal').style.display = 'none';
+      if (confirmed) {
+        rankedSongs = Array(20).fill(null);
+        renderAll();
+      }
+    };
 
-  const details = `
-    Song: <strong>${song}</strong><br><br>
-    Formula: <br>
-    ((${PRIOR_COUNT} × ${PRIOR_AVG}) + (${timesRanked} × ${avgRank.toFixed(2)})) ÷ (${PRIOR_COUNT} + ${timesRanked})<br><br>
-    Raw Score: <strong>${rawScore.toFixed(4)}</strong><br>
-    Weighted Score = 21 - Raw Score = <strong>${weightedScore.toFixed(2)}</strong>
-  `;
-
-  document.getElementById('calcDetails').innerHTML = details;
-  document.getElementById('calcModal').style.display = 'flex';
-}
-
-function closeCalcModal() {
-  document.getElementById('calcModal').style.display = 'none';
-}
-function getShareText() {
-  const list = Array.from(document.querySelectorAll('#myRankingsList li')).map((li, i) => `${i+1}. ${li.textContent}`);
-  return `My Top 20 Connor Price Songs\n${list.join('\n')}\n\nRank your own: https://ranksongs.com/cp_ranks.html`;
-}
-function updateShareLinks() {
-  const text = encodeURIComponent(getShareText());
-  const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
-  document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${text}`;
-  document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-}
-function copyListToClipboard() {
-  const text = getShareText();
-  navigator.clipboard.writeText(text).then(() => {
-    const msg = document.getElementById('copyMsg');
-    msg.textContent = 'Copied! Paste into your Facebook post.';
-    msg.style.display = 'inline-block';
-    setTimeout(() => { msg.style.display = 'none'; }, 2500);
+    updateButtons('rankByToggles', currentMode);
+    updateButtons('sortByToggles', sortType);
+    renderAll();
   });
-}
-function openFbCopyModal() {
-  document.getElementById('fbCopyModal').style.display = 'flex';
-}
-function fbShare(shouldCopy) {
-  document.getElementById('fbCopyModal').style.display = 'none';
-  if (shouldCopy) copyListToClipboard();
-  const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-function showResultsModal() {
-  updateShareLinks();
-  document.getElementById('resultsModal').style.display = 'flex';
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const xLink = document.getElementById('share-x');
-  const fbLink = document.getElementById('share-fb');
-  if (xLink) xLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'x', artist:'Connor Price'}));
-  if (fbLink) {
-    fbLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      openFbCopyModal();
-      window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'Connor Price'});
+
+  function showCalculation(song, avgRank, timesRanked) {
+    const PRIOR_COUNT = 25;
+    const PRIOR_AVG = 10.5;
+
+    const rawScore = ((PRIOR_COUNT * PRIOR_AVG) + (timesRanked * avgRank)) / (PRIOR_COUNT + timesRanked);
+    const weightedScore = 21 - rawScore;
+
+    const details = `
+      Song: <strong>${song}</strong><br><br>
+      Formula: <br>
+      ((${PRIOR_COUNT} × ${PRIOR_AVG}) + (${timesRanked} × ${avgRank.toFixed(2)})) ÷ (${PRIOR_COUNT} + ${timesRanked})<br><br>
+      Raw Score: <strong>${rawScore.toFixed(4)}</strong><br>
+      Weighted Score = 21 - Raw Score = <strong>${weightedScore.toFixed(2)}</strong>
+    `;
+
+    document.getElementById('calcDetails').innerHTML = details;
+    document.getElementById('calcModal').style.display = 'flex';
+  }
+
+  function closeCalcModal() {
+    document.getElementById('calcModal').style.display = 'none';
+  }
+
+  function getShareText() {
+    const list = Array.from(document.querySelectorAll('#myRankingsList li')).map((li, i) => `${i+1}. ${li.textContent}`);
+    return `My Top 20 Connor Price Songs\n${list.join('\n')}\n\nRank your own: https://ranksongs.com/cp_ranks.html`;
+  }
+
+  function updateShareLinks() {
+    const text = encodeURIComponent(getShareText());
+    const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
+    document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${text}`;
+    document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  }
+
+  function copyListToClipboard() {
+    const text = getShareText();
+    navigator.clipboard.writeText(text).then(() => {
+      const msg = document.getElementById('copyMsg');
+      msg.textContent = 'Copied! Paste into your Facebook post.';
+      msg.style.display = 'inline-block';
+      setTimeout(() => { msg.style.display = 'none'; }, 2500);
     });
   }
-  document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
-  document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
-});
+
+  function openFbCopyModal() {
+    document.getElementById('fbCopyModal').style.display = 'flex';
+  }
+
+  function fbShare(shouldCopy) {
+    document.getElementById('fbCopyModal').style.display = 'none';
+    if (shouldCopy) copyListToClipboard();
+    const url = encodeURIComponent('https://ranksongs.com/cp_ranks.html');
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  }
+
+  function showResultsModal() {
+    updateShareLinks();
+    document.getElementById('resultsModal').style.display = 'flex';
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const xLink = document.getElementById('share-x');
+    const fbLink = document.getElementById('share-fb');
+    if (xLink) xLink.addEventListener('click', () => window.dataLayer && window.dataLayer.push({event:'share', platform:'x', artist:'Connor Price'}));
+    if (fbLink) {
+      fbLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        openFbCopyModal();
+        window.dataLayer && window.dataLayer.push({event:'share', platform:'facebook', artist:'Connor Price'});
+      });
+    }
+    document.getElementById('fbCopyYes').onclick = function() { fbShare(true); };
+    document.getElementById('fbCopyNo').onclick = function() { fbShare(false); };
+  });
 </script>
+
 <div id="calcModal" class="modal">
   <div class="modal-content">
     <h3>Composite Score Calculation</h3>
@@ -1536,5 +1632,12 @@ document.addEventListener("DOMContentLoaded", function () {
     <button onclick="closeCalcModal()">Close</button>
   </div>
 </div>
+
+<footer class="site-footer">
+  Built with ❤️ by
+  <a href="https://www.keybuzzdigital.com" target="_blank" rel="noopener">KeyBuzz Digital</a>
+</footer>
+
 </body>
 </html>
+
