@@ -12,6 +12,120 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+  <!-- Google Tag Manager (GTM-NGW77446) -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NGW77446');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google AdSense (replace client with your real ca-pub ID) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+
+  <!-- Advanced JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ranksongs.com/#website",
+        "url": "https://ranksongs.com/",
+        "name": "RankSongs",
+        "description": "Fan-powered interactive rankings of songs by your favorite artists.",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "Organization",
+          "name": "RankSongs",
+          "url": "https://ranksongs.com/"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ranksongs.com/#webpage",
+        "url": "https://ranksongs.com/",
+        "name": "RankSongs - Rank Your Favorite Artists",
+        "description": "Rank your favorite songs from NF, Livingston, KB, Connor Price, and Jack Johnson, then compare your list to global fan rankings.",
+        "isPartOf": {
+          "@id": "https://ranksongs.com/#website"
+        },
+        "inLanguage": "en",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://ranksongs.com/"
+            }
+          ]
+        },
+        "mainEntity": {
+          "@id": "https://ranksongs.com/#artist-list"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://ranksongs.com/#artist-list",
+        "name": "RankSongs Artists",
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "MusicGroup",
+              "name": "NF",
+              "url": "https://ranksongs.com/nf_ranks.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "MusicGroup",
+              "name": "Livingston",
+              "url": "https://ranksongs.com/liv_ranks.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@type": "MusicGroup",
+              "name": "KB",
+              "url": "https://ranksongs.com/kb_ranks.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "MusicGroup",
+              "name": "Connor Price",
+              "url": "https://ranksongs.com/cp_ranks.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+              "@type": "MusicGroup",
+              "name": "Jack Johnson",
+              "url": "https://ranksongs.com/jj_ranks.html"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -111,7 +225,7 @@
       border-radius: 24px;
       padding: 40px 30px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-      margin-bottom: 60px;
+      margin-bottom: 40px;
     }
 
     .section-title {
@@ -360,7 +474,9 @@
     /* FAQ Section */
     .faq-section {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 2;
     }
 
     .faq-btn {
@@ -381,6 +497,26 @@
     .faq-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 15px 40px rgba(250, 112, 154, 0.6);
+    }
+
+    /* Footer */
+    footer.site-footer {
+      margin: 30px auto 10px auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+    }
+    footer.site-footer a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+    footer.site-footer a:hover {
+      text-decoration: underline;
     }
 
     /* Mobile responsiveness */
@@ -457,6 +593,8 @@
       align-items: center;
       justify-content: center;
       opacity: 0.7;
+      position: relative;
+      z-index: 2;
     }
 
     .scroll-indicator {
@@ -473,6 +611,14 @@
   </style>
 </head>
 <body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGW77446"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div class="container">
     <div class="hero-section">
       <h1 class="hero-heading">RankSongs</h1>
@@ -675,11 +821,16 @@
         </div>
       </div>
     </div>
-    </div>
 
+    <!-- FAQ Button + Footer inside main content flow -->
     <div class="faq-section">
       <a href="FAQs.html" class="faq-btn">📋 Frequently Asked Questions</a>
     </div>
+
+    <footer class="site-footer">
+      Built with ❤️ by
+      <a href="https://www.keybuzzdigital.com" target="_blank" rel="noopener">KeyBuzz Digital</a>
+    </footer>
 
     <div class="scroll-space">
       <div class="scroll-indicator">
@@ -693,6 +844,13 @@
       const modal = document.getElementById(artistId + '-modal');
       modal.classList.add('show');
       document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'artist_modal_open',
+          artist: artistId
+        });
+      }
     }
 
     function closeModal() {
